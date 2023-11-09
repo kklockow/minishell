@@ -1,13 +1,13 @@
 CC = cc
 NAME = minishell
-CFLAGS = -Wall -Werror -Wextra -g
+CFLAGS = -Wall -Werror -Wextra
 
-SOURCE = 	src/main.c
+SOURCE =	src/main.c
 
 OBJECTS = $(SOURCE:.c=.o)
 
 $(NAME) : $(OBJECTS)
-	@$(CC) $(OBJECTS) -o $(NAME)
+	@$(CC) $(OBJECTS) -o $(NAME) -lreadline
 
 all : $(NAME)
 
