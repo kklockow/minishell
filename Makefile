@@ -7,18 +7,19 @@ NAME = minishell
 ###############################################################################
 
 CC			 =		cc
-CFLAGS		=		-Wall -Werror -Wextra
+CFLAGS		=		-Wall -Werror -Wextra -g
 EXTRA_FLAGS		=	-lreadline
 HEADERS		=		-I./includes -I./libs/inlcude
 
 ###############################################################################
 ###############################################################################
 
-VPATH		:=		src
+VPATH		:=		src src/lexer
 
 SRC_MAIN	:=		main.c
+SRC_LEXER	:=		move_to_next_token.c quots_check.c lexer.c 
 
-SOURCE 		:=		$(SRC_MAIN)
+SOURCE 		:=		$(SRC_MAIN) $(SRC_LEXER)
 
 ###############################################################################
 ###############################################################################
