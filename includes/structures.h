@@ -6,7 +6,7 @@
 /*   By: fgabler <mail@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 13:01:44 by fgabler           #+#    #+#             */
-/*   Updated: 2023/11/11 16:48:24 by fgabler          ###   ########.fr       */
+/*   Updated: 2023/11/14 12:50:03 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ typedef enum e_type
 	PIPE,
 	GREATER,
 	LESS,
-	DOUBBLE_GREAT,
-	DOUBBLE_LESS,
+	DOUBLE_GREAT,
+	DOUBLE_LESS,
 	SINGLE_QUOTE,
-	DOUTBLE_QUOTE,
+	DOUBLE_QUOTE,
 }	t_type;
 
 typedef struct s_data
