@@ -53,7 +53,6 @@ $(LIBS_NAME):
 
 clean:
 	@$(MAKE) -C ./libs clean
-	@printf $(UP)$(CUT)
 	@if [ -d "${OBJ_DIR}" ]; then \
 			echo $(RED)Cleaning"  "[$(OBJ_DIR)]...$(RESET); \
 			rm -rf ${OBJ_DIR}; \
@@ -64,17 +63,17 @@ clean:
 ###############################################################################
 
 fclean: clean
-		@echo $(RED)Cleaning executables...
 		@make -C ./libs fclean
-		@printf $(UP)$(CUT)
 		@if [ -f "$(NAME)" ]; then \
-				echo $(RED)Cleaning"  "[$(NAME)]...$(RESET); \
+				echo $(RED)Cleaning"  "[$(NAME)]...$(RESET);	\
 				rm -f $(NAME); \
 				echo $(GREEN)Cleaned!$(RESET); \
 		fi
 
 re: fclean all
 
+#@printf $(UP)$(CUT)
+#@printf $(UP)$(CUT)
 ###############################################################################
 ###############################################################################
 
