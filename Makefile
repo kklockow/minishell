@@ -35,6 +35,7 @@ all : $(NAME)
 $(NAME): $(OBJ) $(LIBS_NAME)
 	@echo $(YELLOW)Compiling [$(NAME)]...$(RESET)
 	@printf $(UP)$(CUT)
+	@git submodule update --init --recursive -q
 	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME) $(EXTRA_FLAGS)
 	@echo $(GREEN)Finished"  "[$(NAME)]...$(RESET)
 
@@ -45,7 +46,6 @@ $(OBJ_DIR)/%.o: %.c
 	@printf $(UP)$(CUT)
 
 $(LIBS_NAME):
-	@git submodule update --init --recursive
 	@$(MAKE) -C $(LIBS) -B
 
 ###############################################################################
@@ -53,7 +53,6 @@ $(LIBS_NAME):
 
 clean:
 	@$(MAKE) -C ./libs clean
-	@printf $(UP)$(CUT)
 	@if [ -d "${OBJ_DIR}" ]; then \
 			echo $(RED)Cleaning"  "[$(OBJ_DIR)]...$(RESET); \
 			rm -rf ${OBJ_DIR}; \
@@ -64,17 +63,17 @@ clean:
 ###############################################################################
 
 fclean: clean
-		@echo $(RED)Cleaning executables...
 		@make -C ./libs fclean
-		@printf $(UP)$(CUT)
 		@if [ -f "$(NAME)" ]; then \
-				echo $(RED)Cleaning"  "[$(NAME)]...$(RESET); \
+				echo $(RED)Cleaning"  "[$(NAME)]...$(RESET);	\
 				rm -f $(NAME); \
 				echo $(GREEN)Cleaned!$(RESET); \
 		fi
 
 re: fclean all
 
+#@printf $(UP)$(CUT)
+#@printf $(UP)$(CUT)
 ###############################################################################
 ###############################################################################
 
