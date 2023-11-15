@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 10:35:04 by kklockow          #+#    #+#             */
-/*   Updated: 2023/11/15 13:12:27 by kklockow         ###   ########.fr       */
+/*   Updated: 2023/11/15 13:37:00 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,7 @@
 int	main(void)
 {
 	char	*input;
-	t_struct tokens;
-
-	create token 
+//	t_data	tokens;
 
 	while (1)
 	{
@@ -26,16 +24,16 @@ int	main(void)
 			add_history(input);
 		else
 			return (1);
-		if (ft_strcmp(input, "exit") == 0)
+//		if (ft_strcmp(input, "exit") == 0)
 			break ;
-		first_token = lexer(input);
-		parser()
+//		first_token = lexer(input);
+//		parser()
 		free(input);
 	}
 	free(input);
 	return (0);
 }
-
+/*
 int	main(int ac, char **av, char **envp)
 {
 	init_shell(....)
@@ -43,3 +41,4 @@ int	main(int ac, char **av, char **envp)
 		error
 	free
 }
+*/
