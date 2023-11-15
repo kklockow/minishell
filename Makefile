@@ -35,6 +35,7 @@ all : $(NAME)
 $(NAME): $(OBJ) $(LIBS_NAME)
 	@echo $(YELLOW)Compiling [$(NAME)]...$(RESET)
 	@printf $(UP)$(CUT)
+	@git submodule update --init --recursive -q
 	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME) $(EXTRA_FLAGS)
 	@echo $(GREEN)Finished"  "[$(NAME)]...$(RESET)
 
@@ -45,7 +46,6 @@ $(OBJ_DIR)/%.o: %.c
 	@printf $(UP)$(CUT)
 
 $(LIBS_NAME):
-	@git submodule update --init --recursive
 	@$(MAKE) -C $(LIBS) -B
 
 ###############################################################################
