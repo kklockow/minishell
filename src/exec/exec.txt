@@ -1,0 +1,55 @@
+
+
+-infile fd
+
+-outfile fd
+
+-cmd table (with index)
+
+typedef struct s_cmd
+{
+	char			*cmd;
+	char			*infile;
+	char			*outfile;
+	int				read_pipe;
+	int				write_pipe;
+	struct s_cmd	*next;
+}	t_cmd;
+
+#endif
+
+exec(t_struct alles)
+{
+	int		i;
+	int		pid;
+	int		pipefd[];
+
+	while (i < commands)
+	{
+		if (pipe_before)
+			pipefd = pipe();
+		redir
+		{
+			if (read_pipe == 1)
+				dup(stdin, pipefd);
+			else
+				dup(stdin, infile);
+			if (write_pipe == 1)
+				dup(stdin, pipefd);
+			else
+				dup(stdout, outfile)
+		}
+		exec cmd
+		{
+			if builtins
+				exec builtin
+			else
+				fork
+				execve with command;
+		}
+		i++;
+		switch back to stdin and stdout;
+	}
+	return to shell loop
+}
+

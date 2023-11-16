@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structures.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgabler <mail@student.42heilbronn.de>      +#+  +:+       +#+        */
+/*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 13:01:44 by fgabler           #+#    #+#             */
-/*   Updated: 2023/11/14 12:50:03 by fgabler          ###   ########.fr       */
+/*   Updated: 2023/11/16 15:15:20 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,19 @@ typedef struct s_data
 	int				space;
 	struct s_data	*next;
 }	t_data;
+
+///////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////EXECUTOR//////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+
+typedef struct s_cmd
+{
+	char			*cmd;
+	char			*infile;
+	char			*outfile;
+	int				read_pipe;
+	int				write_pipe;
+	struct s_cmd	*next;
+}	t_cmd;
 
 #endif
