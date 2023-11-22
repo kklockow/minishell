@@ -6,10 +6,12 @@ NAME = minishell
 ###############################################################################
 ###############################################################################
 
-CC			 =		cc
-CFLAGS		=		-Wall -Werror -Wextra -g
-EXTRA_FLAGS		=	-lreadline
-HEADERS		=		-I./includes -I./libs/inlcude
+CC				=		cc
+CFLAGS			=		-Wall -Werror -Wextra -g
+EXTRA_FLAGS		=		-lreadline
+HEADERS			=		-I./includes -I./libs/include
+LIBS			=		./libs
+LIBS_NAME		=		./libs/libs.a
 
 ###############################################################################
 ###############################################################################
@@ -17,7 +19,8 @@ HEADERS		=		-I./includes -I./libs/inlcude
 VPATH		:=		src src/lexer
 
 SRC_MAIN	:=		main.c
-SRC_LEXER	:=		move_to_next_token.c # quots_check.c lexer.c 
+SRC_LEXER	:=		lexer.c find_quot_pair.c add_token_node.c				\
+					go_to_last_lexer_node.c
 
 SOURCE 		:=		$(SRC_MAIN) $(SRC_LEXER)
 
@@ -36,7 +39,7 @@ $(NAME): $(OBJ) $(LIBS_NAME)
 	@echo $(YELLOW)Compiling [$(NAME)]...$(RESET)
 	@printf $(UP)$(CUT)
 	@git submodule update --init --recursive -q
-	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME) $(EXTRA_FLAGS)
+	@$(CC) $(CFLAGS) $(OBJ) $(LIBS_NAME) -o $(NAME) $(EXTRA_FLAGS)
 	@echo $(GREEN)Finished"  "[$(NAME)]...$(RESET)
 
 $(OBJ_DIR)/%.o: %.c

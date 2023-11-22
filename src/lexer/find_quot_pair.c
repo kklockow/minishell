@@ -6,14 +6,14 @@
 /*   By: fgabler <mail@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 18:15:56 by fgabler           #+#    #+#             */
-/*   Updated: 2023/11/17 15:27:58 by fgabler          ###   ########.fr       */
+/*   Updated: 2023/11/22 17:19:10 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 static int	find_closing_quot(char quot, t_lexer *lexer);
-static void	set_node();
+static void	set_up_data_struct(t_lexer *lexer, int token_len, char token_type);
 
 int find_quot_pair(t_lexer *lexer)
 {
@@ -33,33 +33,46 @@ int find_quot_pair(t_lexer *lexer)
 static int	find_closing_quot(char quot, t_lexer *lexer)
 {
 	int		i;
+	int		token_len;
 	int		found_closing_quot;
 
 	i = lexer->pos;
+	token_len = 0;
 	found_closing_quot = false;
-	while (lexer->input[i] != quot )
+	while (lexer->input[i] != quot && lexer->input[i])
 	{
 		i++;
-		if (lexer->input[i] == quot)
+		if (lexer->input[i] == quot && lexer->input[i])
+		{
 			found_closing_quot = true;
+			token_len = i - lexer->pos;
+		}
 	}
 	if (found_closing_quot == false)
-		return (free_struct(), false);
-	if (allocate_node() == false)
-		return (false);
-	
-	return (false);
+		return (false); //free
+	if (add_token_node(lexer) == false)
+		return (false); //free
+	set_up_data_struct(lexer, token_len, quot);
+	return (true);
 }
-
-static int set_node()
+static void	set_up_data_struct(t_lexer *lexer, int token_len, char token_type)
 {
-	
-}
+	t_data	*last_data;
+	int		pos_after_token;
 
-static int	allocate_node(t_lexer *lexer)
-{
-	lexer->head = malloc(sizeof(t_lexer));
-	if (lexer->head == NULL)
-		return (free_struct(), fasle);
-	
+	pos_after_token = lexer->pos + token_len + 1;
+	last_data = lexer->head;
+	go_to_last_lexer_node(last_data);
+	last_data->token_len = token_len;
+	last_data->next = NULL;
+	last_data->str =
+		ft_substr(lexer->input, lexer->pos, lexer->pos + token_len);
+	if (lexer->input[pos_after_token] == ' ')
+		last_data->space = true;
+	else
+		last_data->space = false;
+	if (token_type == '\'')
+		last_data->type = SINGLE_QUOTE;
+	else
+		last_data->type = DOUBLE_QUOTE;
 }

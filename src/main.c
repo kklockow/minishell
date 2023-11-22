@@ -6,17 +6,20 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 10:35:04 by kklockow          #+#    #+#             */
-/*   Updated: 2023/11/15 13:37:00 by fgabler          ###   ########.fr       */
+/*   Updated: 2023/11/22 18:13:10 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "minishell.h"
 
 int	main(void)
 {
 	char	*input;
-//	t_data	tokens;
+	t_lexer	*lexer;
 
+	lexer = malloc(sizeof(t_lexer));
+	if (lexer == NULL)
+		return (false);
 	while (1)
 	{
 		input = readline("minishell> ");
@@ -24,8 +27,9 @@ int	main(void)
 			add_history(input);
 		else
 			return (1);
+		set_up_lexer_struct();
 //		if (ft_strcmp(input, "exit") == 0)
-			break ;
+//			break ;
 //		first_token = lexer(input);
 //		parser()
 		free(input);

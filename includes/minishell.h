@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 10:35:47 by kklockow          #+#    #+#             */
-/*   Updated: 2023/11/17 15:12:43 by fgabler          ###   ########.fr       */
+/*   Updated: 2023/11/22 16:17:21 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,8 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 //LEXER
+int			find_quot_pair(t_lexer *lexer);
+int			add_token_node(t_lexer *lexer);
+t_data		*go_to_last_lexer_node(t_data *lexer);
 
 #endif
