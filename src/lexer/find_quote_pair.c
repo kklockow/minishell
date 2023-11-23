@@ -1,58 +1,58 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   find_quot_pair.c                                   :+:      :+:    :+:   */
+/*   find_quote_pair.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fgabler <mail@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 18:15:56 by fgabler           #+#    #+#             */
-/*   Updated: 2023/11/23 17:16:00 by fgabler          ###   ########.fr       */
+/*   Updated: 2023/11/23 17:40:51 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	find_closing_quot(char quot, t_lexer *lexer);
+static int	find_closing_quote(char quote, t_lexer *lexer);
 static void	set_up_data_struct(t_lexer *lexer, int token_len, char token_type);
 
-int	find_quot_pair(t_lexer *lexer)
+int	find_quote_pair(t_lexer *lexer)
 {
 	if (lexer->input[lexer->pos] == '\"')
 	{
-		if (find_closing_quot('\"', lexer) == false)
+		if (find_closing_quote('\"', lexer) == false)
 			return (false);
 	}
 	if (lexer->input[lexer->pos] == '\'')
 	{
-		if (find_closing_quot('\'', lexer) == false)
+		if (find_closing_quote('\'', lexer) == false)
 			return (false);
 	}
 	return (0);
 }
 
-static int	find_closing_quot(char quot, t_lexer *lexer)
+static int	find_closing_quote(char quote, t_lexer *lexer)
 {
 	int		i;
 	int		token_len;
-	int		found_closing_quot;
+	int		found_closing_quote;
 
 	i = lexer->pos + 1;
 	token_len = 0;
-	found_closing_quot = false;
-	while (found_closing_quot == false && lexer->input[i])
+	found_closing_quote = false;
+	while (found_closing_quote == false && lexer->input[i])
 	{
-		if (lexer->input[i] == quot)
+		if (lexer->input[i] == quote)
 		{
-			found_closing_quot = true;
+			found_closing_quote = true;
 			token_len = i - lexer->pos;
 		}
 		i++;
 	}
-	if (found_closing_quot == false)
+	if (found_closing_quote == false)
 		return (false); //free
 	if (add_token_node(lexer) == false)
 		return (false); //free
-	set_up_data_struct(lexer, token_len, quot);
+	set_up_data_struct(lexer, token_len, quote);
 	printf("%s\n", lexer->head->str);
 	return (true);
 }

@@ -1,0 +1,4 @@
+*.o
+.ccls
+.cash-ccls
+main.c
