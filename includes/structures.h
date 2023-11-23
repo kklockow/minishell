@@ -6,12 +6,23 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 13:01:44 by fgabler           #+#    #+#             */
-/*   Updated: 2023/11/17 14:49:51 by fgabler          ###   ########.fr       */
+/*   Updated: 2023/11/23 15:49:08 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTURES_H
 # define STRUCTURES_H
+
+///////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////PROCESS/MANAGMENT////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+
+typedef struct	s_process
+{
+	int		time_to_lex;
+	int		time_to_pars;
+	int		time_to_exec;
+}	t_process;
 
 ///////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////LEXER/////////////////////////////////////
@@ -41,10 +52,9 @@ typedef struct s_data
 typedef struct s_lexer
 {
 	int				pos;
-	int				check_input;
 	t_data			*head;
-	t_data			*save_previous;
 	char			*input;
+	t_process		*process;
 }	t_lexer;
 
 
@@ -62,15 +72,5 @@ typedef struct s_cmd
 	struct s_cmd	*next;
 }	t_cmd;
 
-///////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////PROCESS/MANAGMENT////////////////////////////
-///////////////////////////////////////////////////////////////////////////////
-
-typedef struct	s_process
-{
-	int		time_to_lex;
-	int		time_to_pars;
-	int		time_to_exec;
-}	t_process;
 
 #endif
