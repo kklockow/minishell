@@ -6,10 +6,12 @@ NAME = minishell
 ###############################################################################
 ###############################################################################
 
-CC			 =		cc
-CFLAGS		=		-Wall -Werror -Wextra -g
-EXTRA_FLAGS		=	-lreadline
-HEADERS		=		-I./includes -I./libs/inlcude
+CC				 =		cc
+CFLAGS			=		-Wall -Werror -Wextra -g
+EXTRA_FLAGS		=		-lreadline
+HEADERS			=		-I./includes -I./libs/inlcude
+LIBS			:=		./libs
+LIBS_NAME		:=		./libs/libs.a
 
 ###############################################################################
 ###############################################################################
@@ -36,7 +38,7 @@ $(NAME): $(OBJ) $(LIBS_NAME)
 	@echo $(YELLOW)Compiling [$(NAME)]...$(RESET)
 	@printf $(UP)$(CUT)
 	@git submodule update --init --recursive -q
-	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME) $(EXTRA_FLAGS)
+	@$(CC) $(CFLAGS) $(OBJ) $(LIBS_NAME) -o $(NAME) $(EXTRA_FLAGS)
 	@echo $(GREEN)Finished"  "[$(NAME)]...$(RESET)
 
 $(OBJ_DIR)/%.o: %.c
