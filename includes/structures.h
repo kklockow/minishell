@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 13:01:44 by fgabler           #+#    #+#             */
-/*   Updated: 2023/11/23 15:49:08 by fgabler          ###   ########.fr       */
+/*   Updated: 2023/11/23 16:29:45 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ typedef struct s_lexer
 	int				pos;
 	t_data			*head;
 	char			*input;
-	t_process		*process;
+	t_process		process;
 }	t_lexer;
 
 

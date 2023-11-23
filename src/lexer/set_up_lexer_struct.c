@@ -6,7 +6,7 @@
 /*   By: fgabler <mail@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 15:45:02 by fgabler           #+#    #+#             */
-/*   Updated: 2023/11/23 15:50:48 by fgabler          ###   ########.fr       */
+/*   Updated: 2023/11/23 16:33:32 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,11 @@
 
 void	set_up_lexer_struct(t_lexer *lexer, char *input)
 {
+	ft_bzero(lexer, sizeof(t_lexer));
 	lexer->pos = 0;
 	lexer->input = input;
 	lexer->head = NULL;
-	lexer->process->time_to_lex = true;
-	lexer->process->time_to_exec = false;
-	lexer->process->time_to_pars = false;
+	lexer->process.time_to_lex = true;
+	lexer->process.time_to_exec = false;
+	lexer->process.time_to_pars = false;
 }

@@ -20,7 +20,7 @@ VPATH		:=		src src/lexer
 
 SRC_MAIN	:=		main.c
 SRC_LEXER	:=		lexer.c find_quot_pair.c add_token_node.c				\
-					go_to_last_lexer_node.c
+					go_to_last_lexer_node.c set_up_lexer_struct.c
 
 SOURCE 		:=		$(SRC_MAIN) $(SRC_LEXER)
 

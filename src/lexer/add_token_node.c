@@ -6,7 +6,7 @@
 /*   By: fgabler <mail@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 14:24:26 by fgabler           #+#    #+#             */
-/*   Updated: 2023/11/22 17:12:18 by fgabler          ###   ########.fr       */
+/*   Updated: 2023/11/23 17:00:38 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	add_token_node(t_lexer *lexer)
 	new = malloc(sizeof(t_data));
 	if (new == NULL)
 		return (false);
-//	ft_bzero(new, sizeof(t_data));
+	ft_bzero(new, sizeof(t_data));
 	add_token_node_back(lexer, new);
 	return (true);
 }
