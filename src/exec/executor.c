@@ -6,16 +6,14 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 15:34:07 by kklockow          #+#    #+#             */
-/*   Updated: 2023/11/16 18:24:00 by kklockow         ###   ########.fr       */
+/*   Updated: 2023/11/23 15:53:22 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
 int	executor(t_cmd *c_table, char **envp);
-int	redirect(t_cmd *c_table);
-int	open_infile(t_cmd *c_table);
-int	open_outfile(t_cmd *c_table);
+int	execute_command(t_cmd *current_cmd, char **envp);
 
 int	main(int ac, char **av, char **envp)
 {
@@ -47,7 +45,8 @@ int	executor(t_cmd *c_table, char **envp)
 		{
 			if (redirect(current_cmd) == 1)
 				return (1);
-			printf("COMMAND\n");
+			if (execute_command(current_cmd, envp) == 1)
+				return (1);
 			current_cmd = current_cmd->next;
 		}
 	}
@@ -55,40 +54,24 @@ int	executor(t_cmd *c_table, char **envp)
 	return (0);
 }
 
-int	redirect(t_cmd *c_table)
+int	execute_command(t_cmd *current_cmd, char **envp)
 {
-	int	fd_in;
-	int	fd_out;
+	char	*path;
+	char	**split;
+	pid_t	pid;
 
-	fd_in = open_infile(c_table);
-	fd_out = open_outfile(c_table);
-	dup2(fd_in, STDIN_FILENO);
-	dup2(fd_out, STDOUT_FILENO);
+	pid = fork();
+	if (pid == 0)
+	{
+		split = ft_split(current_cmd->cmd, ' ');
+		if (access(split[0], F_OK | X_OK) != 0)
+			path = get_path(split[0], envp);
+		else
+			path = split[0];
+		execve(path, split, envp);
+		free(path);
+		free_matrix(split);
+		return (1);
+	}
 	return (0);
-}
-
-int	open_infile(t_cmd *c_table)
-{
-	int	fd;
-
-	if (c_table->heredoc == 1)
-		printf("heredoc\n");
-	else
-		fd = open(c_table->infile, O_RDONLY, 0644);
-	if (fd == -1)
-		return (1);
-	return (fd);
-}
-
-int	open_outfile(t_cmd *c_table)
-{
-	int	fd;
-
-	if (c_table->append == 1)
-		fd = open(c_table->outfile, O_WRONLY | O_APPEND | O_CREAT, 0644);
-	else
-		fd = open(c_table->outfile, O_WRONLY | O_TRUNC | O_CREAT, 0644);
-	if (fd == -1)
-		return (1);
-	return (fd);
 }
