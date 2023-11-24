@@ -6,7 +6,7 @@
 /*   By: fgabler <mail@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 12:23:17 by fgabler           #+#    #+#             */
-/*   Updated: 2023/11/23 17:38:56 by fgabler          ###   ########.fr       */
+/*   Updated: 2023/11/24 15:58:37 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@ int	lexing(t_lexer *lexer)
 	while (lexer->input[lexer->pos] != '\0')
 	{
 		find_quote_pair(lexer);
-		//greater_and_smaler_check(lexer);
+		double_greater_and_smaler(lexer);
+		get_single_tokens(lexer, '<');
+		get_single_tokens(lexer, '>');
+		get_single_tokens(lexer, '|');
 	}
 	return (0);
 }
