@@ -6,7 +6,7 @@
 /*   By: fgabler <mail@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 15:09:36 by fgabler           #+#    #+#             */
-/*   Updated: 2023/11/24 15:50:29 by fgabler          ###   ########.fr       */
+/*   Updated: 2023/11/27 18:21:27 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	double_greater_and_smaler(t_lexer *lexer)
 
 	i = lexer->pos;
 	input = lexer->input;
-	if (input[i] != '>' && input[i + 1] != '>')
+	if (input[i] == '>' && input[i + 1] == '>')
 	{
 		if (add_token_node(lexer) == false)
 			return (false);
@@ -34,7 +34,7 @@ int	double_greater_and_smaler(t_lexer *lexer)
 		if (add_token_node(lexer) == false)
 			return (false);
 		last_node = go_to_last_lexer_node(lexer->head);
-		fill_node(last_node, DOUBLE_GREAT, lexer);
+		fill_node(last_node, DOUBLE_LESS, lexer);
 	}
 	return (true);
 }

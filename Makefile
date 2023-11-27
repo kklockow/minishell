@@ -21,7 +21,8 @@ VPATH		:=		src src/lexer
 SRC_MAIN	:=		main.c
 SRC_LEXER	:=		lexer.c find_quote_pair.c add_token_node.c				\
 					go_to_last_lexer_node.c set_up_lexer_struct.c			\
-					double_greater_and_smaler.c get_single_tokens.c
+					double_greater_and_smaler.c get_single_tokens.c			\
+					tag_word.c
 
 SOURCE 		:=		$(SRC_MAIN) $(SRC_LEXER)
 

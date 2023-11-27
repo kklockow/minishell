@@ -6,13 +6,13 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 10:35:04 by kklockow          #+#    #+#             */
-/*   Updated: 2023/11/22 18:13:10 by fgabler          ###   ########.fr       */
+/*   Updated: 2023/11/27 18:33:11 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(void)
+int	main(int ac, char **av)
 {
 	char	*input;
 	t_lexer	*lexer;
@@ -20,6 +20,8 @@ int	main(void)
 	lexer = malloc(sizeof(t_lexer));
 	if (lexer == NULL)
 		return (false);
+	(void) ac;
+	(void) av;
 	while (1)
 	{
 		input = readline("minishell> ");
@@ -27,7 +29,9 @@ int	main(void)
 			add_history(input);
 		else
 			return (1);
-		set_up_lexer_struct();
+		printf("\nINPUT: %s\n", input);
+		set_up_lexer_struct(lexer, input);
+		lexing(lexer);
 //		if (ft_strcmp(input, "exit") == 0)
 //			break ;
 //		first_token = lexer(input);
