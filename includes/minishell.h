@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 10:35:47 by kklockow          #+#    #+#             */
-/*   Updated: 2023/11/28 07:31:07 by fgabler          ###   ########.fr       */
+/*   Updated: 2023/11/28 11:34:56 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,13 @@
 int			lexing(t_lexer *lexer);
 int			find_quote_pair(t_lexer *lexer);
 int			add_token_node(t_lexer *lexer);
-t_data		*go_to_last_lexer_node(t_data *lexer);
-void		set_up_lexer_struct(t_lexer *lexer, char *input);
 int			get_single_tokens(t_lexer *lexer, char token);
 int			double_greater_and_smaler(t_lexer *lexer);
 int			tag_word(t_lexer *lexer);
+int			time_to_lex(t_lexer *lexer);
+void		set_up_lexer_struct(t_lexer *lexer, char *input);
 void		skip_whitespace(t_lexer *lexer);
+void		free_struct_and_stop_lexing(t_lexer **lexer);
+t_data		*go_to_last_lexer_node(t_data *lexer);
 
 #endif

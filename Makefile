@@ -7,7 +7,7 @@ NAME = minishell
 ###############################################################################
 
 CC				=		cc
-CFLAGS			=		-Wall -Werror -Wextra -g
+CFLAGS			=		-Wall -Werror -Wextra # -fsanitize=address -g
 EXTRA_FLAGS		=		-lreadline
 HEADERS			=		-I./includes -I./libs/include
 LIBS			=		./libs
@@ -22,7 +22,8 @@ SRC_MAIN	:=		main.c
 SRC_LEXER	:=		lexer.c find_quote_pair.c add_token_node.c				\
 					go_to_last_lexer_node.c set_up_lexer_struct.c			\
 					double_greater_and_smaler.c get_single_tokens.c			\
-					tag_word.c skip_whitespace.c
+					tag_word.c skip_whitespace.c time_to_lex.c				\
+					free_struct_and_stop_lexing.c
 
 SOURCE 		:=		$(SRC_MAIN) $(SRC_LEXER)
 

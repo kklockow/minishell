@@ -6,7 +6,7 @@
 /*   By: fgabler <mail@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 15:09:36 by fgabler           #+#    #+#             */
-/*   Updated: 2023/11/27 18:21:27 by fgabler          ###   ########.fr       */
+/*   Updated: 2023/11/28 10:44:39 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ int	double_greater_and_smaler(t_lexer *lexer)
 	char	*input;
 	t_data	*last_node;
 
+	if (lexer->process.time_to_lex == false)
+		return (false);
 	i = lexer->pos;
 	input = lexer->input;
 	if (input[i] == '>' && input[i + 1] == '>')

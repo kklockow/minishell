@@ -6,7 +6,7 @@
 /*   By: fgabler <mail@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 12:23:17 by fgabler           #+#    #+#             */
-/*   Updated: 2023/11/28 09:33:19 by fgabler          ###   ########.fr       */
+/*   Updated: 2023/11/28 12:22:08 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	lexing(t_lexer *lexer)
 {
 	if (lexer->process.time_to_lex == false)
 		return (false);
-	while (lexer->input[lexer->pos] != '\0')
+	while (lexer->input[lexer->pos] != '\0' && time_to_lex(lexer) == true)
 	{
 		find_quote_pair(lexer);
 		double_greater_and_smaler(lexer);
@@ -38,3 +38,4 @@ int	lexing(t_lexer *lexer)
 	*/
 	return (true);
 }
+

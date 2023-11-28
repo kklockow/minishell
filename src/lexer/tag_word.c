@@ -6,7 +6,7 @@
 /*   By: fgabler <mail@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 14:21:03 by fgabler           #+#    #+#             */
-/*   Updated: 2023/11/28 09:24:07 by fgabler          ###   ########.fr       */
+/*   Updated: 2023/11/28 12:41:09 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,24 @@
 
 static int	is_word(char c);
 static void	set_lexer_node(t_lexer *lexer, int token_len);
-static void find_token_len(t_lexer *lexer, int *token_len);
+static void	find_token_len(t_lexer *lexer, int *token_len);
+static int	is_space_after_token(t_lexer *lexer, int token_len);
 
 int	tag_word(t_lexer *lexer)
 {
-	int		token_len;
-	if (is_word(lexer->input[lexer->pos]) == false)
+	int	token_len;
+
+	if (is_word((lexer->input[lexer->pos]) == false)
+		|| (lexer->process.time_to_lex == false))
 		return (false);
 	if (add_token_node(lexer) == false)
-		return (false); //free
+		return (false);
 	find_token_len(lexer, &token_len);
 	set_lexer_node(lexer, token_len);
 	return (true);
 }
 
-static void find_token_len(t_lexer *lexer, int *token_len)
+static void	find_token_len(t_lexer *lexer, int *token_len)
 {
 	int	start_pos;
 
@@ -42,8 +45,8 @@ static void find_token_len(t_lexer *lexer, int *token_len)
 
 static int	is_word(char c)
 {
-	if ((c == ' ') || (c == '>') || (c == '<') ||(c == '|') || (c == '\'') ||
-			(c == '\"') || c == '\0')
+	if ((c == ' ') || (c == '>') || (c == '<') || (c == '|') || (c == '\'')
+		|| (c == '\"') || (c == '\0'))
 		return (false);
 	else
 		return (true);
@@ -52,13 +55,22 @@ static int	is_word(char c)
 static void	set_lexer_node(t_lexer *lexer, int token_len)
 {
 	t_data		*last_node;
+
 	last_node = go_to_last_lexer_node(lexer->head);
 	last_node->token_len = token_len;
-	if (lexer->input[lexer->pos + token_len + 1] == ' ')
-			last_node->space = 1;
-	else
-			last_node->space = 0;
 	last_node->type = WORD;
+	last_node->space = is_space_after_token(lexer, token_len);
 	last_node->str = ft_substr(lexer->input, lexer->pos, token_len);
 	lexer->pos = lexer->pos + token_len;
+}
+
+static int	is_space_after_token(t_lexer *lexer, int token_len)
+{
+
+	if (lexer->input[lexer->pos + token_len] == '\0')
+		return (false);
+	else if (lexer->input[lexer->pos + token_len + 1] == ' ')
+		return (true);
+	else
+		return (false);
 }
