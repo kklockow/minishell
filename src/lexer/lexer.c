@@ -6,7 +6,7 @@
 /*   By: fgabler <mail@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 12:23:17 by fgabler           #+#    #+#             */
-/*   Updated: 2023/11/28 07:31:41 by fgabler          ###   ########.fr       */
+/*   Updated: 2023/11/28 09:33:19 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,15 @@ int	lexing(t_lexer *lexer)
 		tag_word(lexer);
 		skip_whitespace(lexer);
 	}
-	while (lexer->head != NULL)
+	/*
+	t_lexer *tmp_lexer;
+
+	tmp_lexer = lexer;
+	while (tmp_lexer->head != NULL)
 	{
-		printf("\nstr:%s \n", lexer->head->str);
-		lexer->head = lexer->head->next;
+		printf("\nstr:%s \ntoken_typ: %d\ntoken_len: %d\nnext: %p\n", tmp_lexer->head->str, tmp_lexer->head->type, tmp_lexer->head->token_len, tmp_lexer->head->next);
+		tmp_lexer->head = tmp_lexer->head->next;
 	}
+	*/
 	return (true);
 }

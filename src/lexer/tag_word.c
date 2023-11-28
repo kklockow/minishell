@@ -6,7 +6,7 @@
 /*   By: fgabler <mail@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 14:21:03 by fgabler           #+#    #+#             */
-/*   Updated: 2023/11/28 07:24:35 by fgabler          ###   ########.fr       */
+/*   Updated: 2023/11/28 09:24:07 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void find_token_len(t_lexer *lexer, int *token_len)
 static int	is_word(char c)
 {
 	if ((c == ' ') || (c == '>') || (c == '<') ||(c == '|') || (c == '\'') ||
-			(c == '\"'))
+			(c == '\"') || c == '\0')
 		return (false);
 	else
 		return (true);

@@ -6,7 +6,7 @@
 /*   By: fgabler <mail@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 10:25:56 by fgabler           #+#    #+#             */
-/*   Updated: 2023/11/24 15:07:44 by fgabler          ###   ########.fr       */
+/*   Updated: 2023/11/28 08:54:40 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,9 @@ static void	fill_node(t_lexer *lexer, char token)
 	t_data *fill_node;
 	fill_node = go_to_last_lexer_node(lexer->head);
 	get_token(token, fill_node);
+	fill_node->next = NULL;
+	fill_node->token_len = 1;
+	lexer->pos++;
 }
 
 static void	get_token(char token, t_data *data)
