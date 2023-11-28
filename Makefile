@@ -57,22 +57,22 @@ $(LIBS_NAME):
 ###############################################################################
 
 clean:
-	@$(MAKE) -C ./libs clean
-	@if [ -d "${OBJ_DIR}" ]; then \
-			echo $(RED)Cleaning"  "[$(OBJ_DIR)]...$(RESET); \
-			rm -rf ${OBJ_DIR}; \
-			echo $(GREEN)Cleaned!$(RESET); \
+	@if [ -d "${OBJ_DIR}" ]; then							\
+			$(MAKE) -C ./libs clean;						\
+			echo $(RED)Cleaning"  "[$(OBJ_DIR)]...$(RESET);	\
+			rm -rf ${OBJ_DIR};								\
+			echo $(GREEN)Cleaned!$(RESET);					\
 	fi
 
 ###############################################################################
 ###############################################################################
 
 fclean: clean
-		@make -C ./libs fclean
-		@if [ -f "$(NAME)" ]; then \
+		@if [ -f "$(NAME)" ]; then								\
+				make -C ./libs fclean;							\
 				echo $(RED)Cleaning"  "[$(NAME)]...$(RESET);	\
-				rm -f $(NAME); \
-				echo $(GREEN)Cleaned!$(RESET); \
+				rm -f $(NAME);									\
+				echo $(GREEN)Cleaned!$(RESET);					\
 		fi
 
 re: fclean all
