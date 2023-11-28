@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 10:35:47 by kklockow          #+#    #+#             */
-/*   Updated: 2023/11/27 17:14:57 by fgabler          ###   ########.fr       */
+/*   Updated: 2023/11/28 07:31:07 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,6 @@ void		set_up_lexer_struct(t_lexer *lexer, char *input);
 int			get_single_tokens(t_lexer *lexer, char token);
 int			double_greater_and_smaler(t_lexer *lexer);
 int			tag_word(t_lexer *lexer);
+void		skip_whitespace(t_lexer *lexer);
 
 #endif
