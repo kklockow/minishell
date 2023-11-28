@@ -6,7 +6,7 @@
 /*   By: fgabler <mail@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 18:15:56 by fgabler           #+#    #+#             */
-/*   Updated: 2023/11/28 10:41:23 by fgabler          ###   ########.fr       */
+/*   Updated: 2023/11/28 13:10:00 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static void	find_closing_quote(char quote, t_lexer *lexer, int *end_of_quote);
 static void	set_up_data_struct(t_lexer *lexer, int token_len, char token_type);
+static void	quote_error();
 
 int	find_quote_pair(t_lexer *lexer)
 {
@@ -25,8 +26,8 @@ int	find_quote_pair(t_lexer *lexer)
 	{
 		find_closing_quote('\"', lexer, &end_of_quote);
 		printf("double end_of_quote: %d\n", end_of_quote);
-		if (end_of_quote == false)
-			return (false);
+		if (end_of_quote == -1)
+			return (quote_error(), free_struct_and_stop_lexing(&lexer), false);
 		if (add_token_node(lexer) == false)
 			return (false);
 		set_up_data_struct(lexer, end_of_quote, '\"');
@@ -35,8 +36,8 @@ int	find_quote_pair(t_lexer *lexer)
 	{
 		find_closing_quote('\'', lexer, &end_of_quote);
 		printf("single end_of_quote: %d\n", end_of_quote);
-		if (end_of_quote == false)
-			return (false);
+		if (end_of_quote == -1)
+			return (quote_error(), free_struct_and_stop_lexing(&lexer), false);
 		if (add_token_node(lexer) == false)
 			return (false);
 		set_up_data_struct(lexer, end_of_quote, '\'');
@@ -51,6 +52,7 @@ static void	find_closing_quote(char quote, t_lexer *lexer, int *end_of_quote)
 
 	i = lexer->pos;
 	found_closing_quote = false;
+	*end_of_quote = -1;
 	while (found_closing_quote == false && lexer->input[i])
 	{
 		if (lexer->input[i + 1] == quote)
@@ -83,4 +85,9 @@ static void	set_up_data_struct(t_lexer *lexer, int token_len, char token_type)
 	else
 		last_data->type = DOUBLE_QUOTE;
 	lexer->pos = pos_after_token;
+}
+
+static void	quote_error()
+{
+	ft_putstr_fd("Error: no closing Quote found", 3);
 }
