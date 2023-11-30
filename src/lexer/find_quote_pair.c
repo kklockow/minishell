@@ -6,7 +6,7 @@
 /*   By: fgabler <mail@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 18:15:56 by fgabler           #+#    #+#             */
-/*   Updated: 2023/11/30 13:55:44 by fgabler          ###   ########.fr       */
+/*   Updated: 2023/11/30 13:56:58 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,5 +87,5 @@ static void	set_up_data_struct(t_lexer *lexer, int token_len, char token_type)
 
 static void	quote_error()
 {
-	ft_putstr_fd("Error: no closing Quote found", 2);
+	ft_putstr_fd("Error: no closing Quote found\n", 2);
 }
