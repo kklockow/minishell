@@ -38,10 +38,9 @@ OBJ			:=		$(addprefix $(OBJ_DIR)/, $(SOURCE:%.c=%.o))
 
 all : $(NAME)
 
-$(NAME): $(OBJ) $(LIBS_NAME)
+$(NAME): $(LIBS_NAME) $(OBJ)
 	@echo $(YELLOW)Compiling [$(NAME)]...$(RESET)
 	@printf $(UP)$(CUT)
-	@git submodule update --init --recursive -q
 	@$(CC) $(CFLAGS) $(OBJ) $(LIBS_NAME) -o $(NAME) $(EXTRA_FLAGS)
 	@echo $(GREEN)Finished"  "[$(NAME)]...$(RESET)
 
@@ -52,6 +51,7 @@ $(OBJ_DIR)/%.o: %.c
 	@printf $(UP)$(CUT)
 
 $(LIBS_NAME):
+	@git submodule update --init --recursive -q
 	@$(MAKE) -C $(LIBS) -B
 
 ###############################################################################
