@@ -6,7 +6,7 @@
 /*   By: fgabler <mail@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 18:15:56 by fgabler           #+#    #+#             */
-/*   Updated: 2023/11/28 13:10:00 by fgabler          ###   ########.fr       */
+/*   Updated: 2023/11/30 13:55:44 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int	find_quote_pair(t_lexer *lexer)
 	if (lexer->input[lexer->pos] == '\"')
 	{
 		find_closing_quote('\"', lexer, &end_of_quote);
-		printf("double end_of_quote: %d\n", end_of_quote);
 		if (end_of_quote == -1)
 			return (quote_error(), free_struct_and_stop_lexing(&lexer), false);
 		if (add_token_node(lexer) == false)
@@ -35,7 +34,6 @@ int	find_quote_pair(t_lexer *lexer)
 	if (lexer->input[lexer->pos] == '\'')
 	{
 		find_closing_quote('\'', lexer, &end_of_quote);
-		printf("single end_of_quote: %d\n", end_of_quote);
 		if (end_of_quote == -1)
 			return (quote_error(), free_struct_and_stop_lexing(&lexer), false);
 		if (add_token_node(lexer) == false)
@@ -89,5 +87,5 @@ static void	set_up_data_struct(t_lexer *lexer, int token_len, char token_type)
 
 static void	quote_error()
 {
-	ft_putstr_fd("Error: no closing Quote found", 3);
+	ft_putstr_fd("Error: no closing Quote found", 2);
 }
