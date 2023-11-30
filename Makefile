@@ -51,7 +51,7 @@ $(OBJ_DIR)/%.o: %.c
 	@printf $(UP)$(CUT)
 
 $(LIBS_NAME):
-	@git submodule update --init --recursive -q
+	@git submodule update --remote
 	@$(MAKE) -C $(LIBS) -B
 
 ###############################################################################
@@ -70,7 +70,7 @@ clean:
 
 fclean: clean
 		@if [ -f "$(NAME)" ]; then								\
-				make -C ./libs fclean;							\
+				$(MAKE) -C ./libs fclean;						\
 				echo $(RED)Cleaning"  "[$(NAME)]...$(RESET);	\
 				rm -f $(NAME);									\
 				echo $(GREEN)Cleaned!$(RESET);					\
