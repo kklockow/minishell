@@ -6,13 +6,33 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 14:56:29 by kklockow          #+#    #+#             */
-/*   Updated: 2023/11/23 14:59:15 by kklockow         ###   ########.fr       */
+/*   Updated: 2023/11/23 16:07:38 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	check_envp(char **envp, char *str, int *pipefd)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
+{
+	size_t			i;
+	unsigned char	*s1c;
+	unsigned char	*s2c;
+
+	i = 0;
+	s1c = (unsigned char *)s1;
+	s2c = (unsigned char *)s2;
+	while (n > 0 && (s1c[i] != '\0' || s2c[i] != '\0'))
+	{
+		if ((s1c[i] - s2c[i]) == 0)
+			n--;
+		else
+			return ((s1c[i] - s2c[i]));
+		i++;
+	}
+	return (0);
+}
+
+void	check_envp(char **envp, char *str)
 {
 	int	i;
 
@@ -23,16 +43,6 @@ void	check_envp(char **envp, char *str, int *pipefd)
 			return ;
 		i++;
 	}
-	write(STDERR_FILENO, "env: ", 5);
-	i = 0;
-	while (str[i])
-	{
-		write (STDERR_FILENO, &str[i], 1);
-		i++;
-	}
-	write(STDERR_FILENO, ": No such file or directory\n", 28);
-	close (pipefd[0]);
-	close (pipefd[1]);
 	exit (0);
 }
 
@@ -63,14 +73,40 @@ char	**get_possible_paths(char **envp)
 	return (gpp.possible_paths);
 }
 
-char	*get_path(char *cmd, char **envp, int *pipefd)
+char	*ft_strjoin(char const *s1, char const *s2)
+{
+	size_t	i;
+	size_t	j;
+	char	*dst;
+
+	i = 0;
+	j = 0;
+	dst = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	if (dst == NULL)
+		return (NULL);
+	while (s1[i] != '\0')
+	{
+		dst[i] = s1[i];
+		i++;
+	}
+	while (s2[j] != '\0')
+	{
+		dst[i] = s2[j];
+		j++;
+		i++;
+	}
+	dst[i] = '\0';
+	return (dst);
+}
+
+char	*get_path(char *cmd, char **envp)
 {
 	char	**possible_paths;
 	char	*path;
 	char	*temp;
 	int		i;
 
-	check_envp(envp, cmd, pipefd);
+	check_envp(envp, cmd);
 	possible_paths = get_possible_paths(envp);
 	if (!possible_paths)
 		return (0);

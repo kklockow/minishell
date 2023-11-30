@@ -53,3 +53,22 @@ exec(t_struct alles)
 	return to shell loop
 }
 
+
+
+loop
+{
+	infile
+	command
+	pipefd[1]
+
+	pipefd[0]
+	command
+	secpipefd[1]
+
+	secpipefd[0]
+	command
+	outfile
+}
+
+
+
