@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 15:34:07 by kklockow          #+#    #+#             */
-/*   Updated: 2023/11/30 13:40:07 by kklockow         ###   ########.fr       */
+/*   Updated: 2023/11/30 15:00:45 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,29 +36,30 @@ int	main(int ac, char **av, char **envp)
 	ac = 0;
 	av = NULL;
 	c_table = malloc(sizeof (t_cmd));
-	c_table->cmd = "sleep 5";
+	c_table->cmd = "grep s";
 	c_table->infile = "infile";
 	c_table->outfile = NULL;
 	c_table->read_pipe = 0;
 	c_table->write_pipe = 1;
 	c_table->cmd_index = "1";
 	new = malloc(sizeof (t_cmd));
-	new->cmd = "sleep 2";
-	new->infile = NULL;
+	new->cmd = "cat";
+	new->infile = "outfile";
 	new->outfile = NULL;
-	new->read_pipe = 1;
-	new->write_pipe = 1;
+	new->read_pipe = 0;
+	new->write_pipe = 0;
 	c_table->cmd_index = "2";
 	c_table->next = new;
-	new2 = malloc(sizeof (t_cmd));
-	new2->cmd = "ls";
-	new2->infile = NULL;
-	new2->outfile = "outfile";
-	new2->read_pipe = 1;
-	new2->write_pipe = 0;
-	c_table->cmd_index = "3";
-	c_table->next->next = new2;
-	new2->next = NULL;
+	new->next = NULL;
+	// new2 = malloc(sizeof (t_cmd));
+	// new2->cmd = "ls";
+	// new2->infile = NULL;
+	// new2->outfile = "outfile";
+	// new2->read_pipe = 1;
+	// new2->write_pipe = 0;
+	// c_table->cmd_index = "3";
+	// c_table->next->next = new2;
+	// new2->next = NULL;
 	// c_table = malloc(sizeof (t_cmd));
 	// c_table->cmd = "grep s";
 	// c_table->infile = "infile";

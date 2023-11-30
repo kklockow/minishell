@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 14:37:28 by kklockow          #+#    #+#             */
-/*   Updated: 2023/11/30 13:15:26 by kklockow         ###   ########.fr       */
+/*   Updated: 2023/11/30 14:36:09 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int	redirect(t_cmd *c_table, int *pipefd)
 		return (0);
 	else
 	{
+		putstr_error(c_table->infile);
 		fd_in = open_infile(c_table);
 		if (fd_in == -1)
 			return (-1);
