@@ -6,7 +6,7 @@
 /*   By: fgabler <mail@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 18:15:56 by fgabler           #+#    #+#             */
-/*   Updated: 2023/11/30 13:56:58 by fgabler          ###   ########.fr       */
+/*   Updated: 2023/11/30 18:10:32 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	find_closing_quote(char quote, t_lexer *lexer, int *end_of_quote);
 static void	set_up_data_struct(t_lexer *lexer, int token_len, char token_type);
-static void	quote_error();
+static void	quote_error(void);
 
 int	find_quote_pair(t_lexer *lexer)
 {
@@ -85,7 +85,7 @@ static void	set_up_data_struct(t_lexer *lexer, int token_len, char token_type)
 	lexer->pos = pos_after_token;
 }
 
-static void	quote_error()
+static void	quote_error(void)
 {
 	ft_putstr_fd("Error: no closing Quote found\n", 2);
 }

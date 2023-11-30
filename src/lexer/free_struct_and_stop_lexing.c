@@ -6,7 +6,7 @@
 /*   By: fgabler <mail@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 09:59:52 by fgabler           #+#    #+#             */
-/*   Updated: 2023/11/28 11:29:56 by fgabler          ###   ########.fr       */
+/*   Updated: 2023/11/30 18:11:11 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,12 @@ static void	stop_process(t_process *process)
 
 static void	free_data_struct(t_data **data)
 {
-	t_data *tmp_data;
+	t_data	*tmp_data;
 
 	while ((*data) != NULL)
 	{
 		tmp_data = (*data)->next;
-		save_free((void*) &(*data)->str);
+		save_free((void *) &(*data)->str);
 		save_free((void *)data);
 		(*data) = tmp_data;
 	}

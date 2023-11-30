@@ -6,7 +6,7 @@
 /*   By: fgabler <mail@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 14:21:03 by fgabler           #+#    #+#             */
-/*   Updated: 2023/11/28 12:41:09 by fgabler          ###   ########.fr       */
+/*   Updated: 2023/11/30 18:12:40 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ static void	set_lexer_node(t_lexer *lexer, int token_len)
 
 static int	is_space_after_token(t_lexer *lexer, int token_len)
 {
-
 	if (lexer->input[lexer->pos + token_len] == '\0')
 		return (false);
 	else if (lexer->input[lexer->pos + token_len + 1] == ' ')

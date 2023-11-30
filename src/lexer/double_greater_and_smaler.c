@@ -6,7 +6,7 @@
 /*   By: fgabler <mail@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 15:09:36 by fgabler           #+#    #+#             */
-/*   Updated: 2023/11/28 10:44:39 by fgabler          ###   ########.fr       */
+/*   Updated: 2023/11/30 18:10:05 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,6 @@ static void	fill_node(t_data *data, int token, t_lexer *lexer)
 		data->space = true;
 	else
 		data->space = false;
-
 	data->token_len = 2;
 	data->next = NULL;
 }
-
