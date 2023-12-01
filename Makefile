@@ -16,7 +16,7 @@ LIBS_NAME		=		./libs/libs.a
 ###############################################################################
 ###############################################################################
 
-VPATH		:=		src src/lexer
+VPATH		:=		src src/lexer src/parser src/utils
 
 SRC_MAIN	:=		main.c
 SRC_LEXER	:=		lexer.c find_quote_pair.c add_token_node.c				\
@@ -24,8 +24,12 @@ SRC_LEXER	:=		lexer.c find_quote_pair.c add_token_node.c				\
 					double_greater_and_smaler.c get_single_tokens.c			\
 					tag_word.c skip_whitespace.c time_to_lex.c				\
 					free_struct_and_stop_lexing.c
+SRC_PARSER	:=		parser.c setup_command_struct.c
+SRC_UTILS	:=		setup_structs.c
+SRC_INIT	:=		init.c
 
-SOURCE 		:=		$(SRC_MAIN) $(SRC_LEXER)
+SOURCE 		:=		$(SRC_MAIN) $(SRC_LEXER) $(SRC_PARSER) $(SRC_UTILS)		\
+					$(SRC_INIT)
 
 ###############################################################################
 ###############################################################################
