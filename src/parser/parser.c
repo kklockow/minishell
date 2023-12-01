@@ -1,20 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fgabler <mail@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/01 14:48:06 by fgabler           #+#    #+#             */
-/*   Updated: 2023/12/01 16:37:19 by fgabler          ###   ########.fr       */
+/*   Created: 2023/11/30 18:18:09 by fgabler           #+#    #+#             */
+/*   Updated: 2023/12/01 10:37:44 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	init(t_process *process)
+int	parser(t_lexer *lexer, t_cmd *command)
 {
-	process->time_to_lex = true;
-	process->time_to_exec = false;
-	process->time_to_exec = false;
+	if (lexer->process.time_to_pars == false)
+		return (false);
+	(void) command;
+	//ist_grammar_correct== true
+	//set_up_struct
+	//
+	return (true);
 }

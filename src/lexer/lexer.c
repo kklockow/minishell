@@ -6,7 +6,7 @@
 /*   By: fgabler <mail@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 12:23:17 by fgabler           #+#    #+#             */
-/*   Updated: 2023/11/28 12:22:08 by fgabler          ###   ########.fr       */
+/*   Updated: 2023/12/01 07:38:07 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	lexing(t_lexer *lexer)
 		tag_word(lexer);
 		skip_whitespace(lexer);
 	}
+	lexer->process.time_to_pars = true;
 	/*
 	t_lexer *tmp_lexer;
 

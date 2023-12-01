@@ -1,20 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   setup_structs.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fgabler <mail@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/01 14:48:06 by fgabler           #+#    #+#             */
-/*   Updated: 2023/12/01 16:37:19 by fgabler          ###   ########.fr       */
+/*   Created: 2023/12/01 09:47:13 by fgabler           #+#    #+#             */
+/*   Updated: 2023/12/01 11:18:09 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	init(t_process *process)
+int	setup_structs(t_cmd **data, t_lexer **lexer)
 {
-	process->time_to_lex = true;
-	process->time_to_exec = false;
-	process->time_to_exec = false;
+	*data = ft_calloc(1, sizeof(t_cmd));
+	if (data == NULL)
+		return (false); //free
+	*lexer = ft_calloc(1, sizeof(t_lexer));
+	if (data == NULL)
+		return (false); //free
+	return (true);
 }
