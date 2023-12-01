@@ -72,3 +72,22 @@ loop
 
 
 
+
+init()
+while
+{
+	getinput(safety)
+	LEXER(safety, input)
+	parmesan(safety, lex)
+	executor(safety , c_table)
+}
+return
+
+
+
+
+int	input    0
+int LEXER    1
+int parser   0
+int ex       0
+

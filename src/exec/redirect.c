@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 14:37:28 by kklockow          #+#    #+#             */
-/*   Updated: 2023/11/30 14:36:09 by kklockow         ###   ########.fr       */
+/*   Updated: 2023/12/01 17:39:42 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,14 @@ int	redirect(t_cmd *c_table, int *pipefd)
 	int	fd_in;
 	int	fd_out;
 
+	if (c_table->read_pipe != 1)
+	{
+		fd_in = open_infile(c_table);
+		if (fd_in == -1)
+			return (-1);
+		dup2(fd_in, STDIN_FILENO);
+		close(fd_in);
+	}
 	if (c_table->write_pipe == 1)
 	{
 		close(pipefd[0]);
@@ -34,17 +42,6 @@ int	redirect(t_cmd *c_table, int *pipefd)
 		dup2(fd_out, STDOUT_FILENO);
 		close(fd_out);
 	}
-	if (c_table->read_pipe == 1)
-		return (0);
-	else
-	{
-		putstr_error(c_table->infile);
-		fd_in = open_infile(c_table);
-		if (fd_in == -1)
-			return (-1);
-		dup2(fd_in, STDIN_FILENO);
-		close(fd_in);
-	}
 	return (0);
 }
 
@@ -53,8 +50,8 @@ int	open_infile(t_cmd *c_table)
 	int	fd;
 
 	fd = 0;
-	if (c_table->heredoc == 1)
-		printf("heredoc\n");
+	if (c_table->heredoc != NULL)
+		fd = here_doc_handling(c_table->heredoc);
 	else
 		fd = open(c_table->infile, O_RDONLY, 0644);
 	if (fd == -1)
