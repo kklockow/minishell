@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 16:26:16 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/01 18:13:59 by kklockow         ###   ########.fr       */
+/*   Updated: 2023/12/01 19:13:40 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ int	here_doc_handling(char *delimiter)
 			return (-1);
 		exit(0);
 	}
-	close(pipefd[1]);
 	waitpid(pid, 0, 0);
+	close(pipefd[1]);
 	return (pipefd[0]);
 }
 
@@ -54,7 +54,6 @@ int	fill_here_doc(char *delimiter, int *pipefd)
 	}
 	free(line);
 	i = 0;
-	putstr_error(here_doc_str);
 	while (here_doc_str[i])
 	{
 		write(pipefd[1], &here_doc_str[i], 1);

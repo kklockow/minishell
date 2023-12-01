@@ -6,14 +6,15 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 15:34:07 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/01 18:14:55 by kklockow         ###   ########.fr       */
+/*   Updated: 2023/12/01 19:18:02 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	executor(t_cmd *c_table, char **envp);
-int	execute_command(t_cmd *current_cmd, char **envp);
+int		executor(t_cmd *c_table, char **envp);
+void	handle_write_pipe(t_cmd *c_table, int *pipefd);
+int		execute_command(t_cmd *current_cmd, char **envp);
 
 void	putstr_error(char *str)
 {
@@ -37,29 +38,29 @@ int	main(int ac, char **av, char **envp)
 	ac = 0;
 	av = NULL;
 	c_table = malloc(sizeof (t_cmd));
-	c_table->cmd = "ls";
+	c_table->cmd = "cat";
 	c_table->infile = NULL;
 	c_table->outfile = NULL;
 	c_table->read_pipe = 0;
-	c_table->write_pipe = 0;
+	c_table->write_pipe = 1;
 	c_table->heredoc = "end";
-	c_table->next = NULL;
-	// new = malloc(sizeof (t_cmd));
-	// new->cmd = "cat";
-	// new->infile = NULL;
-	// new->outfile = NULL;
-	// new->read_pipe = 1;
-	// new->write_pipe = 0;
-	// c_table->next = new;
-	// // new->next = NULL;
-	// new2 = malloc(sizeof (t_cmd));
-	// new2->cmd = "ls";
-	// new2->infile = NULL;
-	// new2->outfile = NULL;
-	// new2->read_pipe = 0;
-	// new2->write_pipe = 0;
-	// c_table->next->next = new2;
-	// new2->next = NULL;
+	// c_table->next = NULL;
+	new = malloc(sizeof (t_cmd));
+	new->cmd = "grep s";
+	new->infile = NULL;
+	new->outfile = "outfile";
+	new->read_pipe = 1;
+	new->write_pipe = 0;
+	c_table->next = new;
+	// new->next = NULL;
+	new2 = malloc(sizeof (t_cmd));
+	new2->cmd = "ls";
+	new2->infile = NULL;
+	new2->outfile = NULL;
+	new2->read_pipe = 1;
+	new2->write_pipe = 0;
+	c_table->next->next = new2;
+	new2->next = NULL;
 	// c_table = malloc(sizeof (t_cmd));
 	// c_table->cmd = "grep s";
 	// c_table->infile = "infile";
@@ -68,18 +69,17 @@ int	main(int ac, char **av, char **envp)
 	// c_table->write_pipe = 0;
 	// c_table->next = NULL;
 	executor(c_table, envp);
+	executor(c_table, envp);
+	executor(c_table, envp);
+	executor(c_table, envp);
 	return (0);
 }
 
 int	executor(t_cmd *c_table, char **envp)
 {
-	int		fd_in;
-	int		fd_out;
 	int		pipefd[2];
 	pid_t	pid;
 
-	fd_in = STDIN_FILENO;
-	fd_out = STDOUT_FILENO;
 	while (c_table != NULL)
 	{
 		if (c_table->write_pipe == 1)
@@ -93,13 +93,9 @@ int	executor(t_cmd *c_table, char **envp)
 			redirect(c_table, pipefd);
 			execute_command(c_table, envp);
 		}
-		if (c_table->write_pipe == 1)
-		{
-			if (c_table->next->read_pipe == 1)
-				dup2(pipefd[0], STDIN_FILENO);
-			close(pipefd[0]);
-			close(pipefd[1]);
-		}
+		handle_write_pipe(c_table, pipefd);
+		if (c_table->heredoc != NULL)
+			waitpid(pid, 0, 0);
 		c_table = c_table->next;
 	}
 	waitpid(pid, 0, 0);
@@ -120,4 +116,15 @@ int	execute_command(t_cmd *current_cmd, char **envp)
 	free(path);
 	free_matrix(split);
 	return (1);
+}
+
+void	handle_write_pipe(t_cmd *c_table, int *pipefd)
+{
+	if (c_table->write_pipe == 1)
+	{
+		if (c_table->next->read_pipe == 1)
+			dup2(pipefd[0], STDIN_FILENO);
+		close(pipefd[0]);
+		close(pipefd[1]);
+	}
 }

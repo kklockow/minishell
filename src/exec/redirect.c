@@ -6,19 +6,29 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 14:37:28 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/01 17:39:42 by kklockow         ###   ########.fr       */
+/*   Updated: 2023/12/01 19:02:40 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+int	handle_input(t_cmd *c_table, int *pipefd);
+int	handle_output(t_cmd *c_table, int *pipefd);
 int	open_infile(t_cmd *c_table);
 int	open_outfile(t_cmd *c_table);
 
 int	redirect(t_cmd *c_table, int *pipefd)
 {
+	if (handle_input(c_table, pipefd) == -1)
+		return (-1);
+	if (handle_output(c_table, pipefd) == -1)
+		return (-1);
+	return (0);
+}
+
+int	handle_input(t_cmd *c_table, int *pipefd)
+{
 	int	fd_in;
-	int	fd_out;
 
 	if (c_table->read_pipe != 1)
 	{
@@ -27,20 +37,6 @@ int	redirect(t_cmd *c_table, int *pipefd)
 			return (-1);
 		dup2(fd_in, STDIN_FILENO);
 		close(fd_in);
-	}
-	if (c_table->write_pipe == 1)
-	{
-		close(pipefd[0]);
-		dup2(pipefd[1], STDOUT_FILENO);
-		close(pipefd[1]);
-	}
-	else
-	{
-		fd_out = open_outfile(c_table);
-		if (fd_out == -1)
-			return (-1);
-		dup2(fd_out, STDOUT_FILENO);
-		close(fd_out);
 	}
 	return (0);
 }
@@ -57,6 +53,27 @@ int	open_infile(t_cmd *c_table)
 	if (fd == -1)
 		return (-1);
 	return (fd);
+}
+
+int	handle_output(t_cmd *c_table, int *pipefd)
+{
+	int	fd_out;
+
+	if (c_table->write_pipe == 1)
+	{
+		close(pipefd[0]);
+		dup2(pipefd[1], STDOUT_FILENO);
+		close(pipefd[1]);
+	}
+	else
+	{
+		fd_out = open_outfile(c_table);
+		if (fd_out == -1)
+			return (-1);
+		dup2(fd_out, STDOUT_FILENO);
+		close(fd_out);
+	}
+	return (0);
 }
 
 int	open_outfile(t_cmd *c_table)
