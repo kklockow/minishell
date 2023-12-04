@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 13:01:44 by fgabler           #+#    #+#             */
-/*   Updated: 2023/11/23 16:29:45 by fgabler          ###   ########.fr       */
+/*   Updated: 2023/12/04 09:41:16 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 
 typedef struct	s_process
 {
+	int		time_to_setup;
 	int		time_to_lex;
 	int		time_to_pars;
 	int		time_to_exec;

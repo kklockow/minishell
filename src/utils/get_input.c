@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_up_lexer_struct.c                              :+:      :+:    :+:   */
+/*   get_input.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fgabler <mail@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/23 15:45:02 by fgabler           #+#    #+#             */
-/*   Updated: 2023/11/23 16:33:32 by fgabler          ###   ########.fr       */
+/*   Created: 2023/12/04 11:07:21 by fgabler           #+#    #+#             */
+/*   Updated: 2023/12/04 11:13:15 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	set_up_lexer_struct(t_lexer *lexer, char *input)
+void	get_input(char *input, t_process *process)
 {
-	ft_bzero(lexer, sizeof(t_lexer));
-	lexer->pos = 0;
-	lexer->input = input;
-	lexer->head = NULL;
-	lexer->process.time_to_lex = true;
-	lexer->process.time_to_exec = false;
-	lexer->process.time_to_pars = false;
+	ft_bzero(process, sizeof(t_process));
+	input = readline("minishell>" );
+	if (input != NULL)
+	{
+		add_history(input);
+		(*process).time_to_setup = true;
+	}
 }
