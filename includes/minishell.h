@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 10:35:47 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/04 11:14:15 by fgabler          ###   ########.fr       */
+/*   Updated: 2023/12/04 13:40:36 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,13 @@ void	free_struct_and_stop_lexing(t_lexer **lexer);
 t_data	*go_to_last_lexer_node(t_data *lexer);
 
 //PARSER
+int	parser(t_lexer *lexer, t_cmd *command);
+int	basic_gramma_check(t_lexer *lexer);
 
 
 //UTILS
-int		setup_structs(t_cmd **command, t_lexer **lexer, t_process *process);
-void	get_input(char *input, t_process *process);
+void	get_input(char **input, t_process *process);
+int		setup_structs(t_cmd **command, t_lexer **lexer,
+		t_process *process, char *input);
 
 #endif
