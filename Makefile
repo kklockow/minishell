@@ -23,7 +23,8 @@ SRC_LEXER	:=		lexer.c find_quote_pair.c add_token_node.c				\
 					go_to_last_lexer_node.c double_greater_and_smaler.c		\
 					get_single_tokens.c tag_word.c skip_whitespace.c		\
 					time_to_lex.c free_struct_and_stop_lexing.c
-SRC_PARSER	:=		parser.c basic_gramma_check.c
+SRC_PARSER	:=		parser.c check_same_token_sequences.c					\
+					print_syntax_error.c syntax_check.c
 SRC_UTILS	:=		setup_structs.c get_input.c
 SRC_INIT	:=		init.c
 

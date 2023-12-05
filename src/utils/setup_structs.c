@@ -6,7 +6,7 @@
 /*   By: fgabler <mail@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 09:47:13 by fgabler           #+#    #+#             */
-/*   Updated: 2023/12/04 12:37:54 by fgabler          ###   ########.fr       */
+/*   Updated: 2023/12/05 11:02:47 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,6 @@ static void	set_process(t_process *process, t_lexer **lexer)
 
 static void	set_lexer(t_lexer **lexer, char *input)
 {
+	(*lexer)->input = input;
 	(*lexer)->input = input;
 }
