@@ -6,7 +6,7 @@
 /*   By: fgabler <mail@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 10:25:56 by fgabler           #+#    #+#             */
-/*   Updated: 2023/11/28 10:43:55 by fgabler          ###   ########.fr       */
+/*   Updated: 2023/12/04 14:29:13 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,12 @@ static void	get_token(char token, t_data *data);
 int	get_single_tokens(t_lexer *lexer, char token)
 {
 	if (lexer->input[lexer->pos] != token
-		|| lexer->process.time_to_lex == false)
+		|| lexer->process.time_to_lex == false || lexer->set_token == true)
 		return (false);
 	if (add_token_node(lexer) == false)
 		return (false);
 	fill_node(lexer, token);
+	lexer->set_token = true;
 	return (true);
 }
 

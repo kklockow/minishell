@@ -6,7 +6,7 @@
 /*   By: fgabler <mail@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 14:21:03 by fgabler           #+#    #+#             */
-/*   Updated: 2023/11/28 12:41:09 by fgabler          ###   ########.fr       */
+/*   Updated: 2023/12/04 17:25:54 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,8 @@ static int	is_space_after_token(t_lexer *lexer, int token_len);
 int	tag_word(t_lexer *lexer)
 {
 	int	token_len;
-
-	if (is_word((lexer->input[lexer->pos]) == false)
-		|| (lexer->process.time_to_lex == false))
+	if (is_word(lexer->input[lexer->pos]) == false
+		|| (lexer->process.time_to_lex == false) || lexer->set_token == true)
 		return (false);
 	if (add_token_node(lexer) == false)
 		return (false);
@@ -62,11 +61,11 @@ static void	set_lexer_node(t_lexer *lexer, int token_len)
 	last_node->space = is_space_after_token(lexer, token_len);
 	last_node->str = ft_substr(lexer->input, lexer->pos, token_len);
 	lexer->pos = lexer->pos + token_len;
+	lexer->set_token = true;
 }
 
 static int	is_space_after_token(t_lexer *lexer, int token_len)
 {
-
 	if (lexer->input[lexer->pos + token_len] == '\0')
 		return (false);
 	else if (lexer->input[lexer->pos + token_len + 1] == ' ')

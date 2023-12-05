@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 13:01:44 by fgabler           #+#    #+#             */
-/*   Updated: 2023/12/04 09:41:16 by fgabler          ###   ########.fr       */
+/*   Updated: 2023/12/04 14:23:16 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef struct s_data
 typedef struct s_lexer
 {
 	int				pos;
+	int				set_token;
 	t_data			*head;
 	char			*input;
 	t_process		process;
