@@ -1,24 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_up_lexer_struct.c                              :+:      :+:    :+:   */
+/*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fgabler <mail@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/23 15:45:02 by fgabler           #+#    #+#             */
-/*   Updated: 2023/11/23 16:33:32 by fgabler          ###   ########.fr       */
+/*   Created: 2023/11/30 18:18:09 by fgabler           #+#    #+#             */
+/*   Updated: 2023/12/04 13:53:59 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	set_up_lexer_struct(t_lexer *lexer, char *input)
+int	parser(t_lexer *lexer, t_cmd *command)
 {
-	ft_bzero(lexer, sizeof(t_lexer));
-	lexer->pos = 0;
-	lexer->input = input;
-	lexer->head = NULL;
-	lexer->process.time_to_lex = true;
-	lexer->process.time_to_exec = false;
-	lexer->process.time_to_pars = false;
+	if (lexer->process.time_to_pars == false)
+		return (false);
+	basic_gramma_check(lexer);
+	(void) command;
+	//ist_grammar_correct== true
+	//set_up_struct
+	//
+	return (true);
 }

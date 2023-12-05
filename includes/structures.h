@@ -19,6 +19,7 @@
 
 typedef struct	s_process
 {
+	int		time_to_setup;
 	int		time_to_lex;
 	int		time_to_pars;
 	int		time_to_exec;

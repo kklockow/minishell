@@ -7,6 +7,8 @@
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:11:43 by fgabler           #+#    #+#             */
 /*   Updated: 2023/12/04 17:08:39 by fgabler          ###   ########.fr       */
+/*   Created: 2023/11/11 12:23:17 by fgabler           #+#    #+#             */
+/*   Updated: 2023/12/01 07:38:07 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +29,8 @@ int	lexing(t_lexer *lexer)
 		skip_whitespace(lexer);
 		lexer->set_token = false;
 	}
+	lexer->process.time_to_pars = true;
+	/*
 	t_lexer *tmp_lexer;
 
 	tmp_lexer = lexer;

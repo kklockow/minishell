@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 10:35:04 by kklockow          #+#    #+#             */
-/*   Updated: 2023/11/27 18:33:11 by fgabler          ###   ########.fr       */
+/*   Updated: 2023/12/04 13:42:37 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,26 @@
 
 int	main(int ac, char **av)
 {
-	char	*input;
-	t_lexer	*lexer;
+	char		*input;
+	t_lexer		*lexer;
+	t_process	process;
+	t_cmd		*command;
 
-	lexer = malloc(sizeof(t_lexer));
-	if (lexer == NULL)
-		return (false);
 	(void) ac;
 	(void) av;
+	input = NULL;
 	while (1)
 	{
-		input = readline("minishell> ");
-		if (input)
-			add_history(input);
-		else
-			return (1);
-		printf("\nINPUT: %s\n", input);
-		set_up_lexer_struct(lexer, input);
+		get_input(&input, &process);
+		setup_structs(&command, &lexer, &process, input);
 		lexing(lexer);
+		parser(lexer, command);
 //		if (ft_strcmp(input, "exit") == 0)
 //			break ;
 //		first_token = lexer(input);
 //		parser()
 		free(input);
+		//reset_process
 	}
 	free(input);
 	return (0);

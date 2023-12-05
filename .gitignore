@@ -1,4 +1,4 @@
 *.o
 .ccls
-.cash-ccls
 main.c
+.ccls-cache
