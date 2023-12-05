@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 10:35:47 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/05 12:44:58 by fgabler          ###   ########.fr       */
+/*   Updated: 2023/12/05 14:25:32 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,6 @@ void	setup_parser_struct(t_parser *parser, t_cmd *command, t_lexer *lexer);
 void	get_input(char **input, t_process *process);
 int		setup_structs(t_cmd **command, t_lexer **lexer,
 		t_process *process, char *input);
+void	set_process_stat(t_process *process, int lexer, int parser, int exec);
 
 #endif

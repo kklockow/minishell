@@ -6,7 +6,7 @@
 /*   By: fgabler <mail@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 15:09:36 by fgabler           #+#    #+#             */
-/*   Updated: 2023/12/04 17:42:05 by fgabler          ###   ########.fr       */
+/*   Updated: 2023/12/05 09:55:07 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static void	fill_node(char sign, t_lexer *lexer)
 		data->str = ft_strdup("<<");
 		data->type = DOUBLE_LESS;
 	}
-	if (lexer->input[lexer->pos + 1] == ' ')
+	if (lexer->input[lexer->pos + 2] == ' ')
 		data->space = true;
 	else
 		data->space = false;

@@ -25,7 +25,7 @@ SRC_LEXER	:=		lexer.c find_quote_pair.c add_token_node.c				\
 					time_to_lex.c free_struct_and_stop_lexing.c
 SRC_PARSER	:=		parser.c check_same_token_sequences.c					\
 					print_syntax_error.c syntax_check.c
-SRC_UTILS	:=		setup_structs.c get_input.c
+SRC_UTILS	:=		setup_structs.c get_input.c set_process_stat.c
 SRC_INIT	:=		init.c
 
 SOURCE 		:=		$(SRC_MAIN) $(SRC_LEXER) $(SRC_PARSER) $(SRC_UTILS)		\
