@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 16:26:16 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/01 19:13:40 by kklockow         ###   ########.fr       */
+/*   Updated: 2023/12/06 14:25:18 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	here_doc_handling(char *delimiter)
 	if (pid == 0)
 	{
 		if (fill_here_doc(delimiter, pipefd) == -1)
-			return (-1);
+			exit(-1);
 		exit(0);
 	}
 	waitpid(pid, 0, 0);

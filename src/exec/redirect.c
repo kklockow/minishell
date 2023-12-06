@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 14:37:28 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/01 19:02:40 by kklockow         ###   ########.fr       */
+/*   Updated: 2023/12/06 14:31:43 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ int	handle_input(t_cmd *c_table, int *pipefd)
 {
 	int	fd_in;
 
-	if (c_table->read_pipe != 1)
+	if (c_table->read_pipe == 0
+		&& (c_table->infile != NULL || c_table->heredoc != NULL))
 	{
 		fd_in = open_infile(c_table);
 		if (fd_in == -1)
@@ -65,7 +66,7 @@ int	handle_output(t_cmd *c_table, int *pipefd)
 		dup2(pipefd[1], STDOUT_FILENO);
 		close(pipefd[1]);
 	}
-	else
+	else if (c_table->outfile != NULL)
 	{
 		fd_out = open_outfile(c_table);
 		if (fd_out == -1)
