@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 16:50:34 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/05 17:51:38 by kklockow         ###   ########.fr       */
+/*   Updated: 2023/12/07 14:01:49 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,19 +54,5 @@ char	**init_env(char **envp)
 		i++;
 	}
 	shell_env[i] = NULL;
-	// i = 0;
-	// while (shell_env[i])
-	// {
-	// 	printf("%s\n", shell_env[i]);
-	// 	i++;
-	// }
 	return (shell_env);
 }
-
-// int	main(int ac, char **av, char **envp)
-// {
-// 	ac = 0;
-// 	av = NULL;
-// 	init_env(envp);
-// 	return (0);
-// }

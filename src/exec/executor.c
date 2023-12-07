@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 15:34:07 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/06 15:33:43 by kklockow         ###   ########.fr       */
+/*   Updated: 2023/12/07 18:34:50 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 int		executor_with_pipes(t_cmd *c_table, char **envp);
 void	handle_pipe(t_cmd *c_table, int *pipefd);
 int		execute_command(t_cmd *current_cmd, char **envp);
-int		executor_main(t_cmd *c_table, char **envp);
-int		executor_no_pipes(t_cmd *c_table, char **envp);
+int		executor_main(t_cmd *c_table, t_shell *shell);
+int		executor_no_pipes(t_cmd *c_table, t_shell *shell);
 
 void	putstr_error(char *str)
 {
@@ -36,6 +36,7 @@ int	main(int ac, char **av, char **envp)
 	t_cmd	*new;
 	t_cmd	*new2;
 	t_cmd	*new3;
+	t_shell	*shell;
 	char	*input;
 	int		i;
 	char	**shell_envp;
@@ -43,30 +44,30 @@ int	main(int ac, char **av, char **envp)
 	ac = 0;
 	av = NULL;
 	c_table = malloc(sizeof (t_cmd));
-	c_table->cmd = "echo hallo sahne";
+	c_table->cmd = "export HALLO=hallo";
 	c_table->infile = NULL;
 	c_table->outfile = NULL;
 	c_table->read_pipe = 0;
 	c_table->write_pipe = 0;
 	c_table->heredoc = NULL;
 	c_table->next = NULL;
-	// new = malloc(sizeof (t_cmd));
-	// new->cmd = "grep bee";
-	// new->infile = NULL;
-	// new->outfile = NULL;
-	// new->read_pipe = 1;
-	// new->write_pipe = 1;
+	new = malloc(sizeof (t_cmd));
+	new->cmd = "env";
+	new->infile = NULL;
+	new->outfile = NULL;
+	new->read_pipe = 0;
+	new->write_pipe = 0;
 	// c_table->next = new;
-	// new->next = NULL;
-	// new2 = malloc(sizeof (t_cmd));
-	// new2->cmd = "wc";
-	// new2->infile = NULL;
-	// new2->outfile = "outfile";
-	// new2->read_pipe = 1;
-	// new2->write_pipe = 0;
-	// new2->append = 1;
+	new->next = NULL;
+	new2 = malloc(sizeof (t_cmd));
+	new2->cmd = "unset hallo= HALLO";
+	new2->infile = NULL;
+	new2->outfile = NULL;
+	new2->read_pipe = 0;
+	new2->write_pipe = 0;
+	new2->append = 0;
 	// c_table->next->next = new2;
-	// new2->next = NULL;
+	new2->next = NULL;
 	// new3 = malloc(sizeof (t_cmd));
 	// new3->cmd = "ls";
 	// new3->infile = NULL;
@@ -83,45 +84,56 @@ int	main(int ac, char **av, char **envp)
 	// c_table->write_pipe = 0;
 	// c_table->next = NULL;
 
-	shell_envp = init_env(envp);
-	// shell_envp = envp;
+	shell = malloc(sizeof (t_shell *));
+	shell->envp = init_env(envp);
 	i = 1;
-	while (i < 5)
+	while (i < 2)
 	{
-		executor_main(c_table, shell_envp);
-		printf("\nfinished %i\n\n\n", i);
+		executor_main(new, shell);
+		printf("finished %i\n\n\n", 1);
+		executor_main(c_table, shell);
+		printf("finished %i\n\n\n", 2);
+		executor_main(new, shell);
+		printf("finished %i\n\n\n", 3);
+		executor_main(new2, shell);
+		printf("finished %i\n\n\n", 4);
+		executor_main(new, shell);
+		printf("finished %i\n\n\n", 5);
 		i++;
 	}
 	return (0);
 }
 
-int	executor_main(t_cmd *c_table, char **envp)
+int	executor_main(t_cmd *c_table, t_shell *shell)
 {
 	if (c_table->next == NULL)
-		executor_no_pipes(c_table, envp);
+		executor_no_pipes(c_table, shell);
 	else
-		executor_with_pipes(c_table, envp);
+		executor_with_pipes(c_table, shell->envp);
 	return (0);
 }
 
-int	executor_no_pipes(t_cmd *c_table, char **envp)
+int	executor_no_pipes(t_cmd *c_table, t_shell *shell)
 {
 	pid_t	pid;
 
-	if (check_builtin(c_table, envp) == 0)
+	if (check_builtin(c_table) == 0)
 	{
 		pid = fork();
 		if (pid == 0)
 		{
 			redirect(c_table, NULL);
-			execute_command(c_table, envp);
+			execute_command(c_table, shell->envp);
 		}
 		if (c_table->heredoc != NULL)
 			waitpid(pid, 0, 0);
 		waitpid(pid, 0, 0);
 	}
 	else
-		handle_builtin(c_table, envp);
+	{
+		redirect(c_table, NULL);
+		handle_builtin(c_table, shell);
+	}
 	return (0);
 }
 
@@ -157,7 +169,6 @@ int	execute_command(t_cmd *current_cmd, char **envp)
 	char	*path;
 	char	**split;
 
-	handle_builtin(current_cmd, envp);
 	split = ft_split(current_cmd->cmd, ' ');
 	if (access(split[0], F_OK | X_OK) != 0)
 		path = get_path(split[0], envp);
