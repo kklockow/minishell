@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 14:56:29 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/07 14:42:44 by kklockow         ###   ########.fr       */
+/*   Updated: 2023/12/07 21:40:53 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,10 @@ void	check_envp(char **envp, char *str)
 	}
 	exit (0);
 }
+
+//  This function extracts and splits the PATH directories from the environment
+//  variables. It searches for the PATH variable, removes the "PATH=" prefix,
+//  and splits the remaining string using the ':' delimiter.
 
 char	**get_possible_paths(char **envp)
 {
@@ -98,6 +102,10 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	dst[i] = '\0';
 	return (dst);
 }
+
+//* This function constructs and checks possible paths for a command within the
+//* directories specified by the PATH environment variable. It returns the full
+//* path of the command if found, or NULL if not found.
 
 char	*get_path(char *cmd, char **envp)
 {

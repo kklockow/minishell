@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 16:26:16 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/06 14:25:18 by kklockow         ###   ########.fr       */
+/*   Updated: 2023/12/07 21:48:54 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,11 @@
 static char	*add_newline_delimiter(char *delimiter);
 int			fill_here_doc(char *delimiter, int *pipefd);
 char		*ft_strjoin_add_newline(char *s1, char *s2);
+
+//This function sets up a pipe, forks a child process, and fills the pipe with
+//user input until a specified delimiter is encountered. The parent process
+//waits for the child process to finish, closes the write end of the pipe, and
+//returns the read end of the pipe.
 
 int	here_doc_handling(char *delimiter)
 {
@@ -36,6 +41,10 @@ int	here_doc_handling(char *delimiter)
 	close(pipefd[1]);
 	return (pipefd[0]);
 }
+
+//  * This function reads lines from the user and appends them to a string until
+//  * the specified delimiter is encountered. It then writes the concatenated
+//  * string to a pipe.
 
 int	fill_here_doc(char *delimiter, int *pipefd)
 {
@@ -64,6 +73,11 @@ int	fill_here_doc(char *delimiter, int *pipefd)
 	free(here_doc_str);
 	return (0);
 }
+
+//This function concatenates two strings and adds a newline character at the
+//end of the resulting string. It allocates memory for the new string, copies
+//the content of the input strings, adds a newline character, and sets the null
+//terminator at the end.
 
 char	*ft_strjoin_add_newline(char *s1, char *s2)
 {

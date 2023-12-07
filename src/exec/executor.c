@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 15:34:07 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/07 18:34:50 by kklockow         ###   ########.fr       */
+/*   Updated: 2023/12/07 21:03:21 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	main(int ac, char **av, char **envp)
 	ac = 0;
 	av = NULL;
 	c_table = malloc(sizeof (t_cmd));
-	c_table->cmd = "export HALLO=hallo";
+	c_table->cmd = "pwds";
 	c_table->infile = NULL;
 	c_table->outfile = NULL;
 	c_table->read_pipe = 0;
@@ -89,16 +89,16 @@ int	main(int ac, char **av, char **envp)
 	i = 1;
 	while (i < 2)
 	{
-		executor_main(new, shell);
-		printf("finished %i\n\n\n", 1);
+		// executor_main(new, shell);
+		// printf("finished %i\n\n\n", 1);
 		executor_main(c_table, shell);
 		printf("finished %i\n\n\n", 2);
-		executor_main(new, shell);
-		printf("finished %i\n\n\n", 3);
-		executor_main(new2, shell);
-		printf("finished %i\n\n\n", 4);
-		executor_main(new, shell);
-		printf("finished %i\n\n\n", 5);
+		// executor_main(new, shell);
+		// printf("finished %i\n\n\n", 3);
+		// executor_main(new2, shell);
+		// printf("finished %i\n\n\n", 4);
+		// executor_main(new, shell);
+		// printf("finished %i\n\n\n", 5);
 		i++;
 	}
 	return (0);
@@ -112,6 +112,11 @@ int	executor_main(t_cmd *c_table, t_shell *shell)
 		executor_with_pipes(c_table, shell->envp);
 	return (0);
 }
+
+//  * This function checks if the given command is a built-in command. If it is,
+//  * it redirects I/O and executes the built-in command. If it's not a built-in
+//  * command, it forks a new process, redirects I/O, and executes the external
+//  * command in the child process.
 
 int	executor_no_pipes(t_cmd *c_table, t_shell *shell)
 {
@@ -136,6 +141,11 @@ int	executor_no_pipes(t_cmd *c_table, t_shell *shell)
 	}
 	return (0);
 }
+
+//  * This function iterates through the command table, creating pipes as needed
+//  * and forking processes for each command. It redirects I/O and executes
+//  * commands in child processes. It also handles inter-process communication
+//  * with pipes and waits for child processes to finish execution.
 
 int	executor_with_pipes(t_cmd *c_table, char **envp)
 {
@@ -164,6 +174,11 @@ int	executor_with_pipes(t_cmd *c_table, char **envp)
 	return (0);
 }
 
+//  * This function splits the given command into an array of strings,
+//  * checks if the command is accessible, and retrieves its full path.
+//  * It then attempts to execute the command using execve. If execve fails,
+//  * it prints an error message and exits the child process.
+
 int	execute_command(t_cmd *current_cmd, char **envp)
 {
 	char	*path;
@@ -177,8 +192,14 @@ int	execute_command(t_cmd *current_cmd, char **envp)
 	execve(path, split, envp);
 	free(path);
 	free_matrix(split);
+	putstr_error("command not found\n");
 	exit (1);
 }
+
+//  * This function is responsible for handling pipes between commands in the
+//  * command table. If the current command writes to a pipe, it checks if the
+//  * next command reads from a pipe. If true, it duplicates the read end of
+//  * the pipe to the standard input. It then closes both ends of the pipe.
 
 void	handle_pipe(t_cmd *c_table, int *pipefd)
 {

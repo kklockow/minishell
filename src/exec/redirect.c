@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 14:37:28 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/07 13:42:17 by kklockow         ###   ########.fr       */
+/*   Updated: 2023/12/07 21:13:12 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,12 @@ int	redirect(t_cmd *c_table, int *pipefd)
 	return (0);
 }
 
+//  * This function is responsible for handling input redirection for a command
+//  * in the command table. If the command does not read from a pipe and has an
+//  * input file or a heredoc specified, it opens the input file or creates a
+//  * heredoc file descriptor. It then duplicates the file descriptor to the
+//  * standard input and closes the file descriptor.
+
 int	handle_input(t_cmd *c_table, int *pipefd)
 {
 	int	fd_in;
@@ -42,6 +48,12 @@ int	handle_input(t_cmd *c_table, int *pipefd)
 	return (0);
 }
 
+//  * This function is responsible for opening the input file or heredoc for a
+//  * command in the command table. If the command has a heredoc specified, it
+//  * calls a function for handling heredoc content and returns the
+//  * file descriptor. Otherwise, it opens the specified input file in
+//  * read-only mode and returns the file descriptor.
+
 int	open_infile(t_cmd *c_table)
 {
 	int	fd;
@@ -55,6 +67,12 @@ int	open_infile(t_cmd *c_table)
 		return (-1);
 	return (fd);
 }
+
+// This function is responsible for handling output redirection for a command
+// in the command table. If the command writes to a pipe, it closes the read
+// end of the pipe and duplicates the write end to the standard output. If the
+// command has an output file specified, it opens the output file in write-only
+// mode and duplicates the file descriptor to the standard output.
 
 int	handle_output(t_cmd *c_table, int *pipefd)
 {
@@ -76,6 +94,10 @@ int	handle_output(t_cmd *c_table, int *pipefd)
 	}
 	return (0);
 }
+
+//  * This function is responsible for opening the output file for a command
+//  * in the command table. If the command has the append flag set, it opens
+//  * the file in append mode; otherwise, it opens the file in truncate mode.
 
 int	open_outfile(t_cmd *c_table)
 {

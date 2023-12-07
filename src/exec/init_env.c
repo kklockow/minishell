@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 16:50:34 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/07 14:01:49 by kklockow         ###   ########.fr       */
+/*   Updated: 2023/12/07 21:38:13 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,10 @@ int	ft_env_len(char **envp)
 		i++;
 	return (i);
 }
+
+//This function duplicates a string and initializes the duplicate. It allocates
+//memory for the duplicate string, copies the content of the original string,
+//and sets the null terminator at the end.
 
 char	*ft_strdup_init(const char *s1)
 {
@@ -40,6 +44,10 @@ char	*ft_strdup_init(const char *s1)
 	dst[i] = '\0';
 	return (dst);
 }
+
+//  * This function initializes a new shell environment from an existing
+//  * environment. It creates a new environment array and duplicates the content
+//  * of the existing environment.
 
 char	**init_env(char **envp)
 {
