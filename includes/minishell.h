@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 10:35:47 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/05 14:25:32 by fgabler          ###   ########.fr       */
+/*   Updated: 2023/12/05 16:38:24 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void	syntax_check(t_parser *parser);
 void	check_same_token_sequences(t_parser *parser);
 void	print_syntax_error(t_data *data);
 void	setup_parser_struct(t_parser *parser, t_cmd *command, t_lexer *lexer);
+void	redirect_roules_check(t_parser *parser);
 
 
 //UTILS

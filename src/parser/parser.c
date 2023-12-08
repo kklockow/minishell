@@ -6,7 +6,7 @@
 /*   By: fgabler <mail@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:18:09 by fgabler           #+#    #+#             */
-/*   Updated: 2023/12/05 12:45:18 by fgabler          ###   ########.fr       */
+/*   Updated: 2023/12/07 13:57:42 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,6 @@ static void	set_up_parser_struct(t_parser *parser, t_cmd *command, t_lexer *lexe
 {
 	parser->command = command;
 	parser->lexer = lexer;
+
 	parser->error_accured = false;
 }

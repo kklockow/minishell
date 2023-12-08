@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_syntax_error.c                               :+:      :+:    :+:   */
+/*   syntax_error_print.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fgabler <mail@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 10:16:58 by fgabler           #+#    #+#             */
-/*   Updated: 2023/12/05 13:47:02 by fgabler          ###   ########.fr       */
+/*   Updated: 2023/12/08 09:54:39 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,12 @@ void	print_syntax_error(t_data *data)
 
 static void print_token(t_data *data)
 {
-	if (tow_double_less_no_space(data) == true)
+	if (data == NULL || data->next == NULL)
+	{
+		ft_putstr_fd("newline", 2);
+		return ;
+	}
+	else if (tow_double_less_no_space(data) == true)
 		ft_putstr_fd("<", 2);
 	else
 		ft_putstr_fd(data->str, 2);
