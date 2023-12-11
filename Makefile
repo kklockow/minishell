@@ -24,7 +24,8 @@ SRC_LEXER	:=		lexer.c find_quote_pair.c add_token_node.c				\
 					get_single_tokens.c tag_word.c skip_whitespace.c		\
 					time_to_lex.c free_struct_and_stop_lexing.c
 SRC_PARSER	:=		parser.c syntax_error_print.c syntax_check.c			\
-					redirect_rules_check.c
+					redirect_rules_check.c pipe_roules_check.c				\
+					is_redirect.c
 SRC_UTILS	:=		setup_structs.c get_input.c set_process.c
 SRC_INIT	:=		init.c
 

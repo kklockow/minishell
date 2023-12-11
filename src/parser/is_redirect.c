@@ -1,19 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   syntax_check.c                                     :+:      :+:    :+:   */
+/*   is_redirect.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fgabler <mail@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/05 12:28:44 by fgabler           #+#    #+#             */
-/*   Updated: 2023/12/08 15:17:31 by fgabler          ###   ########.fr       */
+/*   Created: 2023/12/11 12:56:37 by fgabler           #+#    #+#             */
+/*   Updated: 2023/12/11 12:57:20 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	syntax_check(t_parser *parser)
+int	is_redirect(t_data *data)
 {
-	redirect_roules_check(parser);
-	pipe_roules_check(parser);
+	if (data->type == DOUBLE_LESS || data->type == DOUBLE_GREAT ||
+		data->type == LESS || data->type == GREATER)
+		return (true);
+	return (false);
 }

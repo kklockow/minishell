@@ -6,7 +6,7 @@
 /*   By: fgabler <mail@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 10:16:58 by fgabler           #+#    #+#             */
-/*   Updated: 2023/12/08 13:22:25 by fgabler          ###   ########.fr       */
+/*   Updated: 2023/12/11 14:35:36 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	print_syntax_error(t_data *data)
 	ft_putstr_fd("minishell: syntax error near unexpected token `", 2);
 	print_token(data);
 	ft_putstr_fd("'\n", 2);
+	//data->next->next->next->next->next->type = PIPE;
 }
 
 static void print_token(t_data *data)

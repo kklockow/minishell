@@ -6,13 +6,12 @@
 /*   By: fgabler <mail@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 13:55:22 by fgabler           #+#    #+#             */
-/*   Updated: 2023/12/08 14:12:02 by fgabler          ###   ########.fr       */
+/*   Updated: 2023/12/11 14:08:26 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	is_redirect(t_data *data);
 static void	next_token_check(t_data *next, t_parser *parser);
 static int	valide_token_after_redirect(t_data *data);
 //static int	net_token_pipe_and_word(t_data *data);
@@ -32,19 +31,17 @@ void	redirect_roules_check(t_parser *parser)
 	}
 }
 
-static int	is_redirect(t_data *data)
-{
-	if (data->type == DOUBLE_LESS || data->type == DOUBLE_GREAT ||
-		data->type == LESS || data->type == GREATER)
-		return (true);
-	return (false);
-}
-
 static void	next_token_check(t_data *data, t_parser *parser)
 {
-	if (valide_token_after_redirect(data) == true)
+	if (data->next == NULL)
+	{
+		parser->error_accured = true;
+		print_syntax_error(data);
 		return ;
-	else if (data->next == NULL)
+	}
+	else if (valide_token_after_redirect(data->next) == true)
+		return ;
+	else
 	{
 		parser->error_accured = true;
 		print_syntax_error(data);
@@ -53,11 +50,6 @@ static void	next_token_check(t_data *data, t_parser *parser)
 	else if (net_token_pipe_and_word(data) == true)
 		return ;
 	*/
-	else
-	{
-		parser->error_accured = true;
-		print_syntax_error(data);
-	}
 }
 
 static int	valide_token_after_redirect(t_data *data)
