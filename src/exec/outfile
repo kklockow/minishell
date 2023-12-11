@@ -1,0 +1,112 @@
+TERM_PROGRAM=vscode
+TERM=xterm-256color
+HOMEBREW_TEMP=/tmp/kklockow/Homebrew/Temp
+SHELL=/bin/zsh
+TMPDIR=/var/folders/zz/zyxvpxvq6csfxvn_n000chkw00344q/T/
+TERM_PROGRAM_VERSION=1.84.2
+ZDOTDIR=/Users/kklockow
+OLDPWD=/Users/kklockow/Documents/minishell/src
+ORIGINAL_XDG_CURRENT_DESKTOP=undefined
+MallocNanoZone=0
+USER=kklockow
+COMMAND_MODE=unix2003
+SSH_AUTH_SOCK=/private/tmp/com.apple.launchd.7zQPI6n05q/Listeners
+__CF_USER_TEXT_ENCODING=0x19097:0:0
+HOMEBREW_CACHE=/tmp/kklockow/Homebrew/Caches
+PATH=/Users/kklockow/.brew/bin:/Users/kklockow/.brew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki:/Library/Apple/usr/bin:/Users/kklockow/.brew/bin
+LaunchInstanceID=0D142972-B53E-4C01-9845-FC72C48DD076
+USER_ZDOTDIR=/Users/kklockow
+LANG=en_US.UTF-8
+VSCODE_GIT_ASKPASS_EXTRA_ARGS=--ms-enable-electron-run-as-node
+XPC_FLAGS=0x0
+XPC_SERVICE_NAME=0
+VSCODE_INJECTION=1
+SHLVL=2
+VSCODE_GIT_ASKPASS_MAIN=/Applications/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass-main.js
+LOGNAME=kklockow
+VSCODE_GIT_IPC_HANDLE=/var/folders/zz/zyxvpxvq6csfxvn_n000chkw00344q/T/vscode-git-50f23fa4ba.sock
+VSCODE_GIT_ASKPASS_NODE=/Applications/Visual Studio Code.app/Contents/Frameworks/Code Helper (Plugin).app/Contents/MacOS/Code Helper (Plugin)
+GIT_ASKPASS=/Applications/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass.sh
+SECURITYSESSIONID=186a7
+COLORTERM=truecolor
+_=./a.out
+finished 1
+
+
+finished 2
+
+
+TERM_PROGRAM=vscode
+TERM=xterm-256color
+HOMEBREW_TEMP=/tmp/kklockow/Homebrew/Temp
+SHELL=/bin/zsh
+TMPDIR=/var/folders/zz/zyxvpxvq6csfxvn_n000chkw00344q/T/
+TERM_PROGRAM_VERSION=1.84.2
+ZDOTDIR=/Users/kklockow
+OLDPWD=/Users/kklockow/Documents/minishell/src
+ORIGINAL_XDG_CURRENT_DESKTOP=undefined
+MallocNanoZone=0
+USER=kklockow
+COMMAND_MODE=unix2003
+SSH_AUTH_SOCK=/private/tmp/com.apple.launchd.7zQPI6n05q/Listeners
+__CF_USER_TEXT_ENCODING=0x19097:0:0
+HOMEBREW_CACHE=/tmp/kklockow/Homebrew/Caches
+PATH=/Users/kklockow/.brew/bin:/Users/kklockow/.brew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki:/Library/Apple/usr/bin:/Users/kklockow/.brew/bin
+LaunchInstanceID=0D142972-B53E-4C01-9845-FC72C48DD076
+USER_ZDOTDIR=/Users/kklockow
+LANG=en_US.UTF-8
+VSCODE_GIT_ASKPASS_EXTRA_ARGS=--ms-enable-electron-run-as-node
+XPC_FLAGS=0x0
+XPC_SERVICE_NAME=0
+VSCODE_INJECTION=1
+SHLVL=2
+VSCODE_GIT_ASKPASS_MAIN=/Applications/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass-main.js
+LOGNAME=kklockow
+VSCODE_GIT_IPC_HANDLE=/var/folders/zz/zyxvpxvq6csfxvn_n000chkw00344q/T/vscode-git-50f23fa4ba.sock
+VSCODE_GIT_ASKPASS_NODE=/Applications/Visual Studio Code.app/Contents/Frameworks/Code Helper (Plugin).app/Contents/MacOS/Code Helper (Plugin)
+GIT_ASKPASS=/Applications/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass.sh
+SECURITYSESSIONID=186a7
+COLORTERM=truecolor
+_=./a.out
+HALLO=hallo
+finished 3
+
+
+finished 4
+
+
+TERM_PROGRAM=vscode
+TERM=xterm-256color
+HOMEBREW_TEMP=/tmp/kklockow/Homebrew/Temp
+SHELL=/bin/zsh
+TMPDIR=/var/folders/zz/zyxvpxvq6csfxvn_n000chkw00344q/T/
+TERM_PROGRAM_VERSION=1.84.2
+ZDOTDIR=/Users/kklockow
+OLDPWD=/Users/kklockow/Documents/minishell/src
+ORIGINAL_XDG_CURRENT_DESKTOP=undefined
+MallocNanoZone=0
+USER=kklockow
+COMMAND_MODE=unix2003
+SSH_AUTH_SOCK=/private/tmp/com.apple.launchd.7zQPI6n05q/Listeners
+__CF_USER_TEXT_ENCODING=0x19097:0:0
+HOMEBREW_CACHE=/tmp/kklockow/Homebrew/Caches
+PATH=/Users/kklockow/.brew/bin:/Users/kklockow/.brew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki:/Library/Apple/usr/bin:/Users/kklockow/.brew/bin
+LaunchInstanceID=0D142972-B53E-4C01-9845-FC72C48DD076
+USER_ZDOTDIR=/Users/kklockow
+LANG=en_US.UTF-8
+VSCODE_GIT_ASKPASS_EXTRA_ARGS=--ms-enable-electron-run-as-node
+XPC_FLAGS=0x0
+XPC_SERVICE_NAME=0
+VSCODE_INJECTION=1
+SHLVL=2
+VSCODE_GIT_ASKPASS_MAIN=/Applications/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass-main.js
+LOGNAME=kklockow
+VSCODE_GIT_IPC_HANDLE=/var/folders/zz/zyxvpxvq6csfxvn_n000chkw00344q/T/vscode-git-50f23fa4ba.sock
+VSCODE_GIT_ASKPASS_NODE=/Applications/Visual Studio Code.app/Contents/Frameworks/Code Helper (Plugin).app/Contents/MacOS/Code Helper (Plugin)
+GIT_ASKPASS=/Applications/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass.sh
+SECURITYSESSIONID=186a7
+COLORTERM=truecolor
+_=./a.out
+finished 5
+
+

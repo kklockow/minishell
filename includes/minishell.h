@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 10:35:47 by kklockow          #+#    #+#             */
-/*   Updated: 2023/11/13 13:50:20 by fgabler          ###   ########.fr       */
+/*   Updated: 2023/11/16 16:51:12 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 # include <stdlib.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <fcntl.h>
+# include <sys/types.h>
 
 ///////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////SELFMADE//LIBARY///////////////////////////////

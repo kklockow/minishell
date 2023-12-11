@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 13:01:44 by fgabler           #+#    #+#             */
-/*   Updated: 2023/11/16 15:18:24 by kklockow         ###   ########.fr       */
+/*   Updated: 2023/11/16 18:18:11 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ typedef struct s_cmd
 	char			*outfile;
 	int				read_pipe;
 	int				write_pipe;
+	int				heredoc;
+	int				append;
 	struct s_cmd	*next;
 }	t_cmd;
 
