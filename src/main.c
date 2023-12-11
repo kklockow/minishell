@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 10:35:04 by kklockow          #+#    #+#             */
-/*   Updated: 2023/11/15 13:37:00 by fgabler          ###   ########.fr       */
+/*   Updated: 2023/12/01 15:24:37 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 
 int	main(void)
 {
-	char	*input;
-//	t_data	tokens;
+	t_lexer
 
 	while (1)
 	{
@@ -27,7 +26,8 @@ int	main(void)
 //		if (ft_strcmp(input, "exit") == 0)
 			break ;
 //		first_token = lexer(input);
-//		parser()
+//		if parser()
+		executor
 		free(input);
 	}
 	free(input);

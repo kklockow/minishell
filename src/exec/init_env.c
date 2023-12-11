@@ -6,12 +6,11 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 16:50:34 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/07 21:38:13 by kklockow         ###   ########.fr       */
+/*   Updated: 2023/12/08 12:57:37 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
 
 int	ft_env_len(char **envp)
 {
