@@ -14,12 +14,18 @@ HEADERS		=		-I./includes -I./libs/inlcude
 ###############################################################################
 ###############################################################################
 
-VPATH		:=		src src/lexer
+VPATH		:=		src src/lexer src/builtins src/exec src/expander src/init
 
 SRC_MAIN	:=		main.c
 SRC_LEXER	:=		move_to_next_token.c # quots_check.c lexer.c
+SRC_BUIN	:=		builtins_cd.c builtins.c builtins_utils.c
+SRC_EXEC	:=		exec_utils.c executor.c heredoc_handling.c redirect.c
+SRC_EXPAND	:=		expander.c
+SRC_INIT	:=		init_env.c
+SRC_UTILS	:=		ft_split.c
 
-SOURCE 		:=		$(SRC_MAIN) $(SRC_LEXER)
+SOURCE 		:=		$(SRC_MAIN) $(SRC_LEXER) $(SRC_BUIN) $(SRC_EXEC) \
+					$(SRC_EXPAND) $(SRC_INIT) $(SRC_UTILS)
 
 ###############################################################################
 ###############################################################################

@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 10:35:47 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/08 15:11:44 by kklockow         ###   ########.fr       */
+/*   Updated: 2023/12/11 15:18:53 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,10 @@ char	*ft_strdup_init(const char *s1);
 void	move_to_next_token(int	*position, char *input);
 
 //EXECUTOR
-
-int		executor(t_cmd *c_table, char **envp);
+int		executor_main(t_cmd *c_table, t_shell *shell);
 int		redirect(t_cmd *c_table, int *pipefd);
 
-void	check_envp(char **envp, char *str);
+void	check_envp(char **envp);
 char	**get_possible_paths(char **envp);
 char	*get_path(char *cmd, char **envp);
 char	**ft_split(char const *s, char c);
@@ -79,7 +78,7 @@ int		count_till_equal(char *str);
 int		echo_builtin(char *str);
 int		pwd_builtin(char *str);
 int		cd_builtin(char *str, t_shell *shell);
-int		env_builtin(char *str, char **envp);
+int		env_builtin(char **envp);
 int		export_builtin(char *str, t_shell *shell);
 int		unset_builtin(char *str, t_shell *shell);
 

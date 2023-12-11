@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 14:56:29 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/07 21:40:53 by kklockow         ###   ########.fr       */
+/*   Updated: 2023/12/11 14:56:41 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	return (0);
 }
 
-void	check_envp(char **envp, char *str)
+void	check_envp(char **envp)
 {
 	int	i;
 
@@ -114,7 +114,7 @@ char	*get_path(char *cmd, char **envp)
 	char	*temp;
 	int		i;
 
-	check_envp(envp, cmd);
+	check_envp(envp);
 	possible_paths = get_possible_paths(envp);
 	if (!possible_paths)
 		return (0);

@@ -6,20 +6,20 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 14:37:28 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/07 21:13:12 by kklockow         ###   ########.fr       */
+/*   Updated: 2023/12/11 16:33:28 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	handle_input(t_cmd *c_table, int *pipefd);
+int	handle_input(t_cmd *c_table);
 int	handle_output(t_cmd *c_table, int *pipefd);
 int	open_infile(t_cmd *c_table);
 int	open_outfile(t_cmd *c_table);
 
 int	redirect(t_cmd *c_table, int *pipefd)
 {
-	if (handle_input(c_table, pipefd) == -1)
+	if (handle_input(c_table) == -1)
 		return (-1);
 	if (handle_output(c_table, pipefd) == -1)
 		return (-1);
@@ -32,7 +32,7 @@ int	redirect(t_cmd *c_table, int *pipefd)
 //  * heredoc file descriptor. It then duplicates the file descriptor to the
 //  * standard input and closes the file descriptor.
 
-int	handle_input(t_cmd *c_table, int *pipefd)
+int	handle_input(t_cmd *c_table)
 {
 	int	fd_in;
 

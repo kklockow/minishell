@@ -1,9 +1,0 @@
-a.out
-exec_utils.c
-executor.c
-ft_split.c
-heredoc_handling.c
-infile
-init_env.c
-outfile
-redirect.c

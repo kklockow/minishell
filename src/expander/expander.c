@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 12:54:21 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/11 12:38:34 by kklockow         ###   ########.fr       */
+/*   Updated: 2023/12/11 14:58:59 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,34 +18,34 @@ char	*get_variable_to_expand(char *str, int sign_location);
 char	*search_for_var(char *var, char **envp);
 void	update_cmd(t_cmd *c_table, char *var, int start, char *name);
 
-int	main(int ac, char **av, char **envp)
-{
-	t_cmd	*c_table;
-	t_cmd	*new;
-	t_cmd	*new2;
-	t_cmd	*new3;
-	t_shell	*shell;
-	char	*input;
-	int		i;
-	char	**shell_envp;
+// int	main(int ac, char **av, char **envp)
+// {
+// 	t_cmd	*c_table;
+// 	t_cmd	*new;
+// 	t_cmd	*new2;
+// 	t_cmd	*new3;
+// 	t_shell	*shell;
+// 	char	*input;
+// 	int		i;
+// 	char	**shell_envp;
 
-	ac = 0;
-	av = NULL;
-	c_table = malloc(sizeof (t_cmd));
-	c_table->cmd = "sahne $USER sahne $USER";
-	c_table->infile = NULL;
-	c_table->outfile = NULL;
-	c_table->read_pipe = 0;
-	c_table->write_pipe = 0;
-	c_table->heredoc = NULL;
-	c_table->next = NULL;
-	shell = malloc(sizeof (t_shell *));
-	shell->envp = init_env(envp);
-	printf("before: %s\n", c_table->cmd);
-	expander(shell, c_table);
-	printf("after: %s\n", c_table->cmd);
-	return (0);
-}
+// 	ac = 0;
+// 	av = NULL;
+// 	c_table = malloc(sizeof (t_cmd));
+// 	c_table->cmd = "sahne $USER sahne $USER";
+// 	c_table->infile = NULL;
+// 	c_table->outfile = NULL;
+// 	c_table->read_pipe = 0;
+// 	c_table->write_pipe = 0;
+// 	c_table->heredoc = NULL;
+// 	c_table->next = NULL;
+// 	shell = malloc(sizeof (t_shell *));
+// 	shell->envp = init_env(envp);
+// 	printf("before: %s\n", c_table->cmd);
+// 	expander(shell, c_table);
+// 	printf("after: %s\n", c_table->cmd);
+// 	return (0);
+// }
 
 int	expander(t_shell *shell, t_cmd *c_table)
 {

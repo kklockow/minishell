@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 16:32:51 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/08 11:09:19 by kklockow         ###   ########.fr       */
+/*   Updated: 2023/12/11 15:35:16 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	echo_builtin(char *str)
 	}
 	if (new_line == 1)
 		write(1, "\n", 1);
-	exit (0);
+	return (0);
 }
 
 //  * This function implements the pwd built-in command. It checks if the input
@@ -102,7 +102,7 @@ int	export_builtin(char *str, t_shell *shell)
 // This function implements the env built-in command. It takes the current
 // environment variables and prints them to the standard output, one per line.
 
-int	env_builtin(char *str, char **envp)
+int	env_builtin(char **envp)
 {
 	int	i;
 

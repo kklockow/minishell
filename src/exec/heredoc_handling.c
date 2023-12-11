@@ -6,13 +6,12 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 16:26:16 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/07 21:48:54 by kklockow         ###   ########.fr       */
+/*   Updated: 2023/12/11 14:57:33 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static char	*add_newline_delimiter(char *delimiter);
 int			fill_here_doc(char *delimiter, int *pipefd);
 char		*ft_strjoin_add_newline(char *s1, char *s2);
 

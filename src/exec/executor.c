@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 15:34:07 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/08 13:14:15 by kklockow         ###   ########.fr       */
+/*   Updated: 2023/12/11 15:28:01 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,79 +38,79 @@ void	putstr_error(char *str)
 	}
 }
 
-int	main(int ac, char **av, char **envp)
-{
-	t_cmd	*c_table;
-	t_cmd	*new;
-	t_cmd	*new2;
-	t_cmd	*new3;
-	t_shell	*shell;
-	char	*input;
-	int		i;
-	char	**shell_envp;
+// int	main(int ac, char **av, char **envp)
+// {
+// 	t_cmd	*c_table;
+// 	t_cmd	*new;
+// 	t_cmd	*new2;
+// 	t_cmd	*new3;
+// 	t_shell	*shell;
+// 	char	*input;
+// 	int		i;
+// 	char	**shell_envp;
 
-	ac = 0;
-	av = NULL;
-	c_table = malloc(sizeof (t_cmd));
-	c_table->cmd = "$new";
-	c_table->infile = NULL;
-	c_table->outfile = NULL;
-	c_table->read_pipe = 0;
-	c_table->write_pipe = 0;
-	c_table->heredoc = NULL;
-	c_table->next = NULL;
-	new = malloc(sizeof (t_cmd));
-	new->cmd = "env";
-	new->infile = NULL;
-	new->outfile = NULL;
-	new->read_pipe = 0;
-	new->write_pipe = 0;
-	// c_table->next = new;
-	// new->next = NULL;
-	// new2 = malloc(sizeof (t_cmd));
-	// new2->cmd = "unset hallo= HALLO";
-	// new2->infile = NULL;
-	// new2->outfile = NULL;
-	// new2->read_pipe = 0;
-	// new2->write_pipe = 0;
-	// new2->append = 0;
-	// // c_table->next->next = new2;
-	// new2->next = NULL;
-	// new3 = malloc(sizeof (t_cmd));
-	// new3->cmd = "ls";
-	// new3->infile = NULL;
-	// new3->outfile = NULL;
-	// new3->read_pipe = 0;
-	// new3->write_pipe = 0;
-	// c_table->next->next->next = new3;
-	// new3->next = NULL;
-	// c_table = malloc(sizeof (t_cmd));
-	// c_table->cmd = "grep s";
-	// c_table->infile = "infile";
-	// c_table->outfile = "outfile";
-	// c_table->read_pipe = 0;
-	// c_table->write_pipe = 0;
-	// c_table->next = NULL;
+// 	ac = 0;
+// 	av = NULL;
+// 	c_table = malloc(sizeof (t_cmd));
+// 	c_table->cmd = "$new";
+// 	c_table->infile = NULL;
+// 	c_table->outfile = NULL;
+// 	c_table->read_pipe = 0;
+// 	c_table->write_pipe = 0;
+// 	c_table->heredoc = NULL;
+// 	c_table->next = NULL;
+// 	new = malloc(sizeof (t_cmd));
+// 	new->cmd = "env";
+// 	new->infile = NULL;
+// 	new->outfile = NULL;
+// 	new->read_pipe = 0;
+// 	new->write_pipe = 0;
+// 	// c_table->next = new;
+// 	// new->next = NULL;
+// 	// new2 = malloc(sizeof (t_cmd));
+// 	// new2->cmd = "unset hallo= HALLO";
+// 	// new2->infile = NULL;
+// 	// new2->outfile = NULL;
+// 	// new2->read_pipe = 0;
+// 	// new2->write_pipe = 0;
+// 	// new2->append = 0;
+// 	// // c_table->next->next = new2;
+// 	// new2->next = NULL;
+// 	// new3 = malloc(sizeof (t_cmd));
+// 	// new3->cmd = "ls";
+// 	// new3->infile = NULL;
+// 	// new3->outfile = NULL;
+// 	// new3->read_pipe = 0;
+// 	// new3->write_pipe = 0;
+// 	// c_table->next->next->next = new3;
+// 	// new3->next = NULL;
+// 	// c_table = malloc(sizeof (t_cmd));
+// 	// c_table->cmd = "grep s";
+// 	// c_table->infile = "infile";
+// 	// c_table->outfile = "outfile";
+// 	// c_table->read_pipe = 0;
+// 	// c_table->write_pipe = 0;
+// 	// c_table->next = NULL;
 
-	shell = malloc(sizeof (t_shell *));
-	shell->envp = init_env(envp);
-	i = 1;
-	while (i < 2)
-	{
-		executor_main(new, shell);
-		printf("finished %i\n\n\n", 1);
-		executor_main(c_table, shell);
-		printf("finished %i\n\n\n", 2);
-		executor_main(new, shell);
-		printf("finished %i\n\n\n", 3);
-		// executor_main(new2, shell);
-		// printf("finished %i\n\n\n", 4);
-		// executor_main(new, shell);
-		// printf("finished %i\n\n\n", 5);
-		i++;
-	}
-	return (0);
-}
+// 	shell = malloc(sizeof (t_shell *));
+// 	shell->envp = init_env(envp);
+// 	i = 1;
+// 	while (i < 2)
+// 	{
+// 		executor_main(new, shell);
+// 		printf("finished %i\n\n\n", 1);
+// 		executor_main(c_table, shell);
+// 		printf("finished %i\n\n\n", 2);
+// 		executor_main(new, shell);
+// 		printf("finished %i\n\n\n", 3);
+// 		// executor_main(new2, shell);
+// 		// printf("finished %i\n\n\n", 4);
+// 		// executor_main(new, shell);
+// 		// printf("finished %i\n\n\n", 5);
+// 		i++;
+// 	}
+// 	return (0);
+// }
 
 int	executor_main(t_cmd *c_table, t_shell *shell)
 {
@@ -200,7 +200,7 @@ int	execute_command(t_cmd *current_cmd, char **envp)
 	execve(path, split, envp);
 	free(path);
 	free_matrix(split);
-	putstr_error("command not found\n");
+	putstr_error("");
 	exit (1);
 }
 

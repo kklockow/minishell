@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bultin_utils.c                                     :+:      :+:    :+:   */
+/*   builtins_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 13:59:20 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/08 11:00:26 by kklockow         ###   ########.fr       */
+/*   Updated: 2023/12/11 14:54:34 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	handle_builtin(t_cmd *current_cmd, t_shell *shell)
 	if (ft_strncmp(current_cmd->cmd, "unset", 5) == 0)
 		unset_builtin(current_cmd->cmd + 6, shell);
 	if (ft_strncmp(current_cmd->cmd, "env", 3) == 0)
-		env_builtin(current_cmd->cmd, shell->envp);
+		env_builtin(shell->envp);
 	if (ft_strncmp(current_cmd->cmd, "exit", 4) == 0)
 		printf("exit\n");
 	return (0);
