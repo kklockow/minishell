@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 15:34:07 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/07 21:03:21 by kklockow         ###   ########.fr       */
+/*   Updated: 2023/12/08 13:14:15 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,16 @@ int		executor_no_pipes(t_cmd *c_table, t_shell *shell);
 
 void	putstr_error(char *str)
 {
-	int	i;
+	char	*minishell;
+	int		i;
 
+	minishell = "minishell: ";
+	i = 0;
+	while (minishell[i])
+	{
+		write (2, &str[i], 1);
+		i++;
+	}
 	i = 0;
 	while (str[i])
 	{
@@ -44,7 +52,7 @@ int	main(int ac, char **av, char **envp)
 	ac = 0;
 	av = NULL;
 	c_table = malloc(sizeof (t_cmd));
-	c_table->cmd = "pwds";
+	c_table->cmd = "$new";
 	c_table->infile = NULL;
 	c_table->outfile = NULL;
 	c_table->read_pipe = 0;
@@ -58,16 +66,16 @@ int	main(int ac, char **av, char **envp)
 	new->read_pipe = 0;
 	new->write_pipe = 0;
 	// c_table->next = new;
-	new->next = NULL;
-	new2 = malloc(sizeof (t_cmd));
-	new2->cmd = "unset hallo= HALLO";
-	new2->infile = NULL;
-	new2->outfile = NULL;
-	new2->read_pipe = 0;
-	new2->write_pipe = 0;
-	new2->append = 0;
-	// c_table->next->next = new2;
-	new2->next = NULL;
+	// new->next = NULL;
+	// new2 = malloc(sizeof (t_cmd));
+	// new2->cmd = "unset hallo= HALLO";
+	// new2->infile = NULL;
+	// new2->outfile = NULL;
+	// new2->read_pipe = 0;
+	// new2->write_pipe = 0;
+	// new2->append = 0;
+	// // c_table->next->next = new2;
+	// new2->next = NULL;
 	// new3 = malloc(sizeof (t_cmd));
 	// new3->cmd = "ls";
 	// new3->infile = NULL;
@@ -89,12 +97,12 @@ int	main(int ac, char **av, char **envp)
 	i = 1;
 	while (i < 2)
 	{
-		// executor_main(new, shell);
-		// printf("finished %i\n\n\n", 1);
+		executor_main(new, shell);
+		printf("finished %i\n\n\n", 1);
 		executor_main(c_table, shell);
 		printf("finished %i\n\n\n", 2);
-		// executor_main(new, shell);
-		// printf("finished %i\n\n\n", 3);
+		executor_main(new, shell);
+		printf("finished %i\n\n\n", 3);
 		// executor_main(new2, shell);
 		// printf("finished %i\n\n\n", 4);
 		// executor_main(new, shell);
