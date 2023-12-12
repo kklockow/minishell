@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 10:35:47 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/11 12:57:40 by fgabler          ###   ########.fr       */
+/*   Updated: 2023/12/12 10:25:29 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,16 @@ void	skip_whitespace(t_lexer *lexer);
 void	free_struct_and_stop_lexing(t_lexer **lexer);
 t_data	*go_to_last_lexer_node(t_data *lexer);
 
-//PARSER
-int		parser(t_lexer *lexer, t_cmd *command);
-void	syntax_check(t_parser *parser);
-void	print_syntax_error(t_data *data);
-void	setup_parser_struct(t_parser *parser, t_cmd *command, t_lexer *lexer);
-void	redirect_roules_check(t_parser *parser);
-void	pipe_roules_check(t_parser *parser);
+//COMMAND TABLE
 int		is_redirect(t_data *data);
+int		command_table(t_lexer *lexer, t_cmd *command);
+void	command_node_add_back(t_cmd **command, t_parser *parser);
+void	fill_command_struct(t_parser *parser);
+void	pipe_roules_check(t_parser *parser);
+void	redirect_roules_check(t_parser *parser);
+void	syntax_check(t_parser *parser);
+void	setup_parser_struct(t_parser *parser, t_cmd *command, t_lexer *lexer);
+void	syntax_error_print(t_data *data);
 
 
 //UTILS

@@ -6,7 +6,7 @@
 /*   By: fgabler <mail@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 15:01:48 by fgabler           #+#    #+#             */
-/*   Updated: 2023/12/11 15:21:34 by fgabler          ###   ########.fr       */
+/*   Updated: 2023/12/12 10:20:43 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static int is_first_token_pipe(t_parser *parser)
 		return false;
 	if (parser->lexer->head->type == PIPE)
 	{
-		print_syntax_error(parser->lexer->head);
+		syntax_error_print(parser->lexer->head);
 		parser->error_accured = true;
 		return (true);
 	}
@@ -47,9 +47,9 @@ static int is_first_token_pipe(t_parser *parser)
 static void	pipe_surrounding_check(t_data *data, int *error_accured)
 {
 	if (is_redirect(data) == true)
-		return (*error_accured = true, print_syntax_error(data));
+		return (*error_accured = true, syntax_error_print(data));
 	else if (data->next->next == NULL && data->next->type == PIPE)
-		return (*error_accured = true, print_syntax_error(data));
+		return (*error_accured = true, syntax_error_print(data));
 	else if (data->next->next != NULL && data->next->next->type == PIPE)
-		return (*error_accured = true, print_syntax_error(data));
+		return (*error_accured = true, syntax_error_print(data));
 }

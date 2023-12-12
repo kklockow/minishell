@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 10:35:04 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/05 12:04:15 by fgabler          ###   ########.fr       */
+/*   Updated: 2023/12/12 14:08:10 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	main(int ac, char **av)
 		get_input(&input, &process);
 		setup_structs(&command, &lexer, &process, input);
 		lexing(lexer);
-		parser(lexer, command);
+		command_table(lexer, command);
 //		if (ft_strcmp(input, "exit") == 0)
 //			break ;
 //		first_token = lexer(input);
