@@ -1,0 +1,4 @@
+*.o
+.ccls
+main.c
+.ccls-cache

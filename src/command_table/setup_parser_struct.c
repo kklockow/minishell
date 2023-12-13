@@ -1,25 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   quots_check.c                                      :+:      :+:    :+:   */
+/*   setup_parser_struct.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fgabler <mail@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/11 18:15:56 by fgabler           #+#    #+#             */
-/*   Updated: 2023/11/11 18:16:08 by fgabler          ###   ########.fr       */
+/*   Created: 2023/12/05 11:08:02 by fgabler           #+#    #+#             */
+/*   Updated: 2023/12/05 12:20:19 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	quots_check(char *input, t_data *data, int *i)
+/*
+void	setup_parser_struct(t_parser *parser, t_cmd *command, t_lexer *lexer)
 {
-	int	signle_quote;
-	int	dobble_quote;
-	
-	if (input[*i] == 22)
-		mark_till_next_quote();
-	else if (input[*i] == 27)
-		mark_till_next_quote();
-	return (0);
+	parser->command = command;
+	parser->lexer = lexer;
+	parser->error_accured = false;
 }
+*/

@@ -1,0 +1,93 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fill_command_struct.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fgabler <mail@student.42heilbronn.de>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/11 16:26:17 by fgabler           #+#    #+#             */
+/*   Updated: 2023/12/13 09:57:03 by fgabler          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "minishell.h"
+
+static void	fill_command(t_cmd *command, t_data *data);
+static void	check_for_pipe(t_cmd **command, t_data **data, t_parser *parser);
+static void	detect_redirect(t_cmd *command, t_data **data);
+static void	repeat_set_next_save(t_data **data, int repeat);
+
+void	fill_command_struct(t_parser *parser)
+{
+	t_data *data;
+	t_cmd *command;
+
+	data = parser->lexer->head;
+	command = parser->command;
+	while (data != NULL && parser->error_accured == false)
+	{
+		check_for_pipe(&command, &data, parser);
+		detect_redirect(command, &data);
+		fill_command(command, data);
+		repeat_set_next_save(&data, 1);
+	}
+	/*
+	t_cmd *test_print;
+	test_print = parser->command;
+	while (test_print != NULL)
+	{
+		printf("\ncommand: %s\n", test_print->cmd);
+		printf("heredoc: %s\n", test_print->heredoc);
+		printf("infile: %s\n", test_print->infile);
+		printf("outfile: %s\n", test_print->outfile);
+		printf("expand: %d\n", test_print->append);
+		printf("write: %d\n", test_print->write_pipe);
+		printf("read: %d\n", test_print->read_pipe);
+		test_print = test_print->next;
+	}
+	*/
+}
+
+
+static void	check_for_pipe(t_cmd **command, t_data **data, t_parser *parser)
+{
+	if ((*data)->type != PIPE)
+		return ;
+	(*command)->write_pipe = true;
+	command_node_add_back(command, parser);
+	(*command)->read_pipe = true;
+	repeat_set_next_save(data, 1);
+}
+
+static void	fill_command(t_cmd *command, t_data *data)
+{
+	if (data != NULL)
+		command->cmd = ft_strjoin_mod(command->cmd, data->str);
+}
+
+static void	detect_redirect(t_cmd *command, t_data **data)
+{
+	if (is_redirect(*data) == false)
+		return ;
+	else if ((*data)->type == DOUBLE_LESS)
+		command->heredoc = ft_strdup((*data)->next->str);
+	else if ((*data)->type == DOUBLE_GREAT)
+	{
+		command->outfile = ft_strdup((*data)->next->str);
+		command->append = true;
+	}
+	else if ((*data)->type == GREATER)
+		command->outfile = ft_strdup((*data)->next->str);
+	else if ((*data)->type == LESS)
+		command->infile = ft_strdup((*data)->next->str);
+	repeat_set_next_save(data, 2);
+}
+
+static void	repeat_set_next_save(t_data **data, int repeat)
+{
+	while (repeat--)
+	{
+		if ((*data) != NULL)
+			*data = (*data)->next;
+	}
+}

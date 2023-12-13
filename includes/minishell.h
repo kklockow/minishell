@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 10:35:47 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/11 15:18:53 by kklockow         ###   ########.fr       */
+/*   Updated: 2023/12/13 13:17:56 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 # include "structures.h"
+# include "libft.h"
 
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////FUNCTIONS///////////////////////////////////
@@ -75,6 +76,28 @@ int		count_till_equal(char *str);
 
 //BUILTIN
 
+int		lexing(t_lexer *lexer);
+int		find_quote_pair(t_lexer *lexer);
+int		add_token_node(t_lexer *lexer);
+int		get_single_tokens(t_lexer *lexer, char token);
+int		double_greater_and_smaler(t_lexer *lexer);
+int		tag_word(t_lexer *lexer);
+int		time_to_lex(t_lexer *lexer);
+void	skip_whitespace(t_lexer *lexer);
+void	free_struct_and_stop_lexing(t_lexer **lexer);
+t_data	*go_to_last_lexer_node(t_data *lexer);
+
+//COMMAND TABLE
+int		is_redirect(t_data *data);
+int		command_table(t_lexer *lexer, t_cmd *command);
+void	command_node_add_back(t_cmd **command, t_parser *parser);
+void	fill_command_struct(t_parser *parser);
+void	pipe_roules_check(t_parser *parser);
+void	redirect_roules_check(t_parser *parser);
+void	syntax_check(t_parser *parser);
+void	setup_parser_struct(t_parser *parser, t_cmd *command, t_lexer *lexer);
+void	syntax_error_print(t_data *data);
+
 int		echo_builtin(char *str);
 int		pwd_builtin(char *str);
 int		cd_builtin(char *str, t_shell *shell);
@@ -82,5 +105,9 @@ int		env_builtin(char **envp);
 int		export_builtin(char *str, t_shell *shell);
 int		unset_builtin(char *str, t_shell *shell);
 
+//UTILS
+void	get_input(char **input, t_process *process);
+int		setup_structs(t_cmd **command, t_lexer **lexer, t_process *process, char *input);
+void	set_process_stat(t_process *process, int lexer, int parser, int exec);
 
 #endif
