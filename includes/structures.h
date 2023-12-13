@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 13:01:44 by fgabler           #+#    #+#             */
-/*   Updated: 2023/12/13 13:18:57 by kklockow         ###   ########.fr       */
+/*   Updated: 2023/12/13 13:37:18 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,8 @@ typedef struct s_gpp
 
 typedef struct s_shell
 {
-	char	**envp;
+	char		**envp;
+	t_process	*process;
 }t_shell;
 
 ///////////////////////////////////////////////////////////////////////////////

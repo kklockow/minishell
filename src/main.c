@@ -6,13 +6,13 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 10:35:04 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/13 13:24:30 by kklockow         ###   ########.fr       */
+/*   Updated: 2023/12/13 13:45:57 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int ac, char **av)
+int	main(int ac, char **av, char **envp)
 {
 	char		*input;
 	t_lexer		*lexer;
@@ -32,6 +32,7 @@ int	main(int ac, char **av)
 		lexing(lexer);
 		command_table(lexer, command);
 		free(input);
+		shell->process = &lexer->process;
 		executor_main(command, shell);
 	}
 	return (0);

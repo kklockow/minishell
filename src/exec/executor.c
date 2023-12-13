@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 15:34:07 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/11 15:28:01 by kklockow         ###   ########.fr       */
+/*   Updated: 2023/12/13 13:48:32 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,6 @@ void	putstr_error(char *str)
 	int		i;
 
 	minishell = "minishell: ";
-	i = 0;
-	while (minishell[i])
-	{
-		write (2, &str[i], 1);
-		i++;
-	}
 	i = 0;
 	while (str[i])
 	{
@@ -114,6 +108,8 @@ void	putstr_error(char *str)
 
 int	executor_main(t_cmd *c_table, t_shell *shell)
 {
+	if (shell->process->time_to_exec != true)
+		return (-1);
 	if (c_table->next == NULL)
 		executor_no_pipes(c_table, shell);
 	else
