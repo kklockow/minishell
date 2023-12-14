@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:18:09 by fgabler           #+#    #+#             */
-/*   Updated: 2023/12/14 13:24:15 by fgabler          ###   ########.fr       */
+/*   Updated: 2023/12/14 17:15:19 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	command_table(t_lexer *lexer, t_cmd *command)
 {
 	t_parser	*parser;
 
-	if (lexer->process.time_to_pars == false)
+	if (lexer->shell->process->time_to_pars == false)
 		return (false);
 	parser = NULL;
 	set_up_parser_struct(&parser, command, lexer);
@@ -28,7 +28,7 @@ int	command_table(t_lexer *lexer, t_cmd *command)
 	//set_up_struct
 	//
 	if (parser->error_accured == false)
-		lexer->process.time_to_exec = true;
+		lexer->shell->process->time_to_exec = true;
 	return (true);
 }
 

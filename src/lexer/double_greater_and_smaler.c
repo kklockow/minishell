@@ -6,7 +6,7 @@
 /*   By: fgabler <mail@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 15:09:36 by fgabler           #+#    #+#             */
-/*   Updated: 2023/12/05 09:55:07 by fgabler          ###   ########.fr       */
+/*   Updated: 2023/12/14 17:14:01 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	update_lexer(t_lexer *lexer);
 
 int	double_greater_and_smaler(t_lexer *lexer)
 {
-	if (lexer->process.time_to_lex == false || lexer->set_token == true)
+	if (lexer->shell->process->time_to_lex == false || lexer->set_token == true)
 		return (false);
 	detect_sign(lexer, '>');
 	detect_sign(lexer, '<');

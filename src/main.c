@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 10:35:04 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/14 15:29:04 by kklockow         ###   ########.fr       */
+/*   Updated: 2023/12/14 17:13:43 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	main(int ac, char **av, char **envp)
 		lexing(lexer);
 		command_table(lexer, command);
 		// free(input);
-		shell->process = &lexer->process;
+		shell->process = lexer->shell->process;
 		executor_main(command, shell);
 	}
 	return (0);
