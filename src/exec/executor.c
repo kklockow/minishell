@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 15:34:07 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/14 14:02:45 by kklockow         ###   ########.fr       */
+/*   Updated: 2023/12/14 16:42:30 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,9 @@ int	executor_main(t_cmd *c_table, t_shell *shell)
 int	executor_no_pipes(t_cmd *c_table, t_shell *shell)
 {
 	pid_t	pid;
+	int		stdin;
 
+	stdin = dup(STDIN_FILENO);
 	if (check_builtin(c_table) == 0)
 	{
 		pid = fork();
@@ -143,6 +145,7 @@ int	executor_no_pipes(t_cmd *c_table, t_shell *shell)
 		redirect(c_table, NULL);
 		handle_builtin(c_table, shell);
 	}
+	dup2(stdin, STDIN_FILENO);
 	return (0);
 }
 
@@ -191,6 +194,8 @@ int	execute_command(t_cmd *current_cmd, char **envp)
 	char	*path;
 	char	**split;
 
+	if (current_cmd->cmd == NULL)
+		exit (0);
 	split = ft_split(current_cmd->cmd, ' ');
 	if (access(split[0], F_OK | X_OK) != 0)
 		path = get_path(split[0], envp);
@@ -199,8 +204,9 @@ int	execute_command(t_cmd *current_cmd, char **envp)
 	execve(path, split, envp);
 	free(path);
 	free_matrix(split);
-	printf("%s ERROR\n", current_cmd->cmd);
-	exit (1);
+	dup2(STDIN_FILENO, STDERR_FILENO);
+	printf("minishell: %s: command not found\n", current_cmd->cmd);
+	exit (126);
 }
 
 //  * This function is responsible for handling pipes between commands in the
