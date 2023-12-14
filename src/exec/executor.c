@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 15:34:07 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/13 13:48:32 by kklockow         ###   ########.fr       */
+/*   Updated: 2023/12/14 16:42:30 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ int		executor_no_pipes(t_cmd *c_table, t_shell *shell);
 
 void	putstr_error(char *str)
 {
-	char	*minishell;
+//	char	*minishell;
 	int		i;
 
-	minishell = "minishell: ";
+//	minishell = "minishell: ";
 	i = 0;
 	while (str[i])
 	{
@@ -125,7 +125,9 @@ int	executor_main(t_cmd *c_table, t_shell *shell)
 int	executor_no_pipes(t_cmd *c_table, t_shell *shell)
 {
 	pid_t	pid;
+	int		stdin;
 
+	stdin = dup(STDIN_FILENO);
 	if (check_builtin(c_table) == 0)
 	{
 		pid = fork();
@@ -143,6 +145,7 @@ int	executor_no_pipes(t_cmd *c_table, t_shell *shell)
 		redirect(c_table, NULL);
 		handle_builtin(c_table, shell);
 	}
+	dup2(stdin, STDIN_FILENO);
 	return (0);
 }
 
@@ -155,7 +158,9 @@ int	executor_with_pipes(t_cmd *c_table, char **envp)
 {
 	int		pipefd[2];
 	pid_t	pid;
+	int		stdin;
 
+	stdin = dup(STDIN_FILENO);
 	while (c_table != NULL)
 	{
 		if (c_table->write_pipe == 1)
@@ -175,6 +180,7 @@ int	executor_with_pipes(t_cmd *c_table, char **envp)
 		c_table = c_table->next;
 	}
 	waitpid(pid, 0, 0);
+	dup2(stdin, STDIN_FILENO);
 	return (0);
 }
 
@@ -188,6 +194,8 @@ int	execute_command(t_cmd *current_cmd, char **envp)
 	char	*path;
 	char	**split;
 
+	if (current_cmd->cmd == NULL)
+		exit (0);
 	split = ft_split(current_cmd->cmd, ' ');
 	if (access(split[0], F_OK | X_OK) != 0)
 		path = get_path(split[0], envp);
@@ -196,8 +204,9 @@ int	execute_command(t_cmd *current_cmd, char **envp)
 	execve(path, split, envp);
 	free(path);
 	free_matrix(split);
-	putstr_error("");
-	exit (1);
+	dup2(STDIN_FILENO, STDERR_FILENO);
+	printf("minishell: %s: command not found\n", current_cmd->cmd);
+	exit (126);
 }
 
 //  * This function is responsible for handling pipes between commands in the

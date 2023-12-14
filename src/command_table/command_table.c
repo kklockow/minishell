@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:18:09 by fgabler           #+#    #+#             */
-/*   Updated: 2023/12/13 13:43:34 by kklockow         ###   ########.fr       */
+/*   Updated: 2023/12/14 13:24:15 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ int	command_table(t_lexer *lexer, t_cmd *command)
 	//ist_grammar_correct== true
 	//set_up_struct
 	//
-	lexer->process.time_to_exec = true;
+	if (parser->error_accured == false)
+		lexer->process.time_to_exec = true;
 	return (true);
 }
 

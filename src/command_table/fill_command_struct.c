@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_command_struct.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgabler <mail@student.42heilbronn.de>      +#+  +:+       +#+        */
+/*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 16:26:17 by fgabler           #+#    #+#             */
-/*   Updated: 2023/12/13 09:57:03 by fgabler          ###   ########.fr       */
+/*   Updated: 2023/12/14 15:10:11 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,21 +31,19 @@ void	fill_command_struct(t_parser *parser)
 		fill_command(command, data);
 		repeat_set_next_save(&data, 1);
 	}
-	/*
-	t_cmd *test_print;
-	test_print = parser->command;
-	while (test_print != NULL)
-	{
-		printf("\ncommand: %s\n", test_print->cmd);
-		printf("heredoc: %s\n", test_print->heredoc);
-		printf("infile: %s\n", test_print->infile);
-		printf("outfile: %s\n", test_print->outfile);
-		printf("expand: %d\n", test_print->append);
-		printf("write: %d\n", test_print->write_pipe);
-		printf("read: %d\n", test_print->read_pipe);
-		test_print = test_print->next;
-	}
-	*/
+	// t_cmd *test_print;
+	// test_print = parser->command;
+	// while (test_print != NULL)
+	// {
+	// 	// printf("\ncommand: [%s]\n", test_print->cmd);
+	// 	// printf("heredoc: [%s]\n", test_print->heredoc);
+	// 	// printf("infile: [%s]\n", test_print->infile);
+	// 	// printf("outfile: %s\n", test_print->outfile);
+	// 	// printf("expand: %d\n", test_print->append);
+	// 	// printf("write: %d\n", test_print->write_pipe);
+	// 	// printf("read: %d\n", test_print->read_pipe);
+	// 	test_print = test_print->next;
+	// }
 }
 
 
@@ -63,6 +61,8 @@ static void	fill_command(t_cmd *command, t_data *data)
 {
 	if (data != NULL)
 		command->cmd = ft_strjoin_mod(command->cmd, data->str);
+	if (data != NULL && data->space == false && data->next != NULL)
+		command->cmd = ft_strjoin_mod(command->cmd, " ");
 }
 
 static void	detect_redirect(t_cmd *command, t_data **data)
