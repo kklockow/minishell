@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 15:34:07 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/13 13:48:32 by kklockow         ###   ########.fr       */
+/*   Updated: 2023/12/14 13:08:26 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ int		executor_no_pipes(t_cmd *c_table, t_shell *shell);
 
 void	putstr_error(char *str)
 {
-	char	*minishell;
+//	char	*minishell;
 	int		i;
 
-	minishell = "minishell: ";
+//	minishell = "minishell: ";
 	i = 0;
 	while (str[i])
 	{

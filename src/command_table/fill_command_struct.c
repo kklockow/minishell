@@ -6,7 +6,7 @@
 /*   By: fgabler <mail@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 16:26:17 by fgabler           #+#    #+#             */
-/*   Updated: 2023/12/13 09:57:03 by fgabler          ###   ########.fr       */
+/*   Updated: 2023/12/14 13:15:05 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ static void	fill_command(t_cmd *command, t_data *data)
 {
 	if (data != NULL)
 		command->cmd = ft_strjoin_mod(command->cmd, data->str);
+	if (data != NULL && data->space == false && data->next != NULL)
+		command->cmd = ft_strjoin_mod(command->cmd, " ");
 }
 
 static void	detect_redirect(t_cmd *command, t_data **data)
