@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 10:35:47 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/13 13:17:56 by kklockow         ###   ########.fr       */
+/*   Updated: 2023/12/14 17:37:29 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,5 +109,6 @@ int		unset_builtin(char *str, t_shell *shell);
 void	get_input(char **input, t_process *process);
 int		setup_structs(t_cmd **command, t_lexer **lexer, t_process *process, char *input);
 void	set_process_stat(t_process *process, int lexer, int parser, int exec);
+void	expand(t_parser *s, t_shell *shell);
 
 #endif

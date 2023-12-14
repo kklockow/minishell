@@ -6,17 +6,17 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 12:54:21 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/11 14:58:59 by kklockow         ###   ########.fr       */
+/*   Updated: 2023/12/14 17:39:26 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int		expander(t_shell *shell, t_cmd *c_table);
+int		expander(t_shell *shell, t_data *s);
 int		get_sign_location(char *str);
 char	*get_variable_to_expand(char *str, int sign_location);
 char	*search_for_var(char *var, char **envp);
-void	update_cmd(t_cmd *c_table, char *var, int start, char *name);
+void	update_cmd(t_data *s, char *var, int start, char *name);
 
 // int	main(int ac, char **av, char **envp)
 // {
@@ -47,22 +47,33 @@ void	update_cmd(t_cmd *c_table, char *var, int start, char *name);
 // 	return (0);
 // }
 
-int	expander(t_shell *shell, t_cmd *c_table)
+void	expand(t_parser *s, t_shell *shell)
+{
+	t_data	*current;
+
+	current = s->lexer->head;
+	while (current != NULL)
+	{
+		expander(shell, current);
+		current = current->next;
+	}
+}
+
+int	expander(t_shell *shell, t_data *s)
 {
 	int		sign_location;
 	char	*var;
 	char	*var_content;
 
-	sign_location = get_sign_location(c_table->cmd);
+	sign_location = get_sign_location(s->str);
 	if (sign_location == -1)
 		return (0);
-	var = get_variable_to_expand(c_table->cmd, sign_location);
+	var = get_variable_to_expand(s->str, sign_location);
 	var_content = search_for_var(var, shell->envp);
 	printf("%i\n%s\n%s\n", sign_location, var, var_content);
-	update_cmd(c_table, var_content, sign_location, var);
+	update_cmd(s, var_content, sign_location, var);
 	free(var);
 	free(var_content);
-	expander(shell, c_table);
 	return (0);
 }
 
@@ -127,19 +138,19 @@ char	*search_for_var(char *var, char **envp)
 
 //ADD FREE C_TABLE->CMD WHEN MERGED!! IT IS ALLOCATED MEMORY FOR GODS SAKE!
 
-void	update_cmd(t_cmd *c_table, char *var, int start, char *name)
+void	update_cmd(t_data *s, char *var, int start, char *name)
 {
 	char	*new;
 	int		i_old;
 	int		i_new;
 	int		i_var;
 
-	new = malloc(sizeof (char) * (ft_strlen(var) + ft_strlen(c_table->cmd) - ft_strlen(name) - 1));
+	new = malloc(sizeof (char) * (ft_strlen(var) + ft_strlen(s->str) - ft_strlen(name) - 1));
 	i_new = 0;
 	i_old = 0;
 	while (i_old < start)
 	{
-		new[i_new] = c_table->cmd[i_old];
+		new[i_new] = s->str[i_old];
 		i_new++;
 		i_old++;
 	}
@@ -151,13 +162,13 @@ void	update_cmd(t_cmd *c_table, char *var, int start, char *name)
 		i_var++;
 	}
 	i_old += ft_strlen(name) + 1;
-	while (c_table->cmd[i_old] != '\0')
+	while (s->str[i_old] != '\0')
 	{
-		new[i_new] = c_table->cmd[i_old];
+		new[i_new] = s->str[i_old];
 		i_new++;
 		i_old++;
 	}
 	// free(c_table->cmd);
 	new[i_new] = '\0';
-	c_table->cmd = new;
+	s->str = new;
 }
