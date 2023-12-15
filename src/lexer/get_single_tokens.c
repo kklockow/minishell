@@ -6,7 +6,7 @@
 /*   By: fgabler <mail@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 10:25:56 by fgabler           #+#    #+#             */
-/*   Updated: 2023/12/05 09:53:36 by fgabler          ###   ########.fr       */
+/*   Updated: 2023/12/15 11:09:50 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	check_space_after_token(t_data *data, t_lexer *lexer);
 int	get_single_tokens(t_lexer *lexer, char token)
 {
 	if (lexer->input[lexer->pos] != token
-		|| lexer->process.time_to_lex == false || lexer->set_token == true)
+		|| lexer->shell->process->time_to_lex == false || lexer->set_token == true)
 		return (false);
 	if (add_token_node(lexer) == false)
 		return (false); //free

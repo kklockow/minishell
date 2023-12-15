@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 10:35:47 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/14 17:37:29 by kklockow         ###   ########.fr       */
+/*   Updated: 2023/12/15 11:23:23 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,8 @@ char	**env_remove_one(char **envp, char *str, int len);
 char	**env_add_new(char **envp, char *str);
 int		count_till_equal(char *str);
 
-//BUILTIN
 
+//LEXER
 int		lexing(t_lexer *lexer);
 int		find_quote_pair(t_lexer *lexer);
 int		add_token_node(t_lexer *lexer);
@@ -89,7 +89,7 @@ t_data	*go_to_last_lexer_node(t_data *lexer);
 
 //COMMAND TABLE
 int		is_redirect(t_data *data);
-int		command_table(t_lexer *lexer, t_cmd *command);
+int		command_table(t_parser *parser);
 void	command_node_add_back(t_cmd **command, t_parser *parser);
 void	fill_command_struct(t_parser *parser);
 void	pipe_roules_check(t_parser *parser);
@@ -97,6 +97,8 @@ void	redirect_roules_check(t_parser *parser);
 void	syntax_check(t_parser *parser);
 void	setup_parser_struct(t_parser *parser, t_cmd *command, t_lexer *lexer);
 void	syntax_error_print(t_data *data);
+
+//BUILTIN
 
 int		echo_builtin(char *str);
 int		pwd_builtin(char *str);
@@ -106,9 +108,11 @@ int		export_builtin(char *str, t_shell *shell);
 int		unset_builtin(char *str, t_shell *shell);
 
 //UTILS
-void	get_input(char **input, t_process *process);
-int		setup_structs(t_cmd **command, t_lexer **lexer, t_process *process, char *input);
-void	set_process_stat(t_process *process, int lexer, int parser, int exec);
+void	get_input(t_coordinate *coordinate);
+void	setup_structs(t_coordinate *coordinate, char **envp);
+void	stop_process(t_process *process);
+void	set_process_state(t_process *process,int set_up, int lexer,
+		int parser, int exec);
 void	expand(t_parser *s, t_shell *shell);
 
 #endif
