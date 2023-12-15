@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 13:01:44 by fgabler           #+#    #+#             */
-/*   Updated: 2023/12/15 08:56:02 by fgabler          ###   ########.fr       */
+/*   Updated: 2023/12/15 10:54:21 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ typedef struct s_parser
 	int				error_accured;
 	t_lexer			*lexer;
 	struct s_cmd	*command;
-	t_shell	*shell;
+	t_shell			*shell;
 }	t_parser;
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -120,9 +120,11 @@ typedef struct s_gpp
 
 typedef struct s_coordinate
 {
+	t_process	process;
 	t_parser	*parser;
 	t_shell		*shell;
 	char		*input;
+	int			first_set_up;
 }	t_coordinate;
 
 #endif

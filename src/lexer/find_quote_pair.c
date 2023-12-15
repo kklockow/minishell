@@ -6,7 +6,7 @@
 /*   By: fgabler <mail@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 18:15:56 by fgabler           #+#    #+#             */
-/*   Updated: 2023/12/05 15:59:14 by fgabler          ###   ########.fr       */
+/*   Updated: 2023/12/15 11:23:56 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ int	find_quote_pair(t_lexer *lexer)
 {
 	int	end_of_quote;
 
-	if (lexer->process. time_to_lex == false || lexer->set_token == true)
+	if (lexer->shell->process->time_to_lex == false || lexer->set_token == true)
 		return (false);
 	if (lexer->input[lexer->pos] == '\"')
 	{
 		find_closing_quote('\"', lexer, &end_of_quote);
 		if (end_of_quote == -1)
-			return (quote_error(), free_struct_and_stop_lexing(&lexer), false);
+			return (quote_error(), stop_process(lexer->shell->process), false);
 		if (add_token_node(lexer) == false)
 			return (false);
 		set_up_data_struct(lexer, end_of_quote, '\"');
@@ -35,7 +35,7 @@ int	find_quote_pair(t_lexer *lexer)
 	{
 		find_closing_quote('\'', lexer, &end_of_quote);
 		if (end_of_quote == -1)
-			return (quote_error(), free_struct_and_stop_lexing(&lexer), false);
+			return (quote_error(), stop_process(lexer->shell->process), false);
 		if (add_token_node(lexer) == false)
 			return (false);
 		set_up_data_struct(lexer, end_of_quote, '\'');

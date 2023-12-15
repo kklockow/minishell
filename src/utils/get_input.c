@@ -6,19 +6,19 @@
 /*   By: fgabler <mail@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 11:07:21 by fgabler           #+#    #+#             */
-/*   Updated: 2023/12/05 09:19:45 by fgabler          ###   ########.fr       */
+/*   Updated: 2023/12/15 10:57:02 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	get_input(char **input, t_process *process)
+void	get_input(t_coordinate *coordinate)
 {
-	ft_bzero(process, sizeof(t_process));
-	*input = readline("minishell> " );
-	if (*input != NULL)
+	ft_bzero(&coordinate->process, sizeof(t_process));
+	coordinate->input = readline("minishell> " );
+	if (coordinate->input != NULL)
 	{
-		add_history(*input);
-		(*process).time_to_setup = true;
+		add_history(coordinate->input);
+		coordinate->process.time_to_setup = true;
 	}
 }

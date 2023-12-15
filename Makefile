@@ -23,12 +23,12 @@ SRC_MAIN	:=		main.c
 SRC_LEXER	:=		lexer.c find_quote_pair.c add_token_node.c				\
 					go_to_last_lexer_node.c double_greater_and_smaler.c		\
 					get_single_tokens.c tag_word.c skip_whitespace.c		\
-					time_to_lex.c free_struct_and_stop_lexing.c
+					time_to_lex.c
 SRC_CMD_TAB	:=		command_table.c syntax_error_print.c syntax_check.c		\
 					redirect_rules_check.c pipe_roules_check.c				\
 					is_redirect.c fill_command_struct.c						\
 					command_node_add_back.c
-SRC_UTILS	:=		setup_structs.c get_input.c set_process.c
+SRC_UTILS	:=		setup_structs.c get_input.c set_process.c stop_process.c
 SRC_INIT	:=		init.c init_env.c
 SRC_BUIN	:=		builtins_cd.c builtins.c builtins_utils.c
 SRC_EXEC	:=		exec_utils.c executor.c heredoc_handling.c redirect.c
