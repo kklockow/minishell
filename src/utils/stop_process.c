@@ -1,22 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   setup_parser_struct.c                              :+:      :+:    :+:   */
+/*   stop_process.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fgabler <mail@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/05 11:08:02 by fgabler           #+#    #+#             */
-/*   Updated: 2023/12/05 12:20:19 by fgabler          ###   ########.fr       */
+/*   Created: 2023/12/15 11:14:19 by fgabler           #+#    #+#             */
+/*   Updated: 2023/12/15 11:23:06 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/*
-void	setup_parser_struct(t_parser *parser, t_cmd *command, t_lexer *lexer)
+void	stop_process(t_process *process)
 {
-	parser->command = command;
-	parser->lexer = lexer;
-	parser->error_accured = false;
+	process->time_to_lex = false;
+	process->time_to_exec = false;
+	process->time_to_pars = false;
 }
-*/

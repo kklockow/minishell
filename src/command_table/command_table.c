@@ -6,37 +6,21 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:18:09 by fgabler           #+#    #+#             */
-/*   Updated: 2023/12/14 17:51:41 by kklockow         ###   ########.fr       */
+/*   Updated: 2023/12/15 11:22:09 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	set_up_parser_struct(t_parser **parser, t_cmd *command, t_lexer *lexer);
-
-int	command_table(t_lexer *lexer, t_cmd *command)
+int	command_table(t_parser *parser)
 {
-	t_parser	*parser;
 
-	if (lexer->process.time_to_pars == false)
+	if (parser->lexer->shell->process->time_to_pars == false)
 		return (false);
-	parser = NULL;
-	set_up_parser_struct(&parser, command, lexer);
 	syntax_check(parser);
 	// expand(parser);
 	fill_command_struct(parser);
-	//ist_grammar_correct== true
-	//set_up_struct
-	//
 	if (parser->error_accured == false)
-		lexer->process.time_to_exec = true;
+		parser->shell->process->time_to_exec = true;
 	return (true);
-}
-
-static void	set_up_parser_struct(t_parser **parser, t_cmd *command, t_lexer *lexer)
-{
-	*parser = ft_calloc(1, sizeof(t_parser));
-	(*parser)->command = command;
-	(*parser)->lexer = lexer;
-	(*parser)->error_accured = false;
 }

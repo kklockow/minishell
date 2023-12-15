@@ -6,7 +6,7 @@
 /*   By: fgabler <mail@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 14:21:03 by fgabler           #+#    #+#             */
-/*   Updated: 2023/12/04 17:25:54 by fgabler          ###   ########.fr       */
+/*   Updated: 2023/12/14 17:14:40 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ int	tag_word(t_lexer *lexer)
 {
 	int	token_len;
 	if (is_word(lexer->input[lexer->pos]) == false
-		|| (lexer->process.time_to_lex == false) || lexer->set_token == true)
+		|| (lexer->shell->process->time_to_lex == false)
+		|| lexer->set_token == true)
 		return (false);
 	if (add_token_node(lexer) == false)
 		return (false);
