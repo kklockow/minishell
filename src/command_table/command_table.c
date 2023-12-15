@@ -18,7 +18,7 @@ int	command_table(t_parser *parser)
 	if (parser->lexer->shell->process->time_to_pars == false)
 		return (false);
 	syntax_check(parser);
-	//expander
+	// expand(parser);
 	fill_command_struct(parser);
 	if (parser->error_accured == false)
 		parser->shell->process->time_to_exec = true;
