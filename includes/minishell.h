@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 10:35:47 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/15 11:23:23 by fgabler          ###   ########.fr       */
+/*   Updated: 2023/12/15 12:46:18 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,6 @@ void	setup_structs(t_coordinate *coordinate, char **envp);
 void	stop_process(t_process *process);
 void	set_process_state(t_process *process,int set_up, int lexer,
 		int parser, int exec);
-void	expand(t_parser *s, t_shell *shell);
+void	expand(t_parser *s);
 
 #endif
