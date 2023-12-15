@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 15:34:07 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/14 16:42:30 by kklockow         ###   ########.fr       */
+/*   Updated: 2023/12/15 09:08:07 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	putstr_error(char *str)
 		write (2, &str[i], 1);
 		i++;
 	}
+	write (2, "\n", 1);
 }
 
 // int	main(int ac, char **av, char **envp)
@@ -133,7 +134,8 @@ int	executor_no_pipes(t_cmd *c_table, t_shell *shell)
 		pid = fork();
 		if (pid == 0)
 		{
-			redirect(c_table, NULL);
+			if (redirect(c_table, NULL) == -1)
+				return (-1);
 			execute_command(c_table, shell->envp);
 		}
 		if (c_table->heredoc != NULL)
@@ -194,6 +196,7 @@ int	execute_command(t_cmd *current_cmd, char **envp)
 	char	*path;
 	char	**split;
 
+	putstr_error(current_cmd->cmd);
 	if (current_cmd->cmd == NULL)
 		exit (0);
 	split = ft_split(current_cmd->cmd, ' ');
@@ -204,9 +207,9 @@ int	execute_command(t_cmd *current_cmd, char **envp)
 	execve(path, split, envp);
 	free(path);
 	free_matrix(split);
-	dup2(STDIN_FILENO, STDERR_FILENO);
+	dup2(STDOUT_FILENO, STDERR_FILENO);
 	printf("minishell: %s: command not found\n", current_cmd->cmd);
-	exit (126);
+	exit (127);
 }
 
 //  * This function is responsible for handling pipes between commands in the

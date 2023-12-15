@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 14:37:28 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/11 16:33:28 by kklockow         ###   ########.fr       */
+/*   Updated: 2023/12/14 17:55:52 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,10 @@ int	open_infile(t_cmd *c_table)
 	else
 		fd = open(c_table->infile, O_RDONLY, 0644);
 	if (fd == -1)
+	{
+		printf("minishell: %s: No such file or directory\n", c_table->infile);
 		return (-1);
+	}
 	return (fd);
 }
 
