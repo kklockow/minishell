@@ -6,7 +6,7 @@
 /*   By: fgabler <mail@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 13:55:22 by fgabler           #+#    #+#             */
-/*   Updated: 2023/12/12 10:19:34 by fgabler          ###   ########.fr       */
+/*   Updated: 2023/12/15 15:03:04 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ static void	next_token_check(t_data *data, t_parser *parser)
 	if (data->next == NULL)
 	{
 		parser->error_accured = true;
+		set_error_code(parser->shell, 258);
 		syntax_error_print(data);
 		return ;
 	}
@@ -44,6 +45,7 @@ static void	next_token_check(t_data *data, t_parser *parser)
 	else
 	{
 		parser->error_accured = true;
+		set_error_code(parser->shell, 258);
 		syntax_error_print(data);
 	}
 	/*

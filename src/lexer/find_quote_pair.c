@@ -6,7 +6,7 @@
 /*   By: fgabler <mail@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 18:15:56 by fgabler           #+#    #+#             */
-/*   Updated: 2023/12/15 11:23:56 by fgabler          ###   ########.fr       */
+/*   Updated: 2023/12/15 14:48:45 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	find_closing_quote(char quote, t_lexer *lexer, int *end_of_quote);
 static void	set_up_data_struct(t_lexer *lexer, int token_len, char token_type);
-static void	quote_error(void);
+static void	quote_error(t_lexer *lexer);
 
 int	find_quote_pair(t_lexer *lexer)
 {
@@ -26,7 +26,8 @@ int	find_quote_pair(t_lexer *lexer)
 	{
 		find_closing_quote('\"', lexer, &end_of_quote);
 		if (end_of_quote == -1)
-			return (quote_error(), stop_process(lexer->shell->process), false);
+			return (quote_error(lexer),
+					stop_process(lexer->shell->process), false);
 		if (add_token_node(lexer) == false)
 			return (false);
 		set_up_data_struct(lexer, end_of_quote, '\"');
@@ -35,7 +36,8 @@ int	find_quote_pair(t_lexer *lexer)
 	{
 		find_closing_quote('\'', lexer, &end_of_quote);
 		if (end_of_quote == -1)
-			return (quote_error(), stop_process(lexer->shell->process), false);
+			return (quote_error(lexer),
+					stop_process(lexer->shell->process), false);
 		if (add_token_node(lexer) == false)
 			return (false);
 		set_up_data_struct(lexer, end_of_quote, '\'');
@@ -85,7 +87,8 @@ static void	set_up_data_struct(t_lexer *lexer, int token_len, char token_type)
 	lexer->pos = pos_after_token;
 }
 
-static void	quote_error(void)
+static void	quote_error(t_lexer *lexer)
 {
 	ft_putstr_fd("minishell: syntax error no closing quote found\n", 2);
+	set_error_code(lexer->shell, 258);
 }
