@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 13:59:20 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/14 15:37:48 by kklockow         ###   ########.fr       */
+/*   Updated: 2023/12/14 18:57:49 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ int	check_builtin(t_cmd *current_cmd)
 		return (1);
 	if (ft_strncmp(current_cmd->cmd, "pwd", 3) == 0)
 		return (1);
-	if (ft_strncmp(current_cmd->cmd, "export", 6) == 0)
+	if (ft_strncmp(current_cmd->cmd, "export ", 7) == 0)
 		return (1);
-	if (ft_strncmp(current_cmd->cmd, "unset", 5) == 0)
+	if (ft_strncmp(current_cmd->cmd, "unset ", 6) == 0)
 		return (1);
 	if (ft_strncmp(current_cmd->cmd, "env", 3) == 0)
 		return (1);
