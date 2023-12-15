@@ -1,25 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   quots_check.c                                      :+:      :+:    :+:   */
+/*   skip_whitespace.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fgabler <mail@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/11 18:15:56 by fgabler           #+#    #+#             */
-/*   Updated: 2023/11/11 18:16:08 by fgabler          ###   ########.fr       */
+/*   Created: 2023/11/28 07:28:26 by fgabler           #+#    #+#             */
+/*   Updated: 2023/12/15 11:10:29 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	quots_check(char *input, t_data *data, int *i)
+void	skip_whitespace(t_lexer *lexer)
 {
-	int	signle_quote;
-	int	dobble_quote;
-	
-	if (input[*i] == 22)
-		mark_till_next_quote();
-	else if (input[*i] == 27)
-		mark_till_next_quote();
-	return (0);
+	if (lexer->shell->process->time_to_lex == false)
+		return ;
+	if (lexer->input[lexer->pos] == ' ')
+		lexer->pos++;
 }
