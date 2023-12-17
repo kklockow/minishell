@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 15:34:07 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/15 16:07:35 by fgabler          ###   ########.fr       */
+/*   Updated: 2023/12/15 16:07:35 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,8 +196,8 @@ int	execute_command(t_cmd *current_cmd, char **envp)
 	char	*path;
 	char	**split;
 
-	//putstr_error(current_cmd->cmd);
-	if (current_cmd->cmd == NULL)
+	// putstr_error(current_cmd->cmd);
+	if (current_cmd->cmd == NULL || current_cmd->cmd[0] == '\0')
 		exit (0);
 	split = ft_split(current_cmd->cmd, ' ');
 	if (access(split[0], F_OK | X_OK) != 0)
@@ -206,7 +206,7 @@ int	execute_command(t_cmd *current_cmd, char **envp)
 		path = split[0];
 	execve(path, split, envp);
 	free(path);
-	free_matrix(split);
+	// free_matrix(split);
 	dup2(STDOUT_FILENO, STDERR_FILENO);
 	printf("minishell: %s: command not found\n", current_cmd->cmd);
 	exit (127);
