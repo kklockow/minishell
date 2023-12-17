@@ -113,7 +113,7 @@ void	setup_structs(t_coordinate *coordinate, char **envp);
 void	stop_process(t_process *process);
 void	set_process_state(t_process *process,int set_up, int lexer,
 		int parser, int exec);
-void	expand(t_parser *s, t_shell *shell);
 void	set_error_code(t_shell *shell, int error_code);
+void	expand(t_parser *s);
 
 #endif
