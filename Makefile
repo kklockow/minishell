@@ -27,7 +27,7 @@ SRC_LEXER	:=		lexer.c find_quote_pair.c add_token_node.c				\
 SRC_CMD_TAB	:=		command_table.c syntax_error_print.c syntax_check.c		\
 					redirect_rules_check.c pipe_roules_check.c				\
 					is_redirect.c fill_command_struct.c						\
-					command_node_add_back.c
+					command_node_add_back.c add_space_check.c
 SRC_UTILS	:=		setup_structs.c get_input.c set_process.c stop_process.c
 SRC_INIT	:=		init.c init_env.c
 SRC_BUIN	:=		builtins_cd.c builtins.c builtins_utils.c

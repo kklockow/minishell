@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 15:34:07 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/15 09:08:07 by kklockow         ###   ########.fr       */
+/*   Updated: 2023/12/15 16:07:35 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,7 +196,7 @@ int	execute_command(t_cmd *current_cmd, char **envp)
 	char	*path;
 	char	**split;
 
-	putstr_error(current_cmd->cmd);
+	//putstr_error(current_cmd->cmd);
 	if (current_cmd->cmd == NULL)
 		exit (0);
 	split = ft_split(current_cmd->cmd, ' ');

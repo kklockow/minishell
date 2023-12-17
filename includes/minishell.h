@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 10:35:47 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/15 11:23:23 by fgabler          ###   ########.fr       */
+/*   Updated: 2023/12/17 14:34:42 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ void	free_struct_and_stop_lexing(t_lexer **lexer);
 t_data	*go_to_last_lexer_node(t_data *lexer);
 
 //COMMAND TABLE
+int		add_space_check(t_data *data);
 int		is_redirect(t_data *data);
 int		command_table(t_parser *parser);
 void	command_node_add_back(t_cmd **command, t_parser *parser);

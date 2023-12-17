@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 16:26:17 by fgabler           #+#    #+#             */
-/*   Updated: 2023/12/14 18:38:59 by kklockow         ###   ########.fr       */
+/*   Updated: 2023/12/17 14:35:33 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ void	fill_command_struct(t_parser *parser)
 	command = parser->command;
 	while (data != NULL && parser->error_accured == false)
 	{
-		check_for_pipe(&command, &data, parser);
 		detect_redirect(command, &data);
+		check_for_pipe(&command, &data, parser);
 		fill_command(command, data);
 		repeat_set_next_save(&data, 1);
 	}
@@ -38,7 +38,7 @@ void	fill_command_struct(t_parser *parser)
 		printf("\ncommand: [%s]\n", test_print->cmd);
 		printf("heredoc: [%s]\n", test_print->heredoc);
 		printf("infile: [%s]\n", test_print->infile);
-		printf("outfile: %s\n", test_print->outfile);
+		printf("outfile: [%s]\n", test_print->outfile);
 		printf("expand: %d\n", test_print->append);
 		printf("write: %d\n", test_print->write_pipe);
 		printf("read: %d\n", test_print->read_pipe);
@@ -49,7 +49,7 @@ void	fill_command_struct(t_parser *parser)
 
 static void	check_for_pipe(t_cmd **command, t_data **data, t_parser *parser)
 {
-	if ((*data)->type != PIPE)
+	if (*data == NULL || (*data)->type != PIPE)
 		return ;
 	(*command)->write_pipe = true;
 	command_node_add_back(command, parser);
@@ -61,8 +61,9 @@ static void	fill_command(t_cmd *command, t_data *data)
 {
 	if (data != NULL)
 		command->cmd = ft_strjoin_mod(command->cmd, data->str);
-	if (data != NULL && data->space == false && data->next != NULL)
+	if (add_space_check(data) == true)
 		command->cmd = ft_strjoin_mod(command->cmd, " ");
+//	printf("token: %s\ncommane space: %d\n", data->str, data->space);
 }
 
 static void	detect_redirect(t_cmd *command, t_data **data)
