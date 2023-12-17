@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 13:01:44 by fgabler           #+#    #+#             */
-/*   Updated: 2023/12/15 10:54:21 by fgabler          ###   ########.fr       */
+/*   Updated: 2023/12/17 14:42:26 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,7 @@ typedef struct s_coordinate
 	t_shell		*shell;
 	char		*input;
 	int			first_set_up;
+	int			run_loop;
 }	t_coordinate;
 
 #endif

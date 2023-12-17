@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 10:35:47 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/17 14:34:42 by fgabler          ###   ########.fr       */
+/*   Updated: 2023/12/17 14:46:10 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,5 +115,6 @@ void	stop_process(t_process *process);
 void	set_process_state(t_process *process,int set_up, int lexer,
 		int parser, int exec);
 void	expand(t_parser *s, t_shell *shell);
+void	input_check(int ac, char **av, t_coordinate *coordinate);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 16:26:17 by fgabler           #+#    #+#             */
-/*   Updated: 2023/12/17 14:35:33 by fgabler          ###   ########.fr       */
+/*   Updated: 2023/12/17 14:49:11 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	fill_command_struct(t_parser *parser)
 		fill_command(command, data);
 		repeat_set_next_save(&data, 1);
 	}
+	/*
 	t_cmd *test_print;
 	test_print = parser->command;
 	while (test_print != NULL)
@@ -44,8 +45,8 @@ void	fill_command_struct(t_parser *parser)
 		printf("read: %d\n", test_print->read_pipe);
 		test_print = test_print->next;
 	}
+	*/
 }
-
 
 static void	check_for_pipe(t_cmd **command, t_data **data, t_parser *parser)
 {
