@@ -6,7 +6,7 @@
 /*   By: fgabler <mail@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 18:15:56 by fgabler           #+#    #+#             */
-/*   Updated: 2023/12/15 14:48:45 by fgabler          ###   ########.fr       */
+/*   Updated: 2023/12/18 15:55:13 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ static void	set_up_data_struct(t_lexer *lexer, int token_len, char token_type)
 	last_data->next = NULL;
 	last_data->str = ft_substr(lexer->input,
 			(lexer->pos + 1), (token_len));
+	if (last_data->str == NULL)
+		return (stop_process(lexer->shell->process));
 	if (lexer->input[pos_after_token] == ' ')
 		last_data->space = true;
 	else
