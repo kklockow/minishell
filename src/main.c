@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 10:35:04 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/15 11:05:12 by fgabler          ###   ########.fr       */
+/*   Updated: 2023/12/17 14:52:30 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,8 @@ int	main(int ac, char **av, char **envp)
 {
 	t_coordinate coordinate;
 
-	(void) av;
-	if (ac != 1)
-	{
-		ft_putstr_fd("ERROR: don't give minishell input parameter" , 2);
-		return (false);
-	}
-	coordinate.first_set_up = true;
-	while (1)
+	input_check(ac, av, &coordinate);
+	while (coordinate.run_loop == true)
 	{
 		get_input(&coordinate);
 		setup_structs(&coordinate,envp);

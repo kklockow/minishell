@@ -15,7 +15,7 @@
 int		expander(t_shell *shell, t_data *s);
 int		get_sign_location(char *str);
 char	*get_variable_to_expand(char *str, int sign_location);
-char	*search_for_var(char *var, char **envp);
+char	*search_for_var(char *var, char **envp, t_shell *shell);
 void	update_cmd(t_data *s, char *var, int start, char *name);
 
 // int	main(int ac, char **av, char **envp)
@@ -72,7 +72,7 @@ int	expander(t_shell *shell, t_data *s)
 	if (sign_location == -1)
 		return (0);
 	var = get_variable_to_expand(s->str, sign_location);
-	var_content = search_for_var(var, shell->envp);
+	var_content = search_for_var(var, shell->envp, shell);
 	// printf("%i\n%s\n%s\n", sign_location, var, var_content);
 	update_cmd(s, var_content, sign_location, var);
 	free(var);
@@ -121,12 +121,17 @@ char	*get_variable_to_expand(char *str, int sign_location)
 	return (var_str);
 }
 
-char	*search_for_var(char *var, char **envp)
+char	*search_for_var(char *var, char **envp, t_shell *shell)
 {
 	int		i;
 	char	*var_content;
 	char	*var_equal;
 
+	if (ft_strncmp(var, "?", 1) == 0)
+	{
+		var_content = ft_itoa(shell->exit_code);
+		return (var_content);
+	}
 	var_equal = ft_strjoin(var, "=");
 	i = 0;
 	// printf("var:%s\n", var_equal);

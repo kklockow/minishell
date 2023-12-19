@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 10:35:47 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/15 12:46:18 by kklockow         ###   ########.fr       */
+/*   Updated: 2023/12/17 14:46:10 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ void	free_struct_and_stop_lexing(t_lexer **lexer);
 t_data	*go_to_last_lexer_node(t_data *lexer);
 
 //COMMAND TABLE
+int		add_space_check(t_data *data);
 int		is_redirect(t_data *data);
 int		command_table(t_parser *parser);
 void	command_node_add_back(t_cmd **command, t_parser *parser);
@@ -113,6 +114,8 @@ void	setup_structs(t_coordinate *coordinate, char **envp);
 void	stop_process(t_process *process);
 void	set_process_state(t_process *process,int set_up, int lexer,
 		int parser, int exec);
+void	input_check(int ac, char **av, t_coordinate *coordinate);
+void	set_error_code(t_shell *shell, int error_code);
 void	expand(t_parser *s);
 
 #endif
