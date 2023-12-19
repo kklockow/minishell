@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 12:54:21 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/15 16:29:22 by kklockow         ###   ########.fr       */
+/*   Updated: 2023/12/19 13:09:40 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,35 +18,6 @@ char	*get_variable_to_expand(char *str, int sign_location);
 char	*search_for_var(char *var, char **envp, t_shell *shell);
 void	update_cmd(t_data *s, char *var, int start, char *name);
 
-// int	main(int ac, char **av, char **envp)
-// {
-// 	t_cmd	*c_table;
-// 	t_cmd	*new;
-// 	t_cmd	*new2;
-// 	t_cmd	*new3;
-// 	t_shell	*shell;
-// 	char	*input;
-// 	int		i;
-// 	char	**shell_envp;
-
-// 	ac = 0;
-// 	av = NULL;
-// 	c_table = malloc(sizeof (t_cmd));
-// 	c_table->cmd = "sahne $USER sahne $USER";
-// 	c_table->infile = NULL;
-// 	c_table->outfile = NULL;
-// 	c_table->read_pipe = 0;
-// 	c_table->write_pipe = 0;
-// 	c_table->heredoc = NULL;
-// 	c_table->next = NULL;
-// 	shell = malloc(sizeof (t_shell *));
-// 	shell->envp = init_env(envp);
-// 	printf("before: %s\n", c_table->cmd);
-// 	expander(shell, c_table);
-// 	printf("after: %s\n", c_table->cmd);
-// 	return (0);
-// }
-
 void	expand(t_parser *s)
 {
 	t_data	*current;
@@ -57,7 +28,6 @@ void	expand(t_parser *s)
 		expander(s->shell, current);
 		current = current->next;
 	}
-	// printf("expander closed\n");
 }
 
 int	expander(t_shell *shell, t_data *s)
@@ -73,7 +43,6 @@ int	expander(t_shell *shell, t_data *s)
 		return (0);
 	var = get_variable_to_expand(s->str, sign_location);
 	var_content = search_for_var(var, shell->envp, shell);
-	// printf("%i\n%s\n%s\n", sign_location, var, var_content);
 	update_cmd(s, var_content, sign_location, var);
 	free(var);
 	free(var_content);
@@ -117,7 +86,6 @@ char	*get_variable_to_expand(char *str, int sign_location)
 		var_i++;
 	}
 	var_str[var_i] = '\0';
-	// printf("var_name:%s\n", var_str);
 	return (var_str);
 }
 
@@ -134,7 +102,6 @@ char	*search_for_var(char *var, char **envp, t_shell *shell)
 	}
 	var_equal = ft_strjoin(var, "=");
 	i = 0;
-	// printf("var:%s\n", var_equal);
 	while (envp[i] != NULL)
 	{
 		if (ft_strncmp(var_equal, envp[i], ft_strlen(var_equal)) == 0)
@@ -147,45 +114,4 @@ char	*search_for_var(char *var, char **envp, t_shell *shell)
 	var_content = malloc(sizeof (char) * 1);
 	var_content[0] = '\0';
 	return (var_content);
-}
-
-//ADD FREE C_TABLE->CMD WHEN MERGED!! IT IS ALLOCATED MEMORY FOR GODS SAKE!
-// "'$USER'"
-
-void	update_cmd(t_data *s, char *var, int start, char *name)
-{
-	char	*new;
-	int		i_old;
-	int		i_new;
-	int		i_var;
-
-	// printf("old:%s\nstart:%i\nname:%s\n", s->str, start, name);
-	new = malloc(sizeof (char) * (ft_strlen(var) + ft_strlen(s->str) - ft_strlen(name)));
-	i_new = 0;
-	i_old = 0;
-	while (i_old < start)
-	{
-		new[i_new] = s->str[i_old];
-		i_new++;
-		i_old++;
-	}
-	i_var = 0;
-	while (var[i_var] != '\0')
-	{
-		new[i_new] = var[i_var];
-		i_new++;
-		i_var++;
-	}
-	i_old += ft_strlen(name) + 1;
-	while (s->str[i_old] != '\0')
-	{
-		new[i_new] = s->str[i_old];
-		i_new++;
-		i_old++;
-	}
-	// printf("check:%s\n", new);
-	free(s->str);
-	new[i_new] = '\0';
-	s->str = new;
-	printf("new:[%s]\n", s->str);
 }

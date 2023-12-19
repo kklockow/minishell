@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 10:35:47 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/17 14:46:10 by fgabler          ###   ########.fr       */
+/*   Updated: 2023/12/19 13:08:26 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,5 +117,6 @@ void	set_process_state(t_process *process,int set_up, int lexer,
 void	input_check(int ac, char **av, t_coordinate *coordinate);
 void	set_error_code(t_shell *shell, int error_code);
 void	expand(t_parser *s);
+void	update_cmd(t_data *s, char *var, int start, char *name);
 
 #endif
