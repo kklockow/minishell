@@ -6,7 +6,7 @@
 /*   By: fgabler <mail@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 09:47:13 by fgabler           #+#    #+#             */
-/*   Updated: 2023/12/15 11:33:17 by fgabler          ###   ########.fr       */
+/*   Updated: 2023/12/18 15:52:08 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,12 @@ static void	set_structs(t_coordinate *coordinate);
 
 void	setup_structs(t_coordinate *coordinate, char **envp)
 {
-	if (coordinate->process.time_to_setup == false)
-		return ;
 	set_process(coordinate);
+	if (coordinate->process.time_to_setup == false)
+		coordinate->process.time_to_lex = false;
 	first_set_up(coordinate, envp);
 	allocate_structs(coordinate);
 	set_structs(coordinate);
-	return ;
 }
 
 static void	set_process(t_coordinate *coordinate)
@@ -38,8 +37,14 @@ static void	set_process(t_coordinate *coordinate)
 static void	allocate_structs(t_coordinate *coordinate)
 {
 	coordinate->parser = ft_calloc(1, sizeof(t_parser));
+	if (coordinate->parser == NULL)
+		return (stop_loop(coordinate), stop_process(&coordinate->process));
 	coordinate->parser->lexer = ft_calloc(1, sizeof(t_lexer));
+	if (coordinate->parser->lexer == NULL)
+		return (stop_loop(coordinate), stop_process(&coordinate->process));
 	coordinate->parser->command = ft_calloc(1, sizeof(t_cmd));
+	if (coordinate->parser->command == NULL)
+		return (stop_loop(coordinate), stop_process(&coordinate->process));
 }
 
 static void	first_set_up(t_coordinate *coordinate, char **envp)

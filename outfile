@@ -1,0 +1,10 @@
+Makefile
+README.txt
+_obj
+includes
+infile
+libs
+minishell
+out
+outfile
+src

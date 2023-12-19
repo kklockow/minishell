@@ -6,7 +6,7 @@
 /*   By: fgabler <mail@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 14:21:03 by fgabler           #+#    #+#             */
-/*   Updated: 2023/12/14 17:14:40 by fgabler          ###   ########.fr       */
+/*   Updated: 2023/12/15 16:45:22 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static int	is_space_after_token(t_lexer *lexer, int token_len)
 {
 	if (lexer->input[lexer->pos + token_len] == '\0')
 		return (false);
-	else if (lexer->input[lexer->pos + token_len + 1] == ' ')
+	else if (lexer->input[lexer->pos + token_len] == ' ')
 		return (true);
 	else
 		return (false);

@@ -6,7 +6,7 @@
 /*   By: fgabler <mail@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:11:43 by fgabler           #+#    #+#             */
-/*   Updated: 2023/12/14 17:13:17 by fgabler          ###   ########.fr       */
+/*   Updated: 2023/12/18 15:34:04 by fgabler          ###   ########.fr       */
 /*   Created: 2023/11/11 12:23:17 by fgabler           #+#    #+#             */
 /*   Updated: 2023/12/01 07:38:07 by fgabler          ###   ########.fr       */
 /*                                                                            */
@@ -14,9 +14,9 @@
 
 #include "minishell.h"
 
-int	lexing(t_lexer *lexer)
+int	lexing(t_lexer *lexer, t_process *process)
 {
-	if (lexer->shell->process->time_to_lex == false)
+	if (process->time_to_lex == false)
 		return (false);
 	lexer->shell->process->time_to_pars = true;
 	while (lexer->input[lexer->pos] != '\0' && time_to_lex(lexer) == true)

@@ -7,7 +7,7 @@ NAME = minishell
 ###############################################################################
 
 CC				=		cc
-CFLAGS			=		-Wall -Werror -Wextra -fsanitize=address -g
+CFLAGS			=		-Wno-error
 EXTRA_FLAGS		=		-lreadline
 HEADERS			=		-I./includes -I./libs/include
 LIBS			=		./libs
@@ -17,7 +17,7 @@ LIBS_NAME		=		./libs/libs.a
 ###############################################################################
 
 VPATH		:=		src src/lexer src/command_table src/utils src/init		\
-					src/builtins src/exec src/expander
+					src/builtins src/exec src/expander src/signals
 
 SRC_MAIN	:=		main.c
 SRC_LEXER	:=		lexer.c find_quote_pair.c add_token_node.c				\
@@ -27,15 +27,20 @@ SRC_LEXER	:=		lexer.c find_quote_pair.c add_token_node.c				\
 SRC_CMD_TAB	:=		command_table.c syntax_error_print.c syntax_check.c		\
 					redirect_rules_check.c pipe_roules_check.c				\
 					is_redirect.c fill_command_struct.c						\
-					command_node_add_back.c
-SRC_UTILS	:=		setup_structs.c get_input.c set_process.c stop_process.c
+					command_node_add_back.c add_space_check.c
+SRC_UTILS	:=		setup_structs.c get_input.c set_process.c				\
+					stop_process.c input_check.c set_error_code.c			\
+					stop_loop.c if_null_stop_process.c
 SRC_INIT	:=		init.c init_env.c
 SRC_BUIN	:=		builtins_cd.c builtins.c builtins_utils.c
 SRC_EXEC	:=		exec_utils.c executor.c heredoc_handling.c redirect.c
-SRC_EXPAND	:=		expander.c
+SRC_EXPAND	:=		expander.c update_cmd.c
+SRC_SIGNAL:=		catch_signals.c command_c.c command_quit.c				\
+					hide_ctrl_chars.c
 
 SOURCE 		:=		$(SRC_MAIN) $(SRC_LEXER) $(SRC_CMD_TAB) $(SRC_UTILS)	\
 					$(SRC_INIT) $(SRC_BUIN) $(SRC_EXEC) $(SRC_EXPAND)		\
+					$(SRC_SIGNAL)
 
 ###############################################################################
 ###############################################################################
