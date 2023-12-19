@@ -130,5 +130,6 @@ void	set_error_code(t_shell *shell, int error_code);
 void	expand(t_parser *s);
 void	stop_loop(t_coordinate *coordinate);
 void	if_null_stop_process(char *string, t_parser *parser);
+void	update_cmd(t_data *s, char *var, int start, char *name);
 
 #endif
