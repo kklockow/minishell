@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 13:01:44 by fgabler           #+#    #+#             */
-/*   Updated: 2023/12/17 14:42:26 by fgabler          ###   ########.fr       */
+/*   Updated: 2023/12/19 13:11:46 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,15 @@ typedef struct s_gpp
 	char	**possible_paths;
 	char	*temp;
 }t_gpp;
+
+typedef struct s_update
+{
+	char	*new;
+	int		i_old;
+	int		i_new;
+	int		i_var;
+	int		for_malloc;
+}t_update;
 
 ///////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////COORDINAR/////////////////////////////////

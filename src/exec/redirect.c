@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 14:37:28 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/14 17:55:52 by kklockow         ###   ########.fr       */
+/*   Updated: 2023/12/19 12:55:25 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,14 @@ int	open_outfile(t_cmd *c_table);
 
 int	redirect(t_cmd *c_table, int *pipefd)
 {
+	int	exit;
+
+	exit = 0;
 	if (handle_input(c_table) == -1)
-		return (-1);
+		exit = -1;
 	if (handle_output(c_table, pipefd) == -1)
-		return (-1);
-	return (0);
+		exit = -1;
+	return (exit);
 }
 
 //  * This function is responsible for handling input redirection for a command
