@@ -7,7 +7,7 @@ NAME = minishell
 ###############################################################################
 
 CC				=		cc
-CFLAGS			=		-Wno-error
+CFLAGS			=		-Wall -Werror -Wextra -fsanitize=address -g
 EXTRA_FLAGS		=		-lreadline
 HEADERS			=		-I./includes -I./libs/include
 LIBS			=		./libs
@@ -17,7 +17,8 @@ LIBS_NAME		=		./libs/libs.a
 ###############################################################################
 
 VPATH		:=		src src/lexer src/command_table src/utils src/init		\
-					src/builtins src/exec src/expander src/signals
+					src/builtins src/exec src/expander src/signals			\
+					src/free_structs
 
 SRC_MAIN	:=		main.c
 SRC_LEXER	:=		lexer.c find_quote_pair.c add_token_node.c				\
@@ -37,10 +38,12 @@ SRC_EXEC	:=		exec_utils.c executor.c heredoc_handling.c redirect.c
 SRC_EXPAND	:=		expander.c update_cmd.c
 SRC_SIGNAL:=		catch_signals.c command_c.c command_quit.c				\
 					hide_ctrl_chars.c
+SRC_FREE	:=		free_structs.c free_lexer_struct.c parser_free.c		\
+					save_free.c
 
 SOURCE 		:=		$(SRC_MAIN) $(SRC_LEXER) $(SRC_CMD_TAB) $(SRC_UTILS)	\
 					$(SRC_INIT) $(SRC_BUIN) $(SRC_EXEC) $(SRC_EXPAND)		\
-					$(SRC_SIGNAL)
+					$(SRC_SIGNAL) $(SRC_FREE)
 
 ###############################################################################
 ###############################################################################

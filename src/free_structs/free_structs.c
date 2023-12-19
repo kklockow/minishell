@@ -6,47 +6,15 @@
 /*   By: fgabler <mail@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 09:59:52 by fgabler           #+#    #+#             */
-/*   Updated: 2023/12/15 11:20:08 by fgabler          ###   ########.fr       */
+/*   Updated: 2023/12/19 19:54:54 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-/*
-static void	stop_process(t_process *process);
-static void	free_data_struct(t_data **data);
-static void	save_free(void **ptr);
-*/
-//void	free_structs(t_coordinate *coordinate)
-void	free_structs(void)
-{
-	//stop_process(&(*lexer)->process);
-	//free_data_struct(&(*lexer)->head);
-}
-/*
-static void	stop_process(t_process *process)
-{
-	process->time_to_lex = false;
-	process->time_to_exec = false;
-	process->time_to_pars = false;
-}
 
-static void	free_data_struct(t_data **data)
+void	free_structs(t_coordinate *coordinate)
 {
-	t_data	*tmp_data;
-
-	while ((*data) != NULL)
-	{
-		tmp_data = (*data)->next;
-		save_free((void *) &(*data)->str);
-		save_free((void *)data);
-		(*data) = tmp_data;
-	}
+	free_lexer_struct(&coordinate->parser->lexer);
+	parser_free(&coordinate->parser);
+	save_free((void **) &coordinate->input);
 }
-
-static void	save_free(void **ptr)
-{
-	if (*ptr != 0)
-		free(*ptr);
-	*ptr = NULL;
-}
-*/

@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 10:35:47 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/18 16:23:03 by fgabler          ###   ########.fr       */
+/*   Updated: 2023/12/19 19:53:09 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,11 @@ void	command_c(void);
 void	command_quit();
 void	hide_ctrl_chars(t_coordinate *coordinate);
 
+//FREE STRUCTS
+void	free_structs(t_coordinate *coordinate);
+void	free_lexer_struct(t_lexer **lexer);
+void	save_free(void **pointer);
+void	parser_free(t_parser **parser);
 
 //UTILS
 void	get_input(t_coordinate *coordinate);
