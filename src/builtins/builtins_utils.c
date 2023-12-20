@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 13:59:20 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/14 18:57:49 by kklockow         ###   ########.fr       */
+/*   Updated: 2023/12/19 20:19:41 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,15 @@ int	check_builtin(t_cmd *current_cmd)
 		return (1);
 	if (ft_strncmp(current_cmd->cmd, "pwd", 3) == 0)
 		return (1);
-	if (ft_strncmp(current_cmd->cmd, "export ", 7) == 0)
+	if (ft_strncmp(current_cmd->cmd, "export", 6) == 0)
 		return (1);
 	if (ft_strncmp(current_cmd->cmd, "unset ", 6) == 0)
 		return (1);
 	if (ft_strncmp(current_cmd->cmd, "env", 3) == 0)
 		return (1);
-	if (ft_strncmp(current_cmd->cmd, "exit", 4) == 0)
+	if (ft_strncmp(current_cmd->cmd, "exit", 4) == 0
+		&& (current_cmd->cmd[4] == ' '
+			|| current_cmd->cmd[4] == '\0'))
 		return (1);
 	return (0);
 }
@@ -48,7 +50,7 @@ int	handle_builtin(t_cmd *current_cmd, t_shell *shell)
 	if (ft_strncmp(current_cmd->cmd, "env", 3) == 0)
 		env_builtin(shell->envp);
 	if (ft_strncmp(current_cmd->cmd, "exit", 4) == 0)
-		exit (shell->exit_code);
+		exit_builtin(current_cmd->cmd, shell);
 	return (0);
 }
 

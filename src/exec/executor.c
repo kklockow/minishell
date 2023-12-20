@@ -6,15 +6,15 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 15:34:07 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/19 10:01:42 by fgabler          ###   ########.fr       */
+/*   Updated: 2023/12/20 14:10:47 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int		executor_with_pipes(t_cmd *c_table, char **envp);
+int		executor_with_pipes(t_cmd *c_table, t_shell *shell);
 void	handle_pipe(t_cmd *c_table, int *pipefd);
-int		execute_command(t_cmd *current_cmd, char **envp);
+void	execute_command(t_cmd *current_cmd, char **envp);
 int		executor_main(t_parser *parser, t_process *process);
 int		executor_no_pipes(t_cmd *c_table, t_shell *shell);
 
@@ -114,7 +114,7 @@ int	executor_main(t_parser *parser, t_process *process)
 	if (parser->command->next == NULL)
 		executor_no_pipes(parser->command, parser->shell);
 	else
-		executor_with_pipes(parser->command, parser->shell->envp);
+		executor_with_pipes(parser->command, parser->shell);
 	return (0);
 }
 
@@ -127,6 +127,7 @@ int	executor_no_pipes(t_cmd *c_table, t_shell *shell)
 {
 	pid_t	pid;
 	int		stdin;
+	int		status;
 
 	stdin = dup(STDIN_FILENO);
 	if (check_builtin(c_table) == 0)
@@ -138,9 +139,8 @@ int	executor_no_pipes(t_cmd *c_table, t_shell *shell)
 				return (-1);
 			execute_command(c_table, shell->envp);
 		}
-		if (c_table->heredoc != NULL)
-			waitpid(pid, 0, 0);
-		waitpid(pid, 0, 0);
+		waitpid(pid, &status, 0);
+		shell->exit_code = WEXITSTATUS(status);
 	}
 	else
 	{
@@ -156,11 +156,12 @@ int	executor_no_pipes(t_cmd *c_table, t_shell *shell)
 //  * commands in child processes. It also handles inter-process communication
 //  * with pipes and waits for child processes to finish execution.
 
-int	executor_with_pipes(t_cmd *c_table, char **envp)
+int	executor_with_pipes(t_cmd *c_table, t_shell *shell)
 {
 	int		pipefd[2];
 	pid_t	pid;
 	int		stdin;
+	int		status;
 
 	stdin = dup(STDIN_FILENO);
 	while (c_table != NULL)
@@ -174,14 +175,15 @@ int	executor_with_pipes(t_cmd *c_table, char **envp)
 		if (pid == 0)
 		{
 			redirect(c_table, pipefd);
-			execute_command(c_table, envp);
+			execute_command(c_table, shell->envp);
 		}
 		handle_pipe(c_table, pipefd);
 		if (c_table->heredoc != NULL)
 			waitpid(pid, 0, 0);
 		c_table = c_table->next;
 	}
-	waitpid(pid, 0, 0);
+	waitpid(pid, &status, 0);
+	shell->exit_code = WEXITSTATUS(status);
 	dup2(stdin, STDIN_FILENO);
 	return (0);
 }
@@ -191,14 +193,15 @@ int	executor_with_pipes(t_cmd *c_table, char **envp)
 //  * It then attempts to execute the command using execve. If execve fails,
 //  * it prints an error message and exits the child process.
 
-int	execute_command(t_cmd *current_cmd, char **envp)
+void	execute_command(t_cmd *current_cmd, char **envp)
 {
 	char	*path;
 	char	**split;
 
 	// putstr_error(current_cmd->cmd);
+	//change the flags
 	if (current_cmd->cmd == NULL || current_cmd->cmd[0] == '\0')
-		exit (0);
+		exit (1);
 	split = ft_split(current_cmd->cmd, ' ');
 	if (access(split[0], F_OK | X_OK) != 0)
 		path = get_path(split[0], envp);
@@ -208,7 +211,12 @@ int	execute_command(t_cmd *current_cmd, char **envp)
 	free(path);
 	// free_matrix(split);
 	dup2(STDOUT_FILENO, STDERR_FILENO);
-	printf("minishell: %s: command not found\n", current_cmd->cmd);
+	if (access(path, X_OK) == 0)
+	{
+		printf("dudel\n");
+		exit (126);
+	}
+	printf("minishell: %s: command not found\n", split[0]);
 	exit (127);
 }
 

@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 16:32:51 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/11 15:35:16 by kklockow         ###   ########.fr       */
+/*   Updated: 2023/12/19 19:35:27 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,6 @@ int	pwd_builtin(char *str)
 {
 	char	cwd[1028];
 
-	if (ft_strlen(str) > 3)
-	{
-		putstr_error("minishell: ");
-		putstr_error(str);
-		putstr_error(": command not found\n");
-		return (1);
-	}
 	getcwd(cwd, sizeof(cwd));
 	printf("%s\n", cwd);
 	return (0);

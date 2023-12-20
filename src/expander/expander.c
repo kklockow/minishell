@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 12:54:21 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/19 13:09:40 by kklockow         ###   ########.fr       */
+/*   Updated: 2023/12/20 14:06:17 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,14 @@ void	update_cmd(t_data *s, char *var, int start, char *name);
 void	expand(t_parser *s)
 {
 	t_data	*current;
+	int		guard;
 
+	guard = 0;
 	current = s->lexer->head;
 	while (current != NULL)
 	{
-		expander(s->shell, current);
+		if (guard == 0)
+			guard = expander(s->shell, current);
 		current = current->next;
 	}
 }
@@ -38,6 +41,8 @@ int	expander(t_shell *shell, t_data *s)
 
 	if (s->type == SINGLE_QUOTE)
 		return (0);
+	if (s->type == DOUBLE_LESS)
+		return (1);
 	sign_location = get_sign_location(s->str);
 	if (sign_location == -1)
 		return (0);

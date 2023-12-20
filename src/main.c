@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 10:35:04 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/18 15:46:43 by fgabler          ###   ########.fr       */
+/*   Updated: 2023/12/19 16:34:24 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	main(int ac, char **av, char **envp)
 		executor_main(coordinate.parser, &coordinate.process);
 		// free(input);
 	}
-	return (0);
+	return (coordinate.shell->exit_code);
 }
 /*
 int	main(int ac, char **av, char **envp)

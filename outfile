@@ -1,10 +1,11 @@
 Makefile
 README.txt
 _obj
+folder
 includes
 infile
 libs
 minishell
-out
 outfile
 src
+tmp_test
