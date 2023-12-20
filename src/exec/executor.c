@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 15:34:07 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/19 10:01:42 by fgabler          ###   ########.fr       */
+/*   Updated: 2023/12/20 17:06:29 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 int		executor_with_pipes(t_cmd *c_table, char **envp);
 void	handle_pipe(t_cmd *c_table, int *pipefd);
 int		execute_command(t_cmd *current_cmd, char **envp);
-int		executor_main(t_parser *parser, t_process *process);
 int		executor_no_pipes(t_cmd *c_table, t_shell *shell);
 
 void	putstr_error(char *str)
@@ -107,14 +106,14 @@ void	putstr_error(char *str)
 // 	return (0);
 // }
 
-int	executor_main(t_parser *parser, t_process *process)
+int	executor_main(t_cmd *command, t_shell *shell)
 {
-	if (process->time_to_exec != true)
+	if (shell->process->time_to_exec != true)
 		return (-1);
-	if (parser->command->next == NULL)
-		executor_no_pipes(parser->command, parser->shell);
+	if (command->next == NULL)
+		executor_no_pipes(command, shell);
 	else
-		executor_with_pipes(parser->command, parser->shell->envp);
+		executor_with_pipes(command, shell->envp);
 	return (0);
 }
 

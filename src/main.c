@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 10:35:04 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/20 14:32:39 by fgabler          ###   ########.fr       */
+/*   Updated: 2023/12/20 17:19:05 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,20 @@ int	main(int ac, char **av, char **envp)
 
 	catch_signals(&coordinate);
 	input_check(ac, av, &coordinate);
+	first_setup(&coordinate, envp);
 	while (coordinate.run_loop == true)
 	{
 		get_input(&coordinate);
-		setup_structs(&coordinate, envp);
+		setup_structs(&coordinate);
 		lexing(coordinate.parser->lexer, &coordinate.process);
 		command_table(coordinate.parser, &coordinate.process);
-		executor_main(coordinate.parser, &coordinate.process);
-		free_structs(&coordinate);
+		free_lexer_struct(&coordinate.parser->lexer);
+		parser_free(&coordinate.parser);
+		executor_main(coordinate.command, coordinate.shell);
+		free_command_struct(&coordinate.command);
 	}
 	exit_code = coordinate.shell->exit_code;
 	shell_struct_free(&coordinate.shell);
-	system("leaks minishell");
 	return (exit_code);
 }
 

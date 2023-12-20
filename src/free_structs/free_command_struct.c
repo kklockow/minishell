@@ -1,39 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_lexer_struct.c                                :+:      :+:    :+:   */
+/*   free_command_struct.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fgabler <mail@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/19 19:30:05 by fgabler           #+#    #+#             */
-/*   Updated: 2023/12/20 16:45:08 by fgabler          ###   ########.fr       */
+/*   Created: 2023/12/20 16:56:42 by fgabler           #+#    #+#             */
+/*   Updated: 2023/12/20 16:57:35 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	data_free(t_data **data);
-
-void	free_lexer_struct(t_lexer **lexer)
+void	free_command_struct(t_cmd **command)
 {
-	data_free(&(*lexer)->head);
-	(*lexer)->shell = NULL;
-	save_free((void **) &(*lexer)->input);
-	save_free((void **) lexer);
-}
+	t_cmd	*tmp;
 
-static void	data_free(t_data **data)
-{
-	t_data	*tmp;
-
-	if (*data == NULL)
+	if (command == NULL)
 		return ;
-	while (*data != NULL)
+	while (*command != NULL)
 	{
-		tmp = (*data)->next;
-		save_free((void **) &(*data)->str);
-		save_free((void **) data);
-		*data = tmp;
+		tmp = (*command)->next;
+		save_free((void **) &(*command)->cmd);
+		save_free((void **) &(*command)->infile);
+		save_free((void **) &(*command)->outfile);
+		save_free((void **) &(*command)->heredoc);
+		save_free((void **) &(*command)->heredoc);
+		save_free((void **) command);
+		*command = tmp;
 	}
-	*data = NULL;
+	command = NULL;
 }
