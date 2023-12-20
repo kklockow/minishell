@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 16:50:34 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/11 15:03:17 by kklockow         ###   ########.fr       */
+/*   Updated: 2023/12/20 16:31:48 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ char	**init_env(char **envp)
 	int		i;
 
 	shell_env = malloc(sizeof (char *) * (ft_env_len(envp) + 1));
+	if (shell_env == NULL)
+		return NULL;
 	i = 0;
 	while (envp[i])
 	{

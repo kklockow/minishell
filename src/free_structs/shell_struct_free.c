@@ -1,21 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   catch_signals.c                                    :+:      :+:    :+:   */
+/*   shell_struct_free.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fgabler <mail@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/17 16:54:28 by fgabler           #+#    #+#             */
-/*   Updated: 2023/12/20 14:24:09 by fgabler          ###   ########.fr       */
+/*   Created: 2023/12/20 14:16:35 by fgabler           #+#    #+#             */
+/*   Updated: 2023/12/20 14:30:44 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	catch_signals(t_coordinate *coordinate)
+static void	free_envp(char **envp);
+
+void	shell_struct_free(t_shell **shell)
 {
-	if (isatty(0) == true)
-		hide_ctrl_chars(coordinate);
-	command_c();
-	command_quit();
+	free_envp((*shell)->envp);
+	free(*shell);
+	*shell = NULL;
+}
+
+static void	free_envp(char **envp)
+{
+	free_dubble_array(envp);
+	envp = NULL;
 }
