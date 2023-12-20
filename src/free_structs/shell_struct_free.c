@@ -1,38 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_lexer_struct.c                                :+:      :+:    :+:   */
+/*   shell_struct_free.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fgabler <mail@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/19 19:30:05 by fgabler           #+#    #+#             */
-/*   Updated: 2023/12/20 13:21:48 by fgabler          ###   ########.fr       */
+/*   Created: 2023/12/20 14:16:35 by fgabler           #+#    #+#             */
+/*   Updated: 2023/12/20 14:30:44 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	data_free(t_data **data);
+static void	free_envp(char **envp);
 
-void	free_lexer_struct(t_lexer **lexer)
+void	shell_struct_free(t_shell **shell)
 {
-	data_free(&(*lexer)->head);
-	(*lexer)->shell = NULL;
-	save_free((void **) lexer);
+	free_envp((*shell)->envp);
+	free(*shell);
+	*shell = NULL;
 }
 
-static void	data_free(t_data **data)
+static void	free_envp(char **envp)
 {
-	t_data	*tmp;
-
-	if (*data == NULL)
-		return ;
-	while (*data != NULL)
-	{
-		tmp = (*data)->next;
-		save_free((void **) &(*data)->str);
-		save_free((void **) data);
-		*data = tmp;
-	}
-	*data = NULL;
+	free_dubble_array(envp);
+	envp = NULL;
 }

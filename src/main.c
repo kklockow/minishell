@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 10:35:04 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/19 19:56:06 by fgabler          ###   ########.fr       */
+/*   Updated: 2023/12/20 14:32:39 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ int	main(int ac, char **av, char **envp)
 		free_structs(&coordinate);
 	}
 	exit_code = coordinate.shell->exit_code;
+	shell_struct_free(&coordinate.shell);
+	system("leaks minishell");
 	return (exit_code);
 }
 

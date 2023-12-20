@@ -7,7 +7,7 @@ NAME = minishell
 ###############################################################################
 
 CC				=		cc
-CFLAGS			=		-Wall -Werror -Wextra -fsanitize=address -g
+CFLAGS			=		-Wall -Werror -Wextra  # -fsanitize=address -g
 EXTRA_FLAGS		=		-lreadline
 HEADERS			=		-I./includes -I./libs/include
 LIBS			=		./libs
@@ -39,7 +39,7 @@ SRC_EXPAND	:=		expander.c update_cmd.c
 SRC_SIGNAL:=		catch_signals.c command_c.c command_quit.c				\
 					hide_ctrl_chars.c
 SRC_FREE	:=		free_structs.c free_lexer_struct.c parser_free.c		\
-					save_free.c
+					save_free.c shell_struct_free.c
 
 SOURCE 		:=		$(SRC_MAIN) $(SRC_LEXER) $(SRC_CMD_TAB) $(SRC_UTILS)	\
 					$(SRC_INIT) $(SRC_BUIN) $(SRC_EXEC) $(SRC_EXPAND)		\
