@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 10:35:47 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/18 16:23:03 by fgabler          ###   ########.fr       */
+/*   Updated: 2023/12/20 17:05:49 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ char	*ft_strdup_init(const char *s1);
 void	move_to_next_token(int	*position, char *input);
 
 //EXECUTOR
-int		executor_main(t_parser *parser, t_process *process);
+int		executor_main(t_cmd *command, t_shell *shell);
 int		redirect(t_cmd *c_table, int *pipefd);
 
 void	check_envp(char **envp);
@@ -118,10 +118,20 @@ void	command_c(void);
 void	command_quit();
 void	hide_ctrl_chars(t_coordinate *coordinate);
 
+//FREE STRUCTS
+void	free_structs(t_coordinate *coordinate);
+void	free_lexer_struct(t_lexer **lexer);
+void	save_free(void **pointer);
+void	parser_free(t_parser **parser);
+void	shell_struct_free(t_shell **shell);
+void	free_command_struct(t_cmd **command);
+
+//SETUP
+void	first_setup(t_coordinate *coordinate, char **envp);
+void	setup_structs(t_coordinate *coordinate);
 
 //UTILS
 void	get_input(t_coordinate *coordinate);
-void	setup_structs(t_coordinate *coordinate, char **envp);
 void	stop_process(t_process *process);
 void	set_process_state(t_process *process,int set_up, int lexer,
 		int parser, int exec);
