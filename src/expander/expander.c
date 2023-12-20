@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 12:54:21 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/20 14:06:17 by kklockow         ###   ########.fr       */
+/*   Updated: 2023/12/20 20:38:39 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,13 @@ void	expand(t_parser *s)
 
 	guard = 0;
 	current = s->lexer->head;
+	// printf("start\n");
 	while (current != NULL)
 	{
+		// printf("before: [%s]\n", current->str);
 		if (guard == 0)
 			guard = expander(s->shell, current);
+		// printf("result: [%s]\n", current->str);
 		current = current->next;
 	}
 }
@@ -61,11 +64,41 @@ int	get_sign_location(char *str)
 
 	i = 0;
 	while (str[i] && str[i] != '$')
+	{
 		i++;
-	if (!(str[i]))
+		if (str[i] == '$')
+		{
+			if (str[i + 1] == '\0')
+				i++;
+			else if (str[i + 1] == ' ')
+				i++;
+		}
+	}
+	if (str[i] == '\0')
+		return (-1);
+	if (str[i] == '$' && (str[i + 1] == ' ' || str[i + 1] == '\0'))
 		return (-1);
 	return (i);
 }
+
+// if (str[i] == '\0')
+	// 	return (-1);
+	// if (str[i + 1] == ' ')
+	// 	get_sign_location(str, i + 1);
+	// if (str[i + 1] == '\0')
+	// 	return (-1);
+	// printf("%s\n", str);
+	// while (str[i] && str[i] != '$')
+	// 	i++;
+	// if (str[i] == '\0')
+	// {
+	// 	printf("went in\n");
+	// 	return (-1);
+	// }
+	// if (str[i + 1] == ' ')
+	// 	i = get_sign_location(str, i + 1);
+	// if (i == -1)
+	// 	return (-1);
 
 char	*get_variable_to_expand(char *str, int sign_location)
 {
@@ -105,6 +138,8 @@ char	*search_for_var(char *var, char **envp, t_shell *shell)
 		var_content = ft_itoa(shell->exit_code);
 		return (var_content);
 	}
+	if (ft_strncmp(var, " ", 1) == 0)
+		return (NULL);
 	var_equal = ft_strjoin(var, "=");
 	i = 0;
 	while (envp[i] != NULL)

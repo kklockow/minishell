@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 10:35:47 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/19 19:02:56 by kklockow         ###   ########.fr       */
+/*   Updated: 2023/12/20 20:09:45 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	move_to_next_token(int	*position, char *input);
 
 //EXECUTOR
 int		executor_main(t_parser *parser, t_process *process);
-int		redirect(t_cmd *c_table, int *pipefd);
+int		redirect(t_cmd *c_table, int *pipefd, t_shell *shell);
 
 void	check_envp(char **envp);
 char	**get_possible_paths(char **envp);
@@ -106,7 +106,7 @@ void	syntax_error_print(t_data *data);
 //BUILTIN
 
 int		echo_builtin(char *str);
-int		pwd_builtin(char *str);
+int		pwd_builtin(void);
 int		cd_builtin(char *str, t_shell *shell);
 int		env_builtin(char **envp);
 int		export_builtin(char *str, t_shell *shell);

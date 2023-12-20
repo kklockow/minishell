@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 15:34:07 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/20 14:10:47 by kklockow         ###   ########.fr       */
+/*   Updated: 2023/12/20 20:42:47 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,13 +129,14 @@ int	executor_no_pipes(t_cmd *c_table, t_shell *shell)
 	int		stdin;
 	int		status;
 
+	// printf("[%s]\n", c_table->cmd);
 	stdin = dup(STDIN_FILENO);
 	if (check_builtin(c_table) == 0)
 	{
 		pid = fork();
 		if (pid == 0)
 		{
-			if (redirect(c_table, NULL) == -1)
+			if (redirect(c_table, NULL, shell) == -1)
 				return (-1);
 			execute_command(c_table, shell->envp);
 		}
@@ -144,7 +145,7 @@ int	executor_no_pipes(t_cmd *c_table, t_shell *shell)
 	}
 	else
 	{
-		redirect(c_table, NULL);
+		redirect(c_table, NULL, shell);
 		handle_builtin(c_table, shell);
 	}
 	dup2(stdin, STDIN_FILENO);
@@ -174,7 +175,7 @@ int	executor_with_pipes(t_cmd *c_table, t_shell *shell)
 		pid = fork();
 		if (pid == 0)
 		{
-			redirect(c_table, pipefd);
+			redirect(c_table, pipefd, shell);
 			execute_command(c_table, shell->envp);
 		}
 		handle_pipe(c_table, pipefd);
@@ -208,14 +209,14 @@ void	execute_command(t_cmd *current_cmd, char **envp)
 	else
 		path = split[0];
 	execve(path, split, envp);
-	free(path);
-	// free_matrix(split);
-	dup2(STDOUT_FILENO, STDERR_FILENO);
 	if (access(path, X_OK) == 0)
 	{
 		printf("dudel\n");
 		exit (126);
 	}
+	free(path);
+	// free_matrix(split);
+	dup2(STDOUT_FILENO, STDERR_FILENO);
 	printf("minishell: %s: command not found\n", split[0]);
 	exit (127);
 }

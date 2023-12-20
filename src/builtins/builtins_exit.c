@@ -6,20 +6,16 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 19:00:16 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/20 13:30:15 by kklockow         ###   ########.fr       */
+/*   Updated: 2023/12/20 19:04:49 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	exit_builtin(char *str, t_shell *shell)
+int		check_numeric(char *str, int i)
 {
-	int	i;
-
-	i = 4;
-	if (str[i] == '\0')
-		exit (0);
-	i++;
+	if (str[i] == '-' || str[i] == '+')
+		i++;
 	while (str[i] && str[i] != ' ')
 	{
 		if (!(str[i] > 47 && str[i] < 58))
@@ -31,6 +27,18 @@ void	exit_builtin(char *str, t_shell *shell)
 		}
 		i++;
 	}
+	return(i);
+}
+
+void	exit_builtin(char *str, t_shell *shell)
+{
+	int	i;
+
+	i = 4;
+	if (str[i] == '\0')
+		exit (0);
+	i++;
+	i = check_numeric(str, i);
 	while (str[i] && str[i] == ' ')
 		i++;
 	if (str[i] != '\0')

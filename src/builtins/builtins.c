@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 16:32:51 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/19 19:35:27 by kklockow         ###   ########.fr       */
+/*   Updated: 2023/12/20 14:20:05 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	echo_builtin(char *str)
 //  * an error message. Otherwise, it retrieves the current working directory
 //  * and prints it to the standard output.
 
-int	pwd_builtin(char *str)
+int	pwd_builtin(void)
 {
 	char	cwd[1028];
 
