@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 10:35:47 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/20 20:09:45 by kklockow         ###   ########.fr       */
+/*   Updated: 2023/12/21 20:50:22 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ int		cd_builtin(char *str, t_shell *shell);
 int		env_builtin(char **envp);
 int		export_builtin(char *str, t_shell *shell);
 int		unset_builtin(char *str, t_shell *shell);
-void	exit_builtin(char *str, t_shell *shell);
+void	exit_builtin(t_cmd *cmd, t_shell *shell);
 
 //SIGNALS
 void	catch_signals(t_coordinate *coordinate);
@@ -143,5 +143,6 @@ void	expand(t_parser *s);
 void	stop_loop(t_coordinate *coordinate);
 void	if_null_stop_process(char *string, t_parser *parser);
 void	update_cmd(t_data *s, char *var, int start, char *name);
+void	clean_exit( int exit_code, t_shell *shell, t_cmd *cmd);
 
 #endif

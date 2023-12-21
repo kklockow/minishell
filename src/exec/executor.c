@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 15:34:07 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/21 16:45:01 by kklockow         ###   ########.fr       */
+/*   Updated: 2023/12/21 21:40:13 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 int		executor_with_pipes(t_cmd *c_table, t_shell *shell);
 void	handle_pipe(t_cmd *c_table, int *pipefd);
-void	execute_command(t_cmd *current_cmd, char **envp);
+void	execute_command(t_cmd *current_cmd, t_shell *shell);
 int		executor_main(t_cmd *command, t_shell *shell);
 int		executor_no_pipes(t_cmd *c_table, t_shell *shell);
-int		check_for_trailing_whitespace(char *str);
+int		check_for_whitespace(char *str);
 
 void	putstr_error(char *str)
 {
@@ -139,7 +139,7 @@ int	executor_no_pipes(t_cmd *c_table, t_shell *shell)
 		{
 			if (redirect(c_table, NULL, shell) == -1)
 				return (-1);
-			execute_command(c_table, shell->envp);
+			execute_command(c_table, shell);
 		}
 		waitpid(pid, &status, 0);
 		shell->exit_code = WEXITSTATUS(status);
@@ -177,7 +177,7 @@ int	executor_with_pipes(t_cmd *c_table, t_shell *shell)
 		if (pid == 0)
 		{
 			redirect(c_table, pipefd, shell);
-			execute_command(c_table, shell->envp);
+			execute_command(c_table, shell);
 		}
 		handle_pipe(c_table, pipefd);
 		if (c_table->heredoc != NULL)
@@ -195,7 +195,7 @@ int	executor_with_pipes(t_cmd *c_table, t_shell *shell)
 //  * It then attempts to execute the command using execve. If execve fails,
 //  * it prints an error message and exits the child process.
 
-void	execute_command(t_cmd *current_cmd, char **envp)
+void	execute_command(t_cmd *current_cmd, t_shell *shell)
 {
 	char	*path;
 	char	**split;
@@ -204,23 +204,24 @@ void	execute_command(t_cmd *current_cmd, char **envp)
 	//change the flags
 	// printf("[%s]\n", current_cmd->cmd);
 	if (current_cmd->cmd == NULL || current_cmd->cmd[0] == '\0')
-		exit (1);
-	if (check_for_trailing_whitespace(current_cmd->cmd) == 0)
+		clean_exit (1, shell, current_cmd);
+	if (check_for_whitespace(current_cmd->cmd) == 0)
 	{
 		split = ft_split(current_cmd->cmd, ' ');
 		if (access(split[0], F_OK | X_OK) != 0)
-			path = get_path(split[0], envp);
+			path = get_path(split[0], shell->envp);
 		else
-			path = split[0];
-		execve(path, split, envp);
-		free(path);
+			path = ft_strdup(split[0]);
+		execve(path, split, shell->envp);
 		dup2(STDOUT_FILENO, STDERR_FILENO);
 		printf("minishell: %s: command not found\n", split[0]);
-		exit (127);
+		free_matrix(split);
+		free(path);
+		clean_exit (127, shell, current_cmd);
 	}
 	dup2(STDOUT_FILENO, STDERR_FILENO);
 	printf("minishell: %s: command not found\n", current_cmd->cmd);
-	exit (127);
+	clean_exit (127, shell, current_cmd);
 }
 
 //  * This function is responsible for handling pipes between commands in the
@@ -239,13 +240,17 @@ void	handle_pipe(t_cmd *c_table, int *pipefd)
 	}
 }
 
-int	check_for_trailing_whitespace(char *str)
+int	check_for_whitespace(char *str)
 {
 	int	i;
 
 	i = 0;
+	if (!str)
+		return (0);
 	while (str[i] && str[i] != ' ')
 		i++;
+	if (i == 0)
+		return (1);
 	while (str[i] == ' ')
 	{
 		i++;

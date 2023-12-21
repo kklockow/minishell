@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 13:59:20 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/20 14:52:09 by kklockow         ###   ########.fr       */
+/*   Updated: 2023/12/21 20:47:37 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	handle_builtin(t_cmd *current_cmd, t_shell *shell)
 	if (ft_strncmp(current_cmd->cmd, "env", 3) == 0)
 		env_builtin(shell->envp);
 	if (ft_strncmp(current_cmd->cmd, "exit", 4) == 0)
-		exit_builtin(current_cmd->cmd, shell);
+		exit_builtin(current_cmd, shell);
 	return (0);
 }
 

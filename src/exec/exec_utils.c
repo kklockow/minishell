@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 14:56:29 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/15 14:32:03 by kklockow         ###   ########.fr       */
+/*   Updated: 2023/12/21 22:00:01 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,9 +129,13 @@ char	*get_path(char *cmd, char **envp)
 		if (access(path, F_OK | X_OK) != 0)
 			i++;
 		else
+		{
+			free_matrix(possible_paths);
 			return (path);
+		}
 		free(path);
 	}
+	free_matrix(possible_paths);
 	return (0);
 }
 
@@ -146,4 +150,5 @@ void	free_matrix(char **to_free)
 		i++;
 	}
 	free (to_free[i]);
+	free(to_free);
 }
