@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 16:26:16 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/19 12:41:37 by kklockow         ###   ########.fr       */
+/*   Updated: 2023/12/21 17:56:56 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,21 +22,21 @@ char		*ft_strjoin_add_newline(char *s1, char *s2);
 
 int	here_doc_handling(char *delimiter)
 {
-	pid_t	pid;
+	// pid_t	pid;
 	int		pipefd[2];
 
 	if (pipe(pipefd) == -1)
 		return (-1);
-	pid = fork();
-	if (pid < 0)
-		return (-1);
-	if (pid == 0)
-	{
+	// pid = fork();
+	// if (pid < 0)
+	// 	return (-1);
+	// if (pid == 0)
+	// {
 		if (fill_here_doc(delimiter, pipefd) == -1)
 			exit(-1);
-		exit(0);
-	}
-	waitpid(pid, 0, 0);
+		// exit(0);
+	// }
+	// waitpid(pid, 0, 0);
 	close(pipefd[1]);
 	return (pipefd[0]);
 }
