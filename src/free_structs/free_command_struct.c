@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_command_struct.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgabler <mail@student.42heilbronn.de>      +#+  +:+       +#+        */
+/*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 16:56:42 by fgabler           #+#    #+#             */
-/*   Updated: 2023/12/20 16:57:35 by fgabler          ###   ########.fr       */
+/*   Updated: 2023/12/21 16:57:31 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	free_command_struct(t_cmd **command)
 		save_free((void **) &(*command)->cmd);
 		save_free((void **) &(*command)->infile);
 		save_free((void **) &(*command)->outfile);
-		save_free((void **) &(*command)->heredoc);
 		save_free((void **) &(*command)->heredoc);
 		save_free((void **) command);
 		*command = tmp;

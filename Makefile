@@ -39,7 +39,7 @@ SRC_EXEC	:=		exec_utils.c executor.c heredoc_handling.c redirect.c
 SRC_EXPAND	:=		expander.c update_cmd.c
 SRC_SIGNAL	:=		catch_signals.c command_c.c command_quit.c				\
 					hide_ctrl_chars.c
-SRC_FREE	:=		free_structs.c free_lexer_struct.c parser_free.c		\
+SRC_FREE	:=		free_lexer_struct.c parser_free.c		\
 					save_free.c shell_struct_free.c free_command_struct.c
 SRC_SETUP	:=		setup_structs.c first_setup.c
 

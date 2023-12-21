@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 15:34:07 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/21 16:10:37 by kklockow         ###   ########.fr       */
+/*   Updated: 2023/12/21 16:45:01 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int		executor_with_pipes(t_cmd *c_table, t_shell *shell);
 void	handle_pipe(t_cmd *c_table, int *pipefd);
 void	execute_command(t_cmd *current_cmd, char **envp);
-int		executor_main(t_parser *parser, t_process *process);
+int		executor_main(t_cmd *command, t_shell *shell);
 int		executor_no_pipes(t_cmd *c_table, t_shell *shell);
 int		check_for_trailing_whitespace(char *str);
 
@@ -115,7 +115,7 @@ int	executor_main(t_cmd *command, t_shell *shell)
 	if (command->next == NULL)
 		executor_no_pipes(command, shell);
 	else
-		executor_with_pipes(parser->command, parser->shell);
+		executor_with_pipes(command, shell);
 	return (0);
 }
 
