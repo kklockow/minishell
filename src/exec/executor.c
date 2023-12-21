@@ -108,12 +108,12 @@ void	putstr_error(char *str)
 // 	return (0);
 // }
 
-int	executor_main(t_parser *parser, t_process *process)
+int	executor_main(t_cmd *command, t_shell *shell)
 {
-	if (process->time_to_exec != true)
+	if (shell->process->time_to_exec != true)
 		return (-1);
-	if (parser->command->next == NULL)
-		executor_no_pipes(parser->command, parser->shell);
+	if (command->next == NULL)
+		executor_no_pipes(command, shell);
 	else
 		executor_with_pipes(parser->command, parser->shell);
 	return (0);
