@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 16:32:51 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/11 15:35:16 by kklockow         ###   ########.fr       */
+/*   Updated: 2023/12/20 21:13:36 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,17 +49,10 @@ int	echo_builtin(char *str)
 //  * an error message. Otherwise, it retrieves the current working directory
 //  * and prints it to the standard output.
 
-int	pwd_builtin(char *str)
+int	pwd_builtin(void)
 {
 	char	cwd[1028];
 
-	if (ft_strlen(str) > 3)
-	{
-		putstr_error("minishell: ");
-		putstr_error(str);
-		putstr_error(": command not found\n");
-		return (1);
-	}
 	getcwd(cwd, sizeof(cwd));
 	printf("%s\n", cwd);
 	return (0);
@@ -131,6 +124,13 @@ int	unset_builtin(char *str, t_shell *shell)
 	while (var[num] != NULL)
 	{
 		i = 0;
+		if (ft_isalpha(var[num][0]) == 0)
+		{
+			ft_putstr_fd("minishell: unset: `", 2);
+			ft_putstr_fd(var[num], 2);
+			ft_putstr_fd("': not a valid indentifier\n", 2);
+			shell->exit_code = 1;
+		}
 		while (var[num][i] && var[num][i] != '=')
 			i++;
 		len = i;

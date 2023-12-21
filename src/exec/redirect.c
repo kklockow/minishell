@@ -6,25 +6,25 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 14:37:28 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/19 12:55:25 by kklockow         ###   ########.fr       */
+/*   Updated: 2023/12/20 20:12:38 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	handle_input(t_cmd *c_table);
-int	handle_output(t_cmd *c_table, int *pipefd);
-int	open_infile(t_cmd *c_table);
-int	open_outfile(t_cmd *c_table);
+int	handle_input(t_cmd *c_table, t_shell *shell);
+int	handle_output(t_cmd *c_table, int *pipefd, t_shell *shell);
+int	open_infile(t_cmd *c_table, t_shell *shell);
+int	open_outfile(t_cmd *c_table, t_shell *shell);
 
-int	redirect(t_cmd *c_table, int *pipefd)
+int	redirect(t_cmd *c_table, int *pipefd, t_shell *shell)
 {
 	int	exit;
 
 	exit = 0;
-	if (handle_input(c_table) == -1)
+	if (handle_input(c_table, shell) == -1)
 		exit = -1;
-	if (handle_output(c_table, pipefd) == -1)
+	if (handle_output(c_table, pipefd, shell) == -1)
 		exit = -1;
 	return (exit);
 }
@@ -35,14 +35,14 @@ int	redirect(t_cmd *c_table, int *pipefd)
 //  * heredoc file descriptor. It then duplicates the file descriptor to the
 //  * standard input and closes the file descriptor.
 
-int	handle_input(t_cmd *c_table)
+int	handle_input(t_cmd *c_table, t_shell *shell)
 {
 	int	fd_in;
 
 	if (c_table->read_pipe == 0
 		&& (c_table->infile != NULL || c_table->heredoc != NULL))
 	{
-		fd_in = open_infile(c_table);
+		fd_in = open_infile(c_table, shell);
 		if (fd_in == -1)
 			return (-1);
 		dup2(fd_in, STDIN_FILENO);
@@ -57,7 +57,7 @@ int	handle_input(t_cmd *c_table)
 //  * file descriptor. Otherwise, it opens the specified input file in
 //  * read-only mode and returns the file descriptor.
 
-int	open_infile(t_cmd *c_table)
+int	open_infile(t_cmd *c_table, t_shell *shell)
 {
 	int	fd;
 
@@ -68,7 +68,10 @@ int	open_infile(t_cmd *c_table)
 		fd = open(c_table->infile, O_RDONLY, 0644);
 	if (fd == -1)
 	{
-		printf("minishell: %s: No such file or directory\n", c_table->infile);
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(c_table->infile, 2);
+		ft_putstr_fd(": No such file or directory\n", 2);
+		shell->exit_code = 1;
 		return (-1);
 	}
 	return (fd);
@@ -80,7 +83,7 @@ int	open_infile(t_cmd *c_table)
 // command has an output file specified, it opens the output file in write-only
 // mode and duplicates the file descriptor to the standard output.
 
-int	handle_output(t_cmd *c_table, int *pipefd)
+int	handle_output(t_cmd *c_table, int *pipefd, t_shell *shell)
 {
 	int	fd_out;
 
@@ -92,7 +95,7 @@ int	handle_output(t_cmd *c_table, int *pipefd)
 	}
 	else if (c_table->outfile != NULL)
 	{
-		fd_out = open_outfile(c_table);
+		fd_out = open_outfile(c_table, shell);
 		if (fd_out == -1)
 			return (-1);
 		dup2(fd_out, STDOUT_FILENO);
@@ -105,16 +108,23 @@ int	handle_output(t_cmd *c_table, int *pipefd)
 //  * in the command table. If the command has the append flag set, it opens
 //  * the file in append mode; otherwise, it opens the file in truncate mode.
 
-int	open_outfile(t_cmd *c_table)
+int	open_outfile(t_cmd *c_table, t_shell *shell)
 {
 	int	fd;
 
 	fd = 1;
+	printf("%s\n", c_table->outfile);
 	if (c_table->append == 1)
 		fd = open(c_table->outfile, O_WRONLY | O_APPEND | O_CREAT, 0644);
 	else
 		fd = open(c_table->outfile, O_WRONLY | O_TRUNC | O_CREAT, 0644);
 	if (fd == -1)
+	{
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(c_table->outfile, 2);
+		ft_putstr_fd(": No such file or directory\n", 2);
+		shell->exit_code = 1;
 		return (-1);
+	}
 	return (fd);
 }
