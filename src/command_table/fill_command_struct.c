@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 16:26:17 by fgabler           #+#    #+#             */
-/*   Updated: 2023/12/20 20:32:01 by kklockow         ###   ########.fr       */
+/*   Updated: 2023/12/21 14:30:12 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	fill_command_struct(t_parser *parser)
 	// 	printf("heredoc: [%s]\n", test_print->heredoc);
 	// 	printf("infile: [%s]\n", test_print->infile);
 	// 	printf("outfile: [%s]\n", test_print->outfile);
-	// 	printf("expand: %d\n", test_print->append);
+	// 	printf("append: %d\n", test_print->append);
 	// 	printf("write: %d\n", test_print->write_pipe);
 	// 	printf("read: %d\n", test_print->read_pipe);
 	// 	test_print = test_print->next;

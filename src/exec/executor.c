@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 15:34:07 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/20 20:42:47 by kklockow         ###   ########.fr       */
+/*   Updated: 2023/12/21 16:10:37 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	handle_pipe(t_cmd *c_table, int *pipefd);
 void	execute_command(t_cmd *current_cmd, char **envp);
 int		executor_main(t_parser *parser, t_process *process);
 int		executor_no_pipes(t_cmd *c_table, t_shell *shell);
+int		check_for_trailing_whitespace(char *str);
 
 void	putstr_error(char *str)
 {
@@ -201,23 +202,24 @@ void	execute_command(t_cmd *current_cmd, char **envp)
 
 	// putstr_error(current_cmd->cmd);
 	//change the flags
+	// printf("[%s]\n", current_cmd->cmd);
 	if (current_cmd->cmd == NULL || current_cmd->cmd[0] == '\0')
 		exit (1);
-	split = ft_split(current_cmd->cmd, ' ');
-	if (access(split[0], F_OK | X_OK) != 0)
-		path = get_path(split[0], envp);
-	else
-		path = split[0];
-	execve(path, split, envp);
-	if (access(path, X_OK) == 0)
+	if (check_for_trailing_whitespace(current_cmd->cmd) == 0)
 	{
-		printf("dudel\n");
-		exit (126);
+		split = ft_split(current_cmd->cmd, ' ');
+		if (access(split[0], F_OK | X_OK) != 0)
+			path = get_path(split[0], envp);
+		else
+			path = split[0];
+		execve(path, split, envp);
+		free(path);
+		dup2(STDOUT_FILENO, STDERR_FILENO);
+		printf("minishell: %s: command not found\n", split[0]);
+		exit (127);
 	}
-	free(path);
-	// free_matrix(split);
 	dup2(STDOUT_FILENO, STDERR_FILENO);
-	printf("minishell: %s: command not found\n", split[0]);
+	printf("minishell: %s: command not found\n", current_cmd->cmd);
 	exit (127);
 }
 
@@ -235,4 +237,20 @@ void	handle_pipe(t_cmd *c_table, int *pipefd)
 		close(pipefd[0]);
 		close(pipefd[1]);
 	}
+}
+
+int	check_for_trailing_whitespace(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] && str[i] != ' ')
+		i++;
+	while (str[i] == ' ')
+	{
+		i++;
+		if (str[i] == '\0')
+			return (1);
+	}
+	return (0);
 }
