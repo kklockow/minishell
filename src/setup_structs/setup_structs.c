@@ -6,7 +6,7 @@
 /*   By: fgabler <mail@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 09:47:13 by fgabler           #+#    #+#             */
-/*   Updated: 2023/12/20 17:15:09 by fgabler          ###   ########.fr       */
+/*   Updated: 2023/12/22 16:32:13 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,5 @@ static void	set_structs(t_coordinate *coordinate)
 	coordinate->parser->lexer->shell = coordinate->shell;
 	coordinate->parser->lexer->input = coordinate->input;
 	coordinate->process.run_loop = &coordinate->run_loop;
-
 	coordinate->command = coordinate->parser->command;
 }

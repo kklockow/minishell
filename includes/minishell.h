@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 10:35:47 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/20 20:09:45 by kklockow         ###   ########.fr       */
+/*   Updated: 2023/12/22 16:34:26 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # include <sys/ioctl.h>
 # include <signal.h>
 # include <limits.h>
-#include <termios.h>
+# include <termios.h>
 
 ///////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////SELFMADE//LIBARY///////////////////////////////
@@ -79,7 +79,6 @@ char	**env_remove_one(char **envp, char *str, int len);
 char	**env_add_new(char **envp, char *str);
 int		count_till_equal(char *str);
 
-
 //LEXER
 int		lexing(t_lexer *lexer, t_process *process);
 int		find_quote_pair(t_lexer *lexer);
@@ -117,7 +116,7 @@ void	exit_builtin(char *str, t_shell *shell);
 //SIGNALS
 void	catch_signals(t_coordinate *coordinate);
 void	command_c(void);
-void	command_quit();
+void	command_quit(void);
 void	hide_ctrl_chars(t_coordinate *coordinate);
 
 //FREE STRUCTS
@@ -135,8 +134,6 @@ void	setup_structs(t_coordinate *coordinate);
 //UTILS
 void	get_input(t_coordinate *coordinate);
 void	stop_process(t_process *process);
-void	set_process_state(t_process *process,int set_up, int lexer,
-		int parser, int exec);
 void	input_check(int ac, char **av, t_coordinate *coordinate);
 void	set_error_code(t_shell *shell, int error_code);
 void	expand(t_parser *s);
