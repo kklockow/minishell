@@ -25,6 +25,7 @@ int	here_doc_handling(char *delimiter)
 	// pid_t	pid;
 	int		pipefd[2];
 
+	signal(SIGINT, SIG_DFL);
 	if (pipe(pipefd) == -1)
 		return (-1);
 	// pid = fork();
@@ -32,8 +33,8 @@ int	here_doc_handling(char *delimiter)
 	// 	return (-1);
 	// if (pid == 0)
 	// {
-		if (fill_here_doc(delimiter, pipefd) == -1)
-			exit(-1);
+	if (fill_here_doc(delimiter, pipefd) == -1)
+		exit(-1);
 		// exit(0);
 	// }
 	// waitpid(pid, 0, 0);
