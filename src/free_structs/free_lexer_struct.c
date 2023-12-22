@@ -1,36 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   command_c.c                                        :+:      :+:    :+:   */
+/*   free_lexer_struct.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fgabler <mail@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/18 08:53:49 by fgabler           #+#    #+#             */
-/*   Updated: 2023/12/22 16:31:44 by fgabler          ###   ########.fr       */
+/*   Created: 2023/12/19 19:30:05 by fgabler           #+#    #+#             */
+/*   Updated: 2023/12/20 16:45:08 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	command_c_handler(int signum, siginfo_t *info, void *context);
+static void	data_free(t_data **data);
 
-void	command_c(void)
+void	free_lexer_struct(t_lexer **lexer)
 {
-	struct sigaction	command_c;
-
-	command_c.sa_sigaction = command_c_handler;
-	sigaction(SIGINT, &command_c, NULL);
+	data_free(&(*lexer)->head);
+	(*lexer)->shell = NULL;
+	save_free((void **) &(*lexer)->input);
+	save_free((void **) lexer);
 }
 
-static void	command_c_handler(int signum, siginfo_t *info, void *context)
+static void	data_free(t_data **data)
 {
-	(void) info;
-	(void) context;
-	if (signum == SIGINT)
+	t_data	*tmp;
+
+	if (*data == NULL)
+		return ;
+	while (*data != NULL)
 	{
-		write(1, "\n", 1);
-		rl_on_new_line();
-		rl_replace_line("", 1);
-		rl_redisplay();
+		tmp = (*data)->next;
+		save_free((void **) &(*data)->str);
+		save_free((void **) data);
+		*data = tmp;
 	}
+	*data = NULL;
 }

@@ -1,25 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   command_table.c                                    :+:      :+:    :+:   */
+/*   free_command_struct.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/30 18:18:09 by fgabler           #+#    #+#             */
-/*   Updated: 2023/12/22 13:13:05 by fgabler          ###   ########.fr       */
+/*   Created: 2023/12/20 16:56:42 by fgabler           #+#    #+#             */
+/*   Updated: 2023/12/21 16:57:31 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	command_table(t_parser *parser, t_process *process)
+void	free_command_struct(t_cmd **command)
 {
-	if (process->time_to_pars == false)
-		return (false);
-	syntax_check(parser);
-	expand(parser);
-	fill_command_struct(parser);
-	if (parser->error_accured == false)
-		parser->shell->process->time_to_exec = true;
-	return (true);
+	t_cmd	*tmp;
+
+	if (command == NULL)
+		return ;
+	while (*command != NULL)
+	{
+		tmp = (*command)->next;
+		save_free((void **) &(*command)->cmd);
+		save_free((void **) &(*command)->infile);
+		save_free((void **) &(*command)->outfile);
+		save_free((void **) &(*command)->heredoc);
+		save_free((void **) command);
+		*command = tmp;
+	}
+	command = NULL;
 }

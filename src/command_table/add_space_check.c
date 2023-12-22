@@ -6,7 +6,7 @@
 /*   By: fgabler <mail@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 15:56:43 by fgabler           #+#    #+#             */
-/*   Updated: 2023/12/17 14:36:45 by fgabler          ###   ########.fr       */
+/*   Updated: 2023/12/22 13:13:30 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ int	add_space_check(t_data *data)
 		&& space_after_token(data) == true)
 		return (true);
 	return (false);
-
 }
 
 static int	next_token_pipe(t_data *data)

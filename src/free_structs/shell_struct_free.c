@@ -1,21 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   command_quit.c                                     :+:      :+:    :+:   */
+/*   shell_struct_free.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fgabler <mail@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/18 12:51:26 by fgabler           #+#    #+#             */
-/*   Updated: 2023/12/22 16:29:40 by fgabler          ###   ########.fr       */
+/*   Created: 2023/12/20 14:16:35 by fgabler           #+#    #+#             */
+/*   Updated: 2023/12/20 14:30:44 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	command_quit(void)
-{
-	struct sigaction	command_d;
+static void	free_envp(char **envp);
 
-	command_d.sa_handler = SIG_IGN;
-	sigaction(SIGQUIT, &command_d, NULL);
+void	shell_struct_free(t_shell **shell)
+{
+	free_envp((*shell)->envp);
+	free(*shell);
+	*shell = NULL;
+}
+
+static void	free_envp(char **envp)
+{
+	free_dubble_array(envp);
+	envp = NULL;
 }

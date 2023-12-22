@@ -6,7 +6,7 @@
 /*   By: fgabler <mail@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 08:56:50 by fgabler           #+#    #+#             */
-/*   Updated: 2023/12/18 16:02:58 by fgabler          ###   ########.fr       */
+/*   Updated: 2023/12/22 13:12:33 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,13 @@ static void	allocate_command_node(t_cmd **command, int *error_accured)
 	{
 		perror("");
 		*error_accured = true;
-		return ; //free
+		return ;
 	}
 }
 
 static void	go_to_last_command_node(t_cmd **command)
 {
-	t_cmd *current;
+	t_cmd	*current;
 
 	current = *command;
 	while (current != NULL)

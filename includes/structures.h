@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 13:01:44 by fgabler           #+#    #+#             */
-/*   Updated: 2023/12/19 13:11:46 by kklockow         ###   ########.fr       */
+/*   Updated: 2023/12/22 16:35:12 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 //////////////////////////////////GLOBAL/STRUCTS///////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 
-struct s_parser;
-struct s_cmd;
+struct	s_parser;
+struct	s_cmd;
 
 ///////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////PROCESS/MANAGMENT////////////////////////////
@@ -26,6 +26,7 @@ struct s_cmd;
 
 typedef struct s_process
 {
+	int		*run_loop;
 	int		time_to_setup;
 	int		time_to_lex;
 	int		time_to_pars;
@@ -131,6 +132,7 @@ typedef struct s_coordinate
 {
 	t_process	process;
 	t_parser	*parser;
+	t_cmd		*command;
 	t_shell		*shell;
 	char		*input;
 	int			first_set_up;

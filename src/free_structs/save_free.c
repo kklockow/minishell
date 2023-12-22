@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   command_quit.c                                     :+:      :+:    :+:   */
+/*   save_free.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgabler <mail@student.42heilbronn.de>      +#+  +:+       +#+        */
+/*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/18 12:51:26 by fgabler           #+#    #+#             */
-/*   Updated: 2023/12/22 16:29:40 by fgabler          ###   ########.fr       */
+/*   Created: 2023/12/19 19:32:35 by fgabler           #+#    #+#             */
+/*   Updated: 2023/12/21 16:58:12 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	command_quit(void)
+void	save_free(void **pointer)
 {
-	struct sigaction	command_d;
-
-	command_d.sa_handler = SIG_IGN;
-	sigaction(SIGQUIT, &command_d, NULL);
+	if (*pointer == NULL)
+		return ;
+	free(*pointer);
+	*pointer = NULL;
 }

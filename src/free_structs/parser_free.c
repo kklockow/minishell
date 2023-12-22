@@ -1,21 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   command_quit.c                                     :+:      :+:    :+:   */
+/*   parser_free.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fgabler <mail@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/18 12:51:26 by fgabler           #+#    #+#             */
-/*   Updated: 2023/12/22 16:29:40 by fgabler          ###   ########.fr       */
+/*   Created: 2023/12/19 19:38:55 by fgabler           #+#    #+#             */
+/*   Updated: 2023/12/20 17:13:06 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	command_quit(void)
+void	parser_free(t_parser **parser)
 {
-	struct sigaction	command_d;
-
-	command_d.sa_handler = SIG_IGN;
-	sigaction(SIGQUIT, &command_d, NULL);
+	(*parser)->shell = NULL;
+	(*parser)->command = NULL;
+	save_free((void **) parser);
 }
