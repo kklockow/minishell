@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 15:34:07 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/22 11:17:28 by kklockow         ###   ########.fr       */
+/*   Updated: 2024/01/02 13:11:57 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	executor_no_pipes(t_cmd *c_table, t_shell *shell)
 	else
 	{
 		redirect(c_table, NULL, shell);
-		handle_builtin(c_table, shell);
+		shell->exit_code = handle_builtin(c_table, shell);
 	}
 	command_c();
 	dup2(stdin, STDIN_FILENO);
@@ -120,6 +120,9 @@ void	execute_command(t_cmd *current_cmd, t_shell *shell, t_cmd *head)
 	char	*path;
 	char	**split;
 
+	// ft_putstr_fd("[", 2);
+	// ft_putstr_fd(current_cmd->cmd, 2);
+	// ft_putstr_fd("]\n", 2);
 	if (current_cmd->cmd == NULL || current_cmd->cmd[0] == '\0')
 		clean_exit (1, shell, head);
 	if (check_for_whitespace(current_cmd->cmd) == 0)

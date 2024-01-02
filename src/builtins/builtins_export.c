@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 09:27:11 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/22 13:50:03 by kklockow         ###   ########.fr       */
+/*   Updated: 2024/01/02 14:56:38 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ int	export_builtin(char *str, t_shell *shell)
 	int		len;
 	char	**var;
 
-	// printf("DOES NOTHING CURRENTLY AAAAAAARG\n");
+	printf("DOES NOTHING CURRENTLY AAAAAAARG\n");
 	return (0);
 	if (str[0] == '\0')
 	{
@@ -126,3 +126,4 @@ int	export_builtin(char *str, t_shell *shell)
 	}
 	return (0);
 }
+

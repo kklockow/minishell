@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 13:59:20 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/22 13:02:09 by kklockow         ###   ########.fr       */
+/*   Updated: 2024/01/02 13:10:54 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,17 +61,17 @@ int	handle_builtin_piped(t_cmd *current_cmd, t_shell *shell, t_cmd *head)
 
 	if (ft_strncmp(current_cmd->cmd, "echo", 4) == 0)
 	{
-		echo_builtin(current_cmd->cmd);
+		shell->exit_code = echo_builtin(current_cmd->cmd);
 		clean_exit(shell->exit_code, shell, head);
 	}
 	if (ft_strncmp(current_cmd->cmd, "pwd", 3) == 0)
 	{
-		pwd_builtin();
+		shell->exit_code = pwd_builtin();
 		clean_exit(shell->exit_code, shell, head);
 	}
 	if (ft_strncmp(current_cmd->cmd, "env", 3) == 0)
 	{
-		env_builtin(shell->envp);
+		shell->exit_code = env_builtin(shell->envp);
 		clean_exit(shell->exit_code, shell, head);
 	}
 	return (0);
