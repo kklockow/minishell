@@ -6,13 +6,13 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 19:00:16 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/21 21:12:06 by kklockow         ###   ########.fr       */
+/*   Updated: 2023/12/22 14:08:55 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int		check_numeric(char *str, int i, t_cmd *cmd, t_shell *shell)
+int	check_numeric(char *str, int i, t_cmd *cmd, t_shell *shell)
 {
 	if (str[i] == '-' || str[i] == '+')
 		i++;
@@ -27,7 +27,7 @@ int		check_numeric(char *str, int i, t_cmd *cmd, t_shell *shell)
 		}
 		i++;
 	}
-	return(i);
+	return (i);
 }
 
 void	exit_builtin(t_cmd *cmd, t_shell *shell)
@@ -49,7 +49,6 @@ void	exit_builtin(t_cmd *cmd, t_shell *shell)
 		shell->exit_code = 1;
 		return ;
 	}
-	// printf("%i\n", ft_atoi(str + 5));
 	clean_exit(ft_atoi(str + 5), shell, cmd);
 }
 
@@ -57,5 +56,6 @@ void	clean_exit(int exit_code, t_shell *shell, t_cmd *cmd)
 {
 	shell_struct_free(&shell);
 	free_command_struct(&cmd);
+	rl_clear_history();
 	exit (exit_code);
 }

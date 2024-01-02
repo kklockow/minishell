@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins_utils.c                                   :+:      :+:    :+:   */
+/*   builtins_utils_00.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 13:59:20 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/21 20:47:37 by kklockow         ###   ########.fr       */
+/*   Updated: 2023/12/22 13:02:09 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,35 @@ int	handle_builtin(t_cmd *current_cmd, t_shell *shell)
 	if (ft_strncmp(current_cmd->cmd, "pwd", 3) == 0)
 		pwd_builtin();
 	if (ft_strncmp(current_cmd->cmd, "export", 6) == 0)
-		export_builtin(current_cmd->cmd + 7, shell);
+		export_builtin(current_cmd->cmd + 6, shell);
 	if (ft_strncmp(current_cmd->cmd, "unset", 5) == 0)
 		unset_builtin(current_cmd->cmd + 6, shell);
 	if (ft_strncmp(current_cmd->cmd, "env", 3) == 0)
 		env_builtin(shell->envp);
 	if (ft_strncmp(current_cmd->cmd, "exit", 4) == 0)
 		exit_builtin(current_cmd, shell);
+	return (0);
+}
+
+int	handle_builtin_piped(t_cmd *current_cmd, t_shell *shell, t_cmd *head)
+{
+	int	exit_code;
+
+	if (ft_strncmp(current_cmd->cmd, "echo", 4) == 0)
+	{
+		echo_builtin(current_cmd->cmd);
+		clean_exit(shell->exit_code, shell, head);
+	}
+	if (ft_strncmp(current_cmd->cmd, "pwd", 3) == 0)
+	{
+		pwd_builtin();
+		clean_exit(shell->exit_code, shell, head);
+	}
+	if (ft_strncmp(current_cmd->cmd, "env", 3) == 0)
+	{
+		env_builtin(shell->envp);
+		clean_exit(shell->exit_code, shell, head);
+	}
 	return (0);
 }
 
@@ -114,18 +136,4 @@ char	**env_add_new(char **envp, char *str)
 	}
 	free(envp);
 	return (shell_env);
-}
-
-//  * This function counts the number of characters in a string until the first
-//  * '=' character is encountered. It is useful for determining the length of
-//  * environment variable names.
-
-int	count_till_equal(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i] && str[i] != '=')
-		i++;
-	return (i);
 }

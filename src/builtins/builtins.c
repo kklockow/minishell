@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 16:32:51 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/20 21:13:36 by kklockow         ###   ########.fr       */
+/*   Updated: 2023/12/22 10:36:27 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,40 +58,6 @@ int	pwd_builtin(void)
 	return (0);
 }
 
-//* This function implements the export built-in command. It takes a string
-//* containing environment variable assignments, splits them into individual
-//* variables, and updates the shell's environment accordingly. If an existing
-//* variable is found, its value is updated; otherwise, a new variable is added
-//* to the environment.
-
-int	export_builtin(char *str, t_shell *shell)
-{
-	int		i;
-	int		num;
-	int		len;
-	char	**var;
-
-	var = ft_split(str, ' ');
-	num = 0;
-	while (var[num] != NULL)
-	{
-		len = count_till_equal(var[num]);
-		i = 0;
-		while (shell->envp[i] != 0
-			&& ft_strncmp(shell->envp[i], var[num], len) != 0)
-			i++;
-		if (shell->envp[i] != NULL)
-		{
-			free(shell->envp[i]);
-			shell->envp[i] = ft_strdup_init(var[num]);
-		}
-		else
-			shell->envp = env_add_new(shell->envp, var[num]);
-		num++;
-	}
-	return (0);
-}
-
 // This function implements the env built-in command. It takes the current
 // environment variables and prints them to the standard output, one per line.
 
@@ -112,6 +78,17 @@ int	env_builtin(char **envp)
 //environment variables from the shell's environment.
 //If a variable is not found, it prints an error message.
 
+void	check_for_invalid(char *str, t_shell *shell)
+{
+	if (ft_isalpha(str[0]) == 0)
+	{
+		ft_putstr_fd("minishell: unset: `", 2);
+		ft_putstr_fd(str, 2);
+		ft_putstr_fd("': not a valid indentifier\n", 2);
+		shell->exit_code = 1;
+	}
+}
+
 int	unset_builtin(char *str, t_shell *shell)
 {
 	int		i;
@@ -124,13 +101,7 @@ int	unset_builtin(char *str, t_shell *shell)
 	while (var[num] != NULL)
 	{
 		i = 0;
-		if (ft_isalpha(var[num][0]) == 0)
-		{
-			ft_putstr_fd("minishell: unset: `", 2);
-			ft_putstr_fd(var[num], 2);
-			ft_putstr_fd("': not a valid indentifier\n", 2);
-			shell->exit_code = 1;
-		}
+		check_for_invalid(var[num], shell);
 		while (var[num][i] && var[num][i] != '=')
 			i++;
 		len = i;

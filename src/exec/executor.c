@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 15:34:07 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/21 21:40:13 by kklockow         ###   ########.fr       */
+/*   Updated: 2023/12/22 11:17:28 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,99 +14,10 @@
 
 int		executor_with_pipes(t_cmd *c_table, t_shell *shell);
 void	handle_pipe(t_cmd *c_table, int *pipefd);
-void	execute_command(t_cmd *current_cmd, t_shell *shell);
+void	execute_command(t_cmd *current_cmd, t_shell *shell, t_cmd *head);
 int		executor_main(t_cmd *command, t_shell *shell);
 int		executor_no_pipes(t_cmd *c_table, t_shell *shell);
 int		check_for_whitespace(char *str);
-
-void	putstr_error(char *str)
-{
-//	char	*minishell;
-	int		i;
-
-//	minishell = "minishell: ";
-	i = 0;
-	while (str[i])
-	{
-		write (2, &str[i], 1);
-		i++;
-	}
-	write (2, "\n", 1);
-}
-
-// int	main(int ac, char **av, char **envp)
-// {
-// 	t_cmd	*c_table;
-// 	t_cmd	*new;
-// 	t_cmd	*new2;
-// 	t_cmd	*new3;
-// 	t_shell	*shell;
-// 	char	*input;
-// 	int		i;
-// 	char	**shell_envp;
-
-// 	ac = 0;
-// 	av = NULL;
-// 	c_table = malloc(sizeof (t_cmd));
-// 	c_table->cmd = "$new";
-// 	c_table->infile = NULL;
-// 	c_table->outfile = NULL;
-// 	c_table->read_pipe = 0;
-// 	c_table->write_pipe = 0;
-// 	c_table->heredoc = NULL;
-// 	c_table->next = NULL;
-// 	new = malloc(sizeof (t_cmd));
-// 	new->cmd = "env";
-// 	new->infile = NULL;
-// 	new->outfile = NULL;
-// 	new->read_pipe = 0;
-// 	new->write_pipe = 0;
-// 	// c_table->next = new;
-// 	// new->next = NULL;
-// 	// new2 = malloc(sizeof (t_cmd));
-// 	// new2->cmd = "unset hallo= HALLO";
-// 	// new2->infile = NULL;
-// 	// new2->outfile = NULL;
-// 	// new2->read_pipe = 0;
-// 	// new2->write_pipe = 0;
-// 	// new2->append = 0;
-// 	// // c_table->next->next = new2;
-// 	// new2->next = NULL;
-// 	// new3 = malloc(sizeof (t_cmd));
-// 	// new3->cmd = "ls";
-// 	// new3->infile = NULL;
-// 	// new3->outfile = NULL;
-// 	// new3->read_pipe = 0;
-// 	// new3->write_pipe = 0;
-// 	// c_table->next->next->next = new3;
-// 	// new3->next = NULL;
-// 	// c_table = malloc(sizeof (t_cmd));
-// 	// c_table->cmd = "grep s";
-// 	// c_table->infile = "infile";
-// 	// c_table->outfile = "outfile";
-// 	// c_table->read_pipe = 0;
-// 	// c_table->write_pipe = 0;
-// 	// c_table->next = NULL;
-
-// 	shell = malloc(sizeof (t_shell *));
-// 	shell->envp = init_env(envp);
-// 	i = 1;
-// 	while (i < 2)
-// 	{
-// 		executor_main(new, shell);
-// 		printf("finished %i\n\n\n", 1);
-// 		executor_main(c_table, shell);
-// 		printf("finished %i\n\n\n", 2);
-// 		executor_main(new, shell);
-// 		printf("finished %i\n\n\n", 3);
-// 		// executor_main(new2, shell);
-// 		// printf("finished %i\n\n\n", 4);
-// 		// executor_main(new, shell);
-// 		// printf("finished %i\n\n\n", 5);
-// 		i++;
-// 	}
-// 	return (0);
-// }
 
 int	executor_main(t_cmd *command, t_shell *shell)
 {
@@ -130,7 +41,6 @@ int	executor_no_pipes(t_cmd *c_table, t_shell *shell)
 	int		stdin;
 	int		status;
 
-	// printf("[%s]\n", c_table->cmd);
 	stdin = dup(STDIN_FILENO);
 	if (check_builtin(c_table) == 0)
 	{
@@ -139,7 +49,7 @@ int	executor_no_pipes(t_cmd *c_table, t_shell *shell)
 		{
 			if (redirect(c_table, NULL, shell) == -1)
 				return (-1);
-			execute_command(c_table, shell);
+			execute_command(c_table, shell, c_table);
 		}
 		waitpid(pid, &status, 0);
 		shell->exit_code = WEXITSTATUS(status);
@@ -164,7 +74,9 @@ int	executor_with_pipes(t_cmd *c_table, t_shell *shell)
 	pid_t	pid;
 	int		stdin;
 	int		status;
+	t_cmd	*head;
 
+	head = c_table;
 	stdin = dup(STDIN_FILENO);
 	while (c_table != NULL)
 	{
@@ -177,7 +89,8 @@ int	executor_with_pipes(t_cmd *c_table, t_shell *shell)
 		if (pid == 0)
 		{
 			redirect(c_table, pipefd, shell);
-			execute_command(c_table, shell);
+			if (handle_builtin_piped(c_table, shell, head) == 0)
+				execute_command(c_table, shell, head);
 		}
 		handle_pipe(c_table, pipefd);
 		if (c_table->heredoc != NULL)
@@ -195,16 +108,13 @@ int	executor_with_pipes(t_cmd *c_table, t_shell *shell)
 //  * It then attempts to execute the command using execve. If execve fails,
 //  * it prints an error message and exits the child process.
 
-void	execute_command(t_cmd *current_cmd, t_shell *shell)
+void	execute_command(t_cmd *current_cmd, t_shell *shell, t_cmd *head)
 {
 	char	*path;
 	char	**split;
 
-	// putstr_error(current_cmd->cmd);
-	//change the flags
-	// printf("[%s]\n", current_cmd->cmd);
 	if (current_cmd->cmd == NULL || current_cmd->cmd[0] == '\0')
-		clean_exit (1, shell, current_cmd);
+		clean_exit (1, shell, head);
 	if (check_for_whitespace(current_cmd->cmd) == 0)
 	{
 		split = ft_split(current_cmd->cmd, ' ');
@@ -217,11 +127,11 @@ void	execute_command(t_cmd *current_cmd, t_shell *shell)
 		printf("minishell: %s: command not found\n", split[0]);
 		free_matrix(split);
 		free(path);
-		clean_exit (127, shell, current_cmd);
+		clean_exit (127, shell, head);
 	}
 	dup2(STDOUT_FILENO, STDERR_FILENO);
 	printf("minishell: %s: command not found\n", current_cmd->cmd);
-	clean_exit (127, shell, current_cmd);
+	clean_exit (127, shell, head);
 }
 
 //  * This function is responsible for handling pipes between commands in the

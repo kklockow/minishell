@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 14:37:28 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/21 19:25:32 by kklockow         ###   ########.fr       */
+/*   Updated: 2023/12/22 11:15:51 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,6 @@ int	open_outfile(t_cmd *c_table, t_shell *shell)
 	int	fd;
 
 	fd = 1;
-	// printf("%s\n", c_table->outfile);
 	if (c_table->append == 1)
 		fd = open(c_table->outfile, O_WRONLY | O_APPEND | O_CREAT, 0644);
 	else
