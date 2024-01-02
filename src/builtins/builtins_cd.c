@@ -6,12 +6,11 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 11:09:51 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/08 11:22:55 by kklockow         ###   ########.fr       */
+/*   Updated: 2023/12/22 10:37:04 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
 
 //  * This function updates the OLDPWD environment variable with the previous
 //  * working directory. It searches for the existing OLDPWD variable, gets the

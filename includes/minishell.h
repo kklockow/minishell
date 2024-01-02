@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 10:35:47 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/20 20:09:45 by kklockow         ###   ########.fr       */
+/*   Updated: 2023/12/22 12:19:24 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # include <sys/ioctl.h>
 # include <signal.h>
 # include <limits.h>
-#include <termios.h>
+# include <termios.h>
 
 ///////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////SELFMADE//LIBARY///////////////////////////////
@@ -65,7 +65,6 @@ char	*ft_strjoin(char const *s1, char const *s2);
 void	free_matrix(char **to_free);
 
 size_t	ft_strlen(const char *c);
-void	putstr_error(char *str);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*ft_strdup(const char *s1);
 
@@ -77,8 +76,8 @@ int		handle_builtin(t_cmd *current_cmd, t_shell *shell);
 int		check_builtin(t_cmd *current_cmd);
 char	**env_remove_one(char **envp, char *str, int len);
 char	**env_add_new(char **envp, char *str);
-int		count_till_equal(char *str);
-
+int		count_till_equal(char *str, int i);
+int		count_till_space_backwards(char *str, int i);
 
 //LEXER
 int		lexing(t_lexer *lexer, t_process *process);
@@ -112,7 +111,9 @@ int		cd_builtin(char *str, t_shell *shell);
 int		env_builtin(char **envp);
 int		export_builtin(char *str, t_shell *shell);
 int		unset_builtin(char *str, t_shell *shell);
-void	exit_builtin(char *str, t_shell *shell);
+void	exit_builtin(t_cmd *cmd, t_shell *shell);
+int		handle_builtin_piped(t_cmd *current_cmd, t_shell *shell, t_cmd *head);
+int		count_len(char *str, int i);
 
 //SIGNALS
 void	catch_signals(t_coordinate *coordinate);
@@ -143,5 +144,6 @@ void	expand(t_parser *s);
 void	stop_loop(t_coordinate *coordinate);
 void	if_null_stop_process(char *string, t_parser *parser);
 void	update_cmd(t_data *s, char *var, int start, char *name);
+void	clean_exit( int exit_code, t_shell *shell, t_cmd *cmd);
 
 #endif
