@@ -24,10 +24,19 @@ int	here_doc_handling(char *delimiter)
 {
 	int		pipefd[2];
 
+	signal(SIGINT, SIG_DFL);
 	if (pipe(pipefd) == -1)
 		return (-1);
+	// pid = fork();
+	// if (pid < 0)
+	// 	return (-1);
+	// if (pid == 0)
+	// {
 	if (fill_here_doc(delimiter, pipefd) == -1)
 		exit(-1);
+		// exit(0);
+	// }
+	// waitpid(pid, 0, 0);
 	close(pipefd[1]);
 	return (pipefd[0]);
 }

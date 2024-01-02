@@ -41,6 +41,9 @@ int	executor_no_pipes(t_cmd *c_table, t_shell *shell)
 	int		stdin;
 	int		status;
 
+	// printf("[%s]\n", c_table->cmd);
+	if (c_table->heredoc != NULL)
+		signal(SIGINT, SIG_IGN);
 	stdin = dup(STDIN_FILENO);
 	if (check_builtin(c_table) == 0)
 	{
@@ -59,6 +62,7 @@ int	executor_no_pipes(t_cmd *c_table, t_shell *shell)
 		redirect(c_table, NULL, shell);
 		handle_builtin(c_table, shell);
 	}
+	command_c();
 	dup2(stdin, STDIN_FILENO);
 	return (0);
 }
@@ -80,6 +84,8 @@ int	executor_with_pipes(t_cmd *c_table, t_shell *shell)
 	stdin = dup(STDIN_FILENO);
 	while (c_table != NULL)
 	{
+		if (c_table->heredoc != NULL)
+			signal(SIGINT, SIG_IGN);
 		if (c_table->write_pipe == 1)
 		{
 			if (pipe(pipefd) == -1)
@@ -96,6 +102,7 @@ int	executor_with_pipes(t_cmd *c_table, t_shell *shell)
 		if (c_table->heredoc != NULL)
 			waitpid(pid, 0, 0);
 		c_table = c_table->next;
+		command_c();
 	}
 	waitpid(pid, &status, 0);
 	shell->exit_code = WEXITSTATUS(status);
