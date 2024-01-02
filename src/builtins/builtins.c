@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 16:32:51 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/22 10:36:27 by kklockow         ###   ########.fr       */
+/*   Updated: 2024/01/02 18:41:01 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@ int	echo_builtin(char *str)
 
 	new_line = 1;
 	i = 0;
-	while (str[i] && str[i] != ' ')
-		i++;
 	while (str[i] && str[i] == ' ')
 		i++;
 	if (str[i] && str[i + 1] && str[i] == '-' && str[i + 1] == 'n'
@@ -34,6 +32,10 @@ int	echo_builtin(char *str)
 		new_line = 0;
 		i += 3;
 	}
+	if (str[i] && str[i + 1] && str[i] == '-' && str[i + 1] == 'n')
+		new_line = 0;
+	if (str[i] && str[i + 1] && str[i] == '-' && str[i + 1] == 'n')
+		i += 2;
 	while (str[i])
 	{
 		write (1, &str[i], 1);

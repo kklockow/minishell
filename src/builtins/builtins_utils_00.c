@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 13:59:20 by kklockow          #+#    #+#             */
-/*   Updated: 2024/01/02 13:10:54 by kklockow         ###   ########.fr       */
+/*   Updated: 2024/01/02 17:15:42 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	check_builtin(t_cmd *current_cmd)
 int	handle_builtin(t_cmd *current_cmd, t_shell *shell)
 {
 	if (ft_strncmp(current_cmd->cmd, "echo", 4) == 0)
-		echo_builtin(current_cmd->cmd);
+		echo_builtin(current_cmd->cmd + 4);
 	if (ft_strncmp(current_cmd->cmd, "cd", 2) == 0)
 		cd_builtin(current_cmd->cmd, shell);
 	if (ft_strncmp(current_cmd->cmd, "pwd", 3) == 0)

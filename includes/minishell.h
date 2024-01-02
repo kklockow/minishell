@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 10:35:47 by kklockow          #+#    #+#             */
-/*   Updated: 2024/01/02 13:48:47 by kklockow         ###   ########.fr       */
+/*   Updated: 2024/01/02 15:15:54 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int		handle_builtin(t_cmd *current_cmd, t_shell *shell);
 int		check_builtin(t_cmd *current_cmd);
 char	**env_remove_one(char **envp, char *str, int len);
 char	**env_add_new(char **envp, char *str);
-int		count_till_equal(char *str, int i);
+int		count_till_equal(char *str);
 int		count_till_space_backwards(char *str, int i);
 
 //LEXER
