@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 15:34:07 by kklockow          #+#    #+#             */
-/*   Updated: 2024/01/02 13:11:57 by kklockow         ###   ########.fr       */
+/*   Updated: 2024/01/03 17:48:50 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,14 @@ int	executor_no_pipes(t_cmd *c_table, t_shell *shell)
 {
 	pid_t	pid;
 	int		stdin;
+	int		stdout;
 	int		status;
 
 	// printf("[%s]\n", c_table->cmd);
 	if (c_table->heredoc != NULL)
 		signal(SIGINT, SIG_IGN);
 	stdin = dup(STDIN_FILENO);
+	stdout = dup(STDOUT_FILENO);
 	if (check_builtin(c_table) == 0)
 	{
 		pid = fork();
@@ -64,6 +66,7 @@ int	executor_no_pipes(t_cmd *c_table, t_shell *shell)
 	}
 	command_c();
 	dup2(stdin, STDIN_FILENO);
+	dup2(stdout, STDOUT_FILENO);
 	return (0);
 }
 
@@ -125,6 +128,7 @@ void	execute_command(t_cmd *current_cmd, t_shell *shell, t_cmd *head)
 	// ft_putstr_fd("]\n", 2);
 	if (current_cmd->cmd == NULL || current_cmd->cmd[0] == '\0')
 		clean_exit (1, shell, head);
+	// printf("[%s]\n",current_cmd->cmd);
 	if (check_for_whitespace(current_cmd->cmd) == 0)
 	{
 		split = ft_split(current_cmd->cmd, ' ');
@@ -133,14 +137,17 @@ void	execute_command(t_cmd *current_cmd, t_shell *shell, t_cmd *head)
 		else
 			path = ft_strdup(split[0]);
 		execve(path, split, shell->envp);
-		dup2(STDOUT_FILENO, STDERR_FILENO);
-		printf("minishell: %s: command not found\n", split[0]);
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(current_cmd->cmd, 2);
+		// perror("\1");
+		ft_putstr_fd(": command not found\n", 2);
 		free_matrix(split);
 		free(path);
 		clean_exit (127, shell, head);
 	}
-	dup2(STDOUT_FILENO, STDERR_FILENO);
-	printf("minishell: %s: command not found\n", current_cmd->cmd);
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd(current_cmd->cmd, 2);
+	ft_putstr_fd(": command not found\n", 2);
 	clean_exit (127, shell, head);
 }
 

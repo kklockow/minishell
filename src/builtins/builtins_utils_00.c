@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 13:59:20 by kklockow          #+#    #+#             */
-/*   Updated: 2024/01/02 17:15:42 by kklockow         ###   ########.fr       */
+/*   Updated: 2024/01/03 18:01:20 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	handle_builtin(t_cmd *current_cmd, t_shell *shell)
 	if (ft_strncmp(current_cmd->cmd, "cd", 2) == 0)
 		cd_builtin(current_cmd->cmd, shell);
 	if (ft_strncmp(current_cmd->cmd, "pwd", 3) == 0)
-		pwd_builtin();
+		shell->exit_code = pwd_builtin();
 	if (ft_strncmp(current_cmd->cmd, "export", 6) == 0)
 		export_builtin(current_cmd->cmd + 6, shell);
 	if (ft_strncmp(current_cmd->cmd, "unset", 5) == 0)
@@ -52,7 +52,7 @@ int	handle_builtin(t_cmd *current_cmd, t_shell *shell)
 		env_builtin(shell->envp);
 	if (ft_strncmp(current_cmd->cmd, "exit", 4) == 0)
 		exit_builtin(current_cmd, shell);
-	return (0);
+	return (shell->exit_code);
 }
 
 int	handle_builtin_piped(t_cmd *current_cmd, t_shell *shell, t_cmd *head)
@@ -61,7 +61,7 @@ int	handle_builtin_piped(t_cmd *current_cmd, t_shell *shell, t_cmd *head)
 
 	if (ft_strncmp(current_cmd->cmd, "echo", 4) == 0)
 	{
-		shell->exit_code = echo_builtin(current_cmd->cmd);
+		shell->exit_code = echo_builtin(current_cmd->cmd + 4);
 		clean_exit(shell->exit_code, shell, head);
 	}
 	if (ft_strncmp(current_cmd->cmd, "pwd", 3) == 0)

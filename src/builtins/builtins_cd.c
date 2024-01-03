@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 11:09:51 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/22 10:37:04 by kklockow         ###   ########.fr       */
+/*   Updated: 2024/01/03 17:51:32 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,15 @@ int	update_pwd(t_shell *shell)
 
 int	cd_builtin(char *str, t_shell *shell)
 {
+	// shell->exit_code = 0;
 	update_oldpwd(shell);
-	chdir(str + 3);
+	if (chdir(str + 3) == -1)
+	{
+		ft_putstr_fd("minishell: cd: ", 2);
+		ft_putstr_fd(str + 3, 2);
+		perror("\1");
+		shell->exit_code = 1;
+	}
 	update_pwd(shell);
 	return (0);
 }

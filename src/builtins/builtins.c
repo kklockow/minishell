@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 16:32:51 by kklockow          #+#    #+#             */
-/*   Updated: 2024/01/02 18:41:01 by kklockow         ###   ########.fr       */
+/*   Updated: 2024/01/03 16:45:11 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,22 @@ int	echo_builtin(char *str)
 	int	new_line;
 
 	new_line = 1;
+	// printf("[%s]\n", str);
 	i = 0;
-	while (str[i] && str[i] == ' ')
+	if (str[i] == ' ')
 		i++;
+	// while (str[i] && str[i] == ' ')
+	// 	i++;
 	if (str[i] && str[i + 1] && str[i] == '-' && str[i + 1] == 'n'
 		&& str[i + 2] && str[i + 2] == ' ')
 	{
 		new_line = 0;
 		i += 3;
 	}
-	if (str[i] && str[i + 1] && str[i] == '-' && str[i + 1] == 'n')
-		new_line = 0;
-	if (str[i] && str[i + 1] && str[i] == '-' && str[i + 1] == 'n')
-		i += 2;
+	// if (str[i] && str[i + 1] && str[i] == '-' && str[i + 1] == 'n')
+	// 	new_line = 0;
+	// if (str[i] && str[i + 1] && str[i] == '-' && str[i + 1] == 'n')
+	// 	i += 2;
 	while (str[i])
 	{
 		write (1, &str[i], 1);
@@ -80,15 +83,23 @@ int	env_builtin(char **envp)
 //environment variables from the shell's environment.
 //If a variable is not found, it prints an error message.
 
-void	check_for_invalid(char *str, t_shell *shell)
+int	check_for_invalid_unset(char *str, t_shell *shell)
 {
-	if (ft_isalpha(str[0]) == 0)
+	int	i;
+
+	i = 0;
+	while (str[i])
 	{
-		ft_putstr_fd("minishell: unset: `", 2);
-		ft_putstr_fd(str, 2);
-		ft_putstr_fd("': not a valid indentifier\n", 2);
-		shell->exit_code = 1;
+		if ((ft_isalpha(str[0]) == 0 && str[0] != '_') || (ft_isalnum(str[i]) == 0 && str[i] != '_'))
+		{
+			ft_putstr_fd("minishell: unset: `", 2);
+			ft_putstr_fd(str, 2);
+			ft_putstr_fd("': not a valid indentifier\n", 2);
+			return (1);
+		}
+		i++;
 	}
+	return (0);
 }
 
 int	unset_builtin(char *str, t_shell *shell)
@@ -97,23 +108,27 @@ int	unset_builtin(char *str, t_shell *shell)
 	int		num;
 	int		len;
 	char	**var;
+	char	*joined;
 
 	var = ft_split(str, ' ');
 	num = 0;
 	while (var[num] != NULL)
 	{
+		// printf("[%s]\n", var[num]);
 		i = 0;
-		check_for_invalid(var[num], shell);
-		while (var[num][i] && var[num][i] != '=')
+		shell->exit_code = check_for_invalid_unset(var[num], shell);
+		joined = ft_strjoin(var[num], "=");
+		while (joined[i])
 			i++;
 		len = i;
 		i = 0;
-		while (shell->envp[i] != 0
-			&& ft_strncmp(shell->envp[i], var[num], len) != 0)
+		while (shell->envp[i] && ft_strncmp(shell->envp[i], joined, len) != 0)
 			i++;
 		if (shell->envp[i] != NULL)
-			shell->envp = env_remove_one(shell->envp, var[num], len);
+			shell->envp = env_remove_one(shell->envp, joined, len);
+		free(joined);
 		num++;
 	}
-	return (0);
+	free_matrix(var);
+	return (shell->exit_code);
 }

@@ -35,3 +35,5 @@ declare -x env
 declare -x nallo="new"
 declare -x new="sahne env"
 declare -x tmp_test="/bin/echo 42"
+hallo 
+[?2004hminishell> [?2004l

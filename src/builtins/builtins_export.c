@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 09:27:11 by kklockow          #+#    #+#             */
-/*   Updated: 2024/01/02 15:30:37 by kklockow         ###   ########.fr       */
+/*   Updated: 2024/01/03 14:15:34 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,25 @@ void	export(char *var, t_shell *shell, int len)
 		shell->envp = env_add_new(shell->envp, var);
 }
 
+int	check_for_invalid_export(char *str, t_shell *shell)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if ((ft_isalpha(str[0]) == 0 && str[0] != '_') || (ft_isalnum(str[i]) == 0 && str[i] != '_' && str[i] != '='))
+		{
+			ft_putstr_fd("minishell: export: `", 2);
+			ft_putstr_fd(str, 2);
+			ft_putstr_fd("': not a valid indentifier\n", 2);
+			return (1);
+		}
+		i++;
+	}
+	return (0);
+}
+
 int	export_builtin(char *str, t_shell *shell)
 {
 	int		i;
@@ -65,6 +84,7 @@ int	export_builtin(char *str, t_shell *shell)
 	while (var[num] != NULL)
 	{
 		// printf("var[%i] = [%s]\n", num, var[num]);
+		shell->exit_code = check_for_invalid_export(var[num], shell);
 		len = count_till_equal(var[num]);
 		if (len != -1)
 			export(var[num], shell, len);
@@ -72,4 +92,3 @@ int	export_builtin(char *str, t_shell *shell)
 	}
 	return (0);
 }
-
