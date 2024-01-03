@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 11:09:51 by kklockow          #+#    #+#             */
-/*   Updated: 2024/01/03 17:51:32 by kklockow         ###   ########.fr       */
+/*   Updated: 2024/01/03 18:26:52 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ int	update_pwd(t_shell *shell)
 
 int	cd_builtin(char *str, t_shell *shell)
 {
-	// shell->exit_code = 0;
 	update_oldpwd(shell);
 	if (chdir(str + 3) == -1)
 	{

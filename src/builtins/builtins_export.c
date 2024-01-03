@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 09:27:11 by kklockow          #+#    #+#             */
-/*   Updated: 2024/01/03 14:15:34 by kklockow         ###   ########.fr       */
+/*   Updated: 2024/01/03 18:26:32 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ int	check_for_invalid_export(char *str, t_shell *shell)
 	i = 0;
 	while (str[i])
 	{
-		if ((ft_isalpha(str[0]) == 0 && str[0] != '_') || (ft_isalnum(str[i]) == 0 && str[i] != '_' && str[i] != '='))
+		if ((ft_isalpha(str[0]) == 0 && str[0] != '_')
+			|| (ft_isalnum(str[i]) == 0 && str[i] != '_' && str[i] != '='))
 		{
 			ft_putstr_fd("minishell: export: `", 2);
 			ft_putstr_fd(str, 2);
@@ -73,7 +74,6 @@ int	export_builtin(char *str, t_shell *shell)
 	int		len;
 	char	**var;
 
-	// printf("[%s]\n", str);
 	if (str[0] == '\0')
 	{
 		print_declare_env(shell);
@@ -83,12 +83,12 @@ int	export_builtin(char *str, t_shell *shell)
 	num = 0;
 	while (var[num] != NULL)
 	{
-		// printf("var[%i] = [%s]\n", num, var[num]);
 		shell->exit_code = check_for_invalid_export(var[num], shell);
 		len = count_till_equal(var[num]);
 		if (len != -1)
 			export(var[num], shell, len);
 		num++;
 	}
+	free_matrix(var);
 	return (0);
 }

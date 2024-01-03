@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 16:32:51 by kklockow          #+#    #+#             */
-/*   Updated: 2024/01/03 16:45:11 by kklockow         ###   ########.fr       */
+/*   Updated: 2024/01/03 18:30:22 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,22 +23,15 @@ int	echo_builtin(char *str)
 	int	new_line;
 
 	new_line = 1;
-	// printf("[%s]\n", str);
 	i = 0;
 	if (str[i] == ' ')
 		i++;
-	// while (str[i] && str[i] == ' ')
-	// 	i++;
 	if (str[i] && str[i + 1] && str[i] == '-' && str[i + 1] == 'n'
 		&& str[i + 2] && str[i + 2] == ' ')
 	{
 		new_line = 0;
 		i += 3;
 	}
-	// if (str[i] && str[i + 1] && str[i] == '-' && str[i + 1] == 'n')
-	// 	new_line = 0;
-	// if (str[i] && str[i + 1] && str[i] == '-' && str[i + 1] == 'n')
-	// 	i += 2;
 	while (str[i])
 	{
 		write (1, &str[i], 1);
@@ -90,7 +83,8 @@ int	check_for_invalid_unset(char *str, t_shell *shell)
 	i = 0;
 	while (str[i])
 	{
-		if ((ft_isalpha(str[0]) == 0 && str[0] != '_') || (ft_isalnum(str[i]) == 0 && str[i] != '_'))
+		if ((ft_isalpha(str[0]) == 0 && str[0] != '_')
+			|| (ft_isalnum(str[i]) == 0 && str[i] != '_'))
 		{
 			ft_putstr_fd("minishell: unset: `", 2);
 			ft_putstr_fd(str, 2);
@@ -102,9 +96,8 @@ int	check_for_invalid_unset(char *str, t_shell *shell)
 	return (0);
 }
 
-int	unset_builtin(char *str, t_shell *shell)
+int	unset_builtin(char *str, t_shell *shell, int i)
 {
-	int		i;
 	int		num;
 	int		len;
 	char	**var;
@@ -114,8 +107,6 @@ int	unset_builtin(char *str, t_shell *shell)
 	num = 0;
 	while (var[num] != NULL)
 	{
-		// printf("[%s]\n", var[num]);
-		i = 0;
 		shell->exit_code = check_for_invalid_unset(var[num], shell);
 		joined = ft_strjoin(var[num], "=");
 		while (joined[i])

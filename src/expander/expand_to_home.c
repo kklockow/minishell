@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 13:40:03 by kklockow          #+#    #+#             */
-/*   Updated: 2024/01/02 19:08:08 by kklockow         ###   ########.fr       */
+/*   Updated: 2024/01/03 18:56:26 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	get_home_location(char *str)
 			i++;
 		if (str[i] == '\0')
 			return (-1);
-		if (str[i] == '~' && str[i + 1] != '~')
+		if (str[i] == '~' && (str[i + 1] == ' ' || str[i + 1] == '\0'))
 			return (i);
 	}
 	return (-1);

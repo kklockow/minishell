@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 10:35:47 by kklockow          #+#    #+#             */
-/*   Updated: 2024/01/02 15:15:54 by kklockow         ###   ########.fr       */
+/*   Updated: 2024/01/03 18:31:25 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ int		pwd_builtin(void);
 int		cd_builtin(char *str, t_shell *shell);
 int		env_builtin(char **envp);
 int		export_builtin(char *str, t_shell *shell);
-int		unset_builtin(char *str, t_shell *shell);
+int		unset_builtin(char *str, t_shell *shell, int i);
 void	exit_builtin(t_cmd *cmd, t_shell *shell);
 int		handle_builtin_piped(t_cmd *current_cmd, t_shell *shell, t_cmd *head);
 int		count_len(char *str, int i);
