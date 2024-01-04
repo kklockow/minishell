@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 09:27:11 by kklockow          #+#    #+#             */
-/*   Updated: 2024/01/03 18:26:32 by kklockow         ###   ########.fr       */
+/*   Updated: 2024/01/04 18:36:03 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int	export_builtin(char *str, t_shell *shell)
 		print_declare_env(shell);
 		return (0);
 	}
-	var = ft_split(str, ' ');
+	var = ft_split(str, '\1');
 	num = 0;
 	while (var[num] != NULL)
 	{

@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 19:00:16 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/22 14:08:55 by kklockow         ###   ########.fr       */
+/*   Updated: 2024/01/04 18:30:53 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	check_numeric(char *str, int i, t_cmd *cmd, t_shell *shell)
 {
 	if (str[i] == '-' || str[i] == '+')
 		i++;
-	while (str[i] && str[i] != ' ')
+	while (str[i] && str[i] != '\1')
 	{
 		if (!(str[i] > 47 && str[i] < 58))
 		{
@@ -41,7 +41,7 @@ void	exit_builtin(t_cmd *cmd, t_shell *shell)
 		clean_exit(0, shell, cmd);
 	i++;
 	i = check_numeric(str, i, cmd, shell);
-	while (str[i] && str[i] == ' ')
+	while (str[i] && str[i] == '\1')
 		i++;
 	if (str[i] != '\0')
 	{

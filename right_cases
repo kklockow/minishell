@@ -17,4 +17,34 @@
                      STD_OUT: 150  STD_ERR: 112  EXIT_CODE: 85
                          TOTAL FAILED AND PASSED CASES:
                                      ❌ 347
-                                     ✅ 2392  
+                                     ✅ 2392
+             TOTAL TEST COUNT: 913  TESTS PASSED: 544  LEAKING: 0
+                     STD_OUT: 193  STD_ERR: 211  EXIT_CODE: 186
+                         TOTAL FAILED AND PASSED CASES:
+                                     ❌ 590
+                                     ✅ 2149
+             TOTAL TEST COUNT: 913  TESTS PASSED: 625  LEAKING: 0
+                     STD_OUT: 190  STD_ERR: 165  EXIT_CODE: 122
+                         TOTAL FAILED AND PASSED CASES:
+                                     ❌ 477
+                                     ✅ 2262
+             TOTAL TEST COUNT: 913  TESTS PASSED: 682  LEAKING: 0
+                     STD_OUT: 165  STD_ERR: 103  EXIT_CODE: 70
+                         TOTAL FAILED AND PASSED CASES:
+                                     ❌ 338
+                                     ✅ 2401
+             TOTAL TEST COUNT: 913  TESTS PASSED: 708  LEAKING: 0
+                     STD_OUT: 134  STD_ERR: 103  EXIT_CODE: 70
+                         TOTAL FAILED AND PASSED CASES:
+                                     ❌ 307
+                                     ✅ 2432
+             TOTAL TEST COUNT: 913  TESTS PASSED: 719  LEAKING: 0
+                     STD_OUT: 122  STD_ERR: 103  EXIT_CODE: 70
+                         TOTAL FAILED AND PASSED CASES:
+                                     ❌ 295
+                                     ✅ 2444
+             TOTAL TEST COUNT: 913  TESTS PASSED: 724  LEAKING: 0
+                     STD_OUT: 117  STD_ERR: 103  EXIT_CODE: 70
+                         TOTAL FAILED AND PASSED CASES:
+                                     ❌ 290
+                                     ✅ 2449

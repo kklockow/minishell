@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 16:26:17 by fgabler           #+#    #+#             */
-/*   Updated: 2024/01/04 16:56:09 by kklockow         ###   ########.fr       */
+/*   Updated: 2024/01/04 18:26:26 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static void	fill_command(t_cmd *command, t_data *data, t_parser *parser)
 	}
 	if (add_space_check(data) == true)
 	{
-		command->cmd = ft_strjoin_mod(command->cmd, " ");
+		command->cmd = ft_strjoin_mod(command->cmd, "\1");
 		if_null_stop_process(command->cmd, parser);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 15:34:07 by kklockow          #+#    #+#             */
-/*   Updated: 2024/01/04 16:55:51 by kklockow         ###   ########.fr       */
+/*   Updated: 2024/01/04 18:28:43 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,7 +152,16 @@ void	execute_command(t_cmd *current_cmd, t_shell *shell, t_cmd *head)
 	// if (check_for_whitespace(current_cmd->cmd) == 0)
 	// {
 	check_for_path(current_cmd, shell);
-	split = ft_split(current_cmd->cmd, ' ');
+	// if (current_cmd->cmd[0] == '\1')
+	// {
+	// 	execve(path, split, shell->envp);
+	// 	ft_putstr_fd("minishell: ", 2);
+	// 	//different name
+	// 	ft_putstr_fd("", 2);
+	// 	ft_putstr_fd(": command not found\n", 2);
+	// 	clean_exit (127, shell, head);
+	// }
+	split = ft_split(current_cmd->cmd, '\1');
 	if (access(split[0], F_OK | X_OK) != 0)
 		path = get_path(split[0], shell->envp);
 	else
@@ -160,7 +169,8 @@ void	execute_command(t_cmd *current_cmd, t_shell *shell, t_cmd *head)
 	// printf("[%s]\n", path);
 	execve(path, split, shell->envp);
 	ft_putstr_fd("minishell: ", 2);
-	ft_putstr_fd(current_cmd->cmd, 2);
+	//different name
+	ft_putstr_fd(split[0], 2);
 	ft_putstr_fd(": command not found\n", 2);
 	free_matrix(split);
 	free(path);

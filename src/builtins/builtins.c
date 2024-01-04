@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 16:32:51 by kklockow          #+#    #+#             */
-/*   Updated: 2024/01/04 12:49:46 by kklockow         ###   ########.fr       */
+/*   Updated: 2024/01/04 19:08:41 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,27 +19,44 @@
 
 int	echo_builtin(char *str)
 {
-	int	i;
-	int	new_line;
+	int		i;
+	int		new_line;
+	char	**split;
 
 	new_line = 1;
 	// printf("[%s]\n", str);
+	// i = 0;
+	// if (str[i] == '\1')
+	// 	i++;
+	// if (str[i] && str[i + 1] && str[i] == '-' && str[i + 1] == 'n'
+	// 	&& str[i + 2] && str[i + 2] == '\1')
+	// {
+	// 	new_line = 0;
+	// 	i += 3;
+	// }
+	// while (str[i])
+	// {
+	// 	if (str[i] != '\1')
+	// 		write (1, &str[i], 1);
+	// 	i++;
+	// }
+	split = ft_split(str, '\1');
 	i = 0;
-	if (str[i] == ' ')
-		i++;
-	if (str[i] && str[i + 1] && str[i] == '-' && str[i + 1] == 'n'
-		&& str[i + 2] && str[i + 2] == ' ')
+	while (split[i] && ft_strncmp(split[i], "-n", 2) == 0)
 	{
 		new_line = 0;
-		i += 3;
+		i++;
 	}
-	while (str[i])
+	while (split[i])
 	{
-		write (1, &str[i], 1);
+		// printf("%i\n[%s]\n", i, split[i]);
+		printf("%s", split[i]);
+		if (split[i + 1] != NULL)
+			printf(" ");
 		i++;
 	}
 	if (new_line == 1)
-		write(1, "\n", 1);
+		printf("\n");
 	return (0);
 }
 
@@ -104,7 +121,7 @@ int	unset_builtin(char *str, t_shell *shell, int i)
 	char	**var;
 	char	*joined;
 
-	var = ft_split(str, ' ');
+	var = ft_split(str, '\1');
 	num = 0;
 	while (var[num] != NULL)
 	{
