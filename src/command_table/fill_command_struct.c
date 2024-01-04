@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 16:26:17 by fgabler           #+#    #+#             */
-/*   Updated: 2024/01/04 14:49:22 by kklockow         ###   ########.fr       */
+/*   Updated: 2024/01/04 16:56:09 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,19 +31,19 @@ void	fill_command_struct(t_parser *parser)
 		fill_command(command, data, parser);
 		repeat_set_next_save(&data, 1);
 	}
-	t_cmd *test_print;
-	test_print = parser->command;
-	while (test_print != NULL)
-	{
-		printf("\ncommand: [%s]\n", test_print->cmd);
-		printf("heredoc: [%s]\n", test_print->heredoc);
-		printf("infile: [%s]\n", test_print->infile);
-		printf("outfile: [%s]\n", test_print->outfile);
-		printf("append: %d\n", test_print->append);
-		printf("write: %d\n", test_print->write_pipe);
-		printf("read: %d\n", test_print->read_pipe);
-		test_print = test_print->next;
-	}
+	// t_cmd *test_print;
+	// test_print = parser->command;
+	// while (test_print != NULL)
+	// {
+	// 	printf("\ncommand: [%s]\n", test_print->cmd);
+	// 	printf("heredoc: [%s]\n", test_print->heredoc);
+	// 	printf("infile: [%s]\n", test_print->infile);
+	// 	printf("outfile: [%s]\n", test_print->outfile);
+	// 	printf("append: %d\n", test_print->append);
+	// 	printf("write: %d\n", test_print->write_pipe);
+	// 	printf("read: %d\n", test_print->read_pipe);
+	// 	test_print = test_print->next;
+	// }
 }
 
 static void	check_for_pipe(t_cmd **command, t_data **data, t_parser *parser)
