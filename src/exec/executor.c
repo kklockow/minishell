@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 15:34:07 by kklockow          #+#    #+#             */
-/*   Updated: 2024/01/03 18:11:30 by kklockow         ###   ########.fr       */
+/*   Updated: 2024/01/04 13:44:55 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,25 @@ int	executor_with_pipes(t_cmd *c_table, t_shell *shell)
 	return (0);
 }
 
+void	check_for_path(t_cmd *cmd, t_shell *shell)
+{
+	int	i;
+
+	i = 0;
+	while (cmd->cmd[i] == ' ')
+		i++;
+	if (cmd->cmd[i] == '.')
+	{
+		if (access(cmd->cmd, F_OK | X_OK) != 0)
+		{
+			ft_putstr_fd("minishell: ", 2);
+			ft_putstr_fd(cmd->cmd, 2);
+			perror("\1");
+			clean_exit(127, shell, cmd);
+		}
+	}
+}
+
 //  * This function splits the given command into an array of strings,
 //  * checks if the command is accessible, and retrieves its full path.
 //  * It then attempts to execute the command using execve. If execve fails,
@@ -131,6 +150,7 @@ void	execute_command(t_cmd *current_cmd, t_shell *shell, t_cmd *head)
 	// printf("[%s]\n",current_cmd->cmd);
 	if (check_for_whitespace(current_cmd->cmd) == 0)
 	{
+		check_for_path(current_cmd, shell);
 		split = ft_split(current_cmd->cmd, ' ');
 		if (access(split[0], F_OK | X_OK) != 0)
 			path = get_path(split[0], shell->envp);
@@ -139,7 +159,6 @@ void	execute_command(t_cmd *current_cmd, t_shell *shell, t_cmd *head)
 		execve(path, split, shell->envp);
 		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd(current_cmd->cmd, 2);
-		// perror("\1");
 		ft_putstr_fd(": command not found\n", 2);
 		free_matrix(split);
 		free(path);
@@ -147,7 +166,8 @@ void	execute_command(t_cmd *current_cmd, t_shell *shell, t_cmd *head)
 	}
 	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(current_cmd->cmd, 2);
-	ft_putstr_fd(": command not found\n", 2);
+	// ft_putstr_fd(": command not found\n", 2);
+	perror("\1");
 	clean_exit (127, shell, head);
 }
 

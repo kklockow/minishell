@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 12:54:21 by kklockow          #+#    #+#             */
-/*   Updated: 2024/01/02 13:48:41 by kklockow         ###   ########.fr       */
+/*   Updated: 2024/01/04 12:49:22 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ char	*get_variable_to_expand(char *str, int sign_location)
 	var_str = malloc(sizeof (char) * (len + 1));
 	i = sign_location + 1;
 	var_i = 0;
-	while (str[i] && str[i] != ' ' && str[i] != 39 && str[i] != '$')
+	while (str[i] && str[i] != ' ' && str[i] != '/' && str[i] != 39 && str[i] != '$')
 	{
 		var_str[var_i] = str[i];
 		i++;

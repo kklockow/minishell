@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 16:32:51 by kklockow          #+#    #+#             */
-/*   Updated: 2024/01/03 18:30:22 by kklockow         ###   ########.fr       */
+/*   Updated: 2024/01/04 12:49:46 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int	echo_builtin(char *str)
 	int	new_line;
 
 	new_line = 1;
+	// printf("[%s]\n", str);
 	i = 0;
 	if (str[i] == ' ')
 		i++;
