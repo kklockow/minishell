@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 13:59:20 by kklockow          #+#    #+#             */
-/*   Updated: 2024/01/04 18:32:15 by kklockow         ###   ########.fr       */
+/*   Updated: 2024/01/04 19:53:10 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,14 +126,8 @@ char	**env_add_new(char **envp, char *str)
 		shell_env[i] = ft_strdup_init(envp[i]);
 		i++;
 	}
-	shell_env[i] = ft_strdup_init(str);
+	shell_env[i] = split_export(str);
 	shell_env[i + 1] = NULL;
-	i = 0;
-	while (envp[i] != NULL)
-	{
-		free(envp[i]);
-		i++;
-	}
-	free(envp);
+	free_matrix(envp);
 	return (shell_env);
 }

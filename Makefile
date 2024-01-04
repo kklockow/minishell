@@ -8,7 +8,7 @@ NAME = minishell
 
 CC				=		cc
 #CFLAGS			=		-Wall -Werror -Wextra -fsanitize=address -g
-CFLAGS			=		-g
+CFLAGS			=		-fsanitize=address -g
 EXTRA_FLAGS		=		-lreadline
 HEADERS			=		-I./includes -I./libs/include
 LIBS			=		./libs
