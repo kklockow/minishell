@@ -6,13 +6,13 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 16:26:16 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/21 17:56:56 by kklockow         ###   ########.fr       */
+/*   Updated: 2024/01/04 15:03:50 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int			fill_here_doc(char *delimiter, int *pipefd);
+int			fill_here_doc(char *delimiter, int heredoc);
 char		*ft_strjoin_add_newline(char *s1, char *s2);
 
 //This function sets up a pipe, forks a child process, and fills the pipe with
@@ -22,30 +22,36 @@ char		*ft_strjoin_add_newline(char *s1, char *s2);
 
 int	here_doc_handling(char *delimiter)
 {
-	// pid_t	pid;
-	int		pipefd[2];
+	int		heredoc;
+	char	cwd[1028];
+	char	*path;
 
-	if (pipe(pipefd) == -1)
-		return (-1);
+	signal(SIGINT, SIG_DFL);
+
+	getcwd(cwd, sizeof(cwd));
+	path = ft_strjoin(cwd, "/tmp/heredoc");
+	heredoc = open(path, O_WRONLY | O_TRUNC | O_CREAT, 0644);
 	// pid = fork();
 	// if (pid < 0)
 	// 	return (-1);
 	// if (pid == 0)
 	// {
-		if (fill_here_doc(delimiter, pipefd) == -1)
-			exit(-1);
+	if (fill_here_doc(delimiter, heredoc) == -1)
+		exit(-1);
 		// exit(0);
 	// }
 	// waitpid(pid, 0, 0);
-	close(pipefd[1]);
-	return (pipefd[0]);
+	// close(pipefd[1]);
+	heredoc = open(path, O_RDONLY, 0644);
+	free(path);
+	return (heredoc);
 }
 
 //  * This function reads lines from the user and appends them to a string until
 //  * the specified delimiter is encountered. It then writes the concatenated
 //  * string to a pipe.
 
-int	fill_here_doc(char *delimiter, int *pipefd)
+int	fill_here_doc(char *delimiter, int heredoc)
 {
 	char	*line;
 	char	*here_doc_str;
@@ -64,11 +70,12 @@ int	fill_here_doc(char *delimiter, int *pipefd)
 	i = 0;
 	while (here_doc_str[i])
 	{
-		write(pipefd[1], &here_doc_str[i], 1);
+		write(heredoc, &here_doc_str[i], 1);
 		i++;
 	}
-	close(pipefd[0]);
-	close(pipefd[1]);
+	// close(pipefd[0]);
+	// close(pipefd[1]);
+	close(heredoc);
 	free(here_doc_str);
 	return (0);
 }

@@ -6,12 +6,11 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 11:09:51 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/08 11:22:55 by kklockow         ###   ########.fr       */
+/*   Updated: 2024/01/03 18:26:52 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
 
 //  * This function updates the OLDPWD environment variable with the previous
 //  * working directory. It searches for the existing OLDPWD variable, gets the
@@ -69,7 +68,13 @@ int	update_pwd(t_shell *shell)
 int	cd_builtin(char *str, t_shell *shell)
 {
 	update_oldpwd(shell);
-	chdir(str + 3);
+	if (chdir(str + 3) == -1)
+	{
+		ft_putstr_fd("minishell: cd: ", 2);
+		ft_putstr_fd(str + 3, 2);
+		perror("\1");
+		shell->exit_code = 1;
+	}
 	update_pwd(shell);
 	return (0);
 }

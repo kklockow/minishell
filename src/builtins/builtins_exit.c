@@ -6,13 +6,13 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 19:00:16 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/20 19:04:49 by kklockow         ###   ########.fr       */
+/*   Updated: 2023/12/22 14:08:55 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int		check_numeric(char *str, int i)
+int	check_numeric(char *str, int i, t_cmd *cmd, t_shell *shell)
 {
 	if (str[i] == '-' || str[i] == '+')
 		i++;
@@ -23,22 +23,24 @@ int		check_numeric(char *str, int i)
 			ft_putstr_fd("minishell: exit: ", 2);
 			ft_putstr_fd(str + 5, 2);
 			ft_putstr_fd(": numeric argument required\n", 2);
-			exit (255);
+			clean_exit(255, shell, cmd);
 		}
 		i++;
 	}
-	return(i);
+	return (i);
 }
 
-void	exit_builtin(char *str, t_shell *shell)
+void	exit_builtin(t_cmd *cmd, t_shell *shell)
 {
-	int	i;
+	int		i;
+	char	*str;
 
+	str = cmd->cmd;
 	i = 4;
 	if (str[i] == '\0')
-		exit (0);
+		clean_exit(0, shell, cmd);
 	i++;
-	i = check_numeric(str, i);
+	i = check_numeric(str, i, cmd, shell);
 	while (str[i] && str[i] == ' ')
 		i++;
 	if (str[i] != '\0')
@@ -47,6 +49,13 @@ void	exit_builtin(char *str, t_shell *shell)
 		shell->exit_code = 1;
 		return ;
 	}
-	// printf("%i\n", ft_atoi(str + 5));
-	exit(ft_atoi(str + 5));
+	clean_exit(ft_atoi(str + 5), shell, cmd);
+}
+
+void	clean_exit(int exit_code, t_shell *shell, t_cmd *cmd)
+{
+	shell_struct_free(&shell);
+	free_command_struct(&cmd);
+	rl_clear_history();
+	exit (exit_code);
 }

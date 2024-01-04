@@ -1,25 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   command_table.c                                    :+:      :+:    :+:   */
+/*   builtins_utils_01.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/30 18:18:09 by fgabler           #+#    #+#             */
-/*   Updated: 2024/01/02 17:05:24 by kklockow         ###   ########.fr       */
+/*   Created: 2023/12/22 11:47:07 by kklockow          #+#    #+#             */
+/*   Updated: 2024/01/02 15:26:55 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../includes/minishell.h"
 
-int	command_table(t_parser *parser, t_process *process)
+
+int	count_till_equal(char *str)
 {
-	if (process->time_to_pars == false)
-		return (false);
-	syntax_check(parser);
-	expand(parser);
-	fill_command_struct(parser);
-	if (parser->error_accured == false)
-		parser->shell->process->time_to_exec = true;
-	return (true);
+	int	i;
+
+	i = 0;
+	while (str[i] && str[i] != '=')
+		i++;
+	if (!str[i])
+		return (-1);
+	return (i);
 }

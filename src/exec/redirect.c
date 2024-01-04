@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 14:37:28 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/20 20:12:38 by kklockow         ###   ########.fr       */
+/*   Updated: 2024/01/04 14:33:51 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	open_infile(t_cmd *c_table, t_shell *shell)
 	{
 		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd(c_table->infile, 2);
-		ft_putstr_fd(": No such file or directory\n", 2);
+		perror("\1");
 		shell->exit_code = 1;
 		return (-1);
 	}
@@ -113,7 +113,6 @@ int	open_outfile(t_cmd *c_table, t_shell *shell)
 	int	fd;
 
 	fd = 1;
-	printf("%s\n", c_table->outfile);
 	if (c_table->append == 1)
 		fd = open(c_table->outfile, O_WRONLY | O_APPEND | O_CREAT, 0644);
 	else
@@ -122,7 +121,7 @@ int	open_outfile(t_cmd *c_table, t_shell *shell)
 	{
 		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd(c_table->outfile, 2);
-		ft_putstr_fd(": No such file or directory\n", 2);
+		perror("\1");
 		shell->exit_code = 1;
 		return (-1);
 	}

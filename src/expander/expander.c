@@ -6,17 +6,11 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 12:54:21 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/20 20:38:39 by kklockow         ###   ########.fr       */
+/*   Updated: 2024/01/04 12:49:22 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-int		expander(t_shell *shell, t_data *s);
-int		get_sign_location(char *str);
-char	*get_variable_to_expand(char *str, int sign_location);
-char	*search_for_var(char *var, char **envp, t_shell *shell);
-void	update_cmd(t_data *s, char *var, int start, char *name);
 
 void	expand(t_parser *s)
 {
@@ -46,6 +40,8 @@ int	expander(t_shell *shell, t_data *s)
 		return (0);
 	if (s->type == DOUBLE_LESS)
 		return (1);
+	if (s->type != DOUBLE_QUOTE)
+		expand_to_home(shell, s);
 	sign_location = get_sign_location(s->str);
 	if (sign_location == -1)
 		return (0);
@@ -117,7 +113,7 @@ char	*get_variable_to_expand(char *str, int sign_location)
 	var_str = malloc(sizeof (char) * (len + 1));
 	i = sign_location + 1;
 	var_i = 0;
-	while (str[i] && str[i] != ' ' && str[i] != 39 && str[i] != '$')
+	while (str[i] && str[i] != ' ' && str[i] != '/' && str[i] != 39 && str[i] != '$')
 	{
 		var_str[var_i] = str[i];
 		i++;
