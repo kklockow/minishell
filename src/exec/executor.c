@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 15:34:07 by kklockow          #+#    #+#             */
-/*   Updated: 2024/01/04 13:44:55 by kklockow         ###   ########.fr       */
+/*   Updated: 2024/01/04 14:59:25 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,6 +156,7 @@ void	execute_command(t_cmd *current_cmd, t_shell *shell, t_cmd *head)
 			path = get_path(split[0], shell->envp);
 		else
 			path = ft_strdup(split[0]);
+		// printf("[%s]\n", path);
 		execve(path, split, shell->envp);
 		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd(current_cmd->cmd, 2);
