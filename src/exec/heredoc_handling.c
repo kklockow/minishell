@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 16:26:16 by kklockow          #+#    #+#             */
-/*   Updated: 2024/01/04 15:03:50 by kklockow         ###   ########.fr       */
+/*   Updated: 2024/01/05 18:33:57 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,7 @@ int	here_doc_handling(char *delimiter)
 	char	cwd[1028];
 	char	*path;
 
-	signal(SIGINT, SIG_DFL);
-
+	handle_signal_heredoc();
 	getcwd(cwd, sizeof(cwd));
 	path = ft_strjoin(cwd, "/tmp/heredoc");
 	heredoc = open(path, O_WRONLY | O_TRUNC | O_CREAT, 0644);
