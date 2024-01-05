@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 13:59:20 by kklockow          #+#    #+#             */
-/*   Updated: 2024/01/04 19:53:10 by kklockow         ###   ########.fr       */
+/*   Updated: 2024/01/05 15:36:58 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,31 @@
 
 int	check_builtin(t_cmd *current_cmd)
 {
+	// printf("[%s]\n", current_cmd->cmd);
 	if (current_cmd->cmd == NULL)
 		return (0);
-	if (ft_strncmp(current_cmd->cmd, "echo\1", 5) == 0)
+	if (ft_strncmp(current_cmd->cmd, "echo", 4) == 0
+		&& (current_cmd->cmd[4] == '\1' || current_cmd->cmd[4] == '\0'))
 		return (1);
-	if (ft_strncmp(current_cmd->cmd, "cd", 2) == 0)
+	if (ft_strncmp(current_cmd->cmd, "cd", 2) == 0
+		&& (current_cmd->cmd[2] == '\1' || current_cmd->cmd[2] == '\0'))
 		return (1);
-	if (ft_strncmp(current_cmd->cmd, "pwd", 3) == 0)
+	if (ft_strncmp(current_cmd->cmd, "pwd", 3) == 0
+		&& (current_cmd->cmd[3] == '\1' || current_cmd->cmd[3] == '\0'))
 		return (1);
-	if (ft_strncmp(current_cmd->cmd, "export", 6) == 0)
+	if (ft_strncmp(current_cmd->cmd, "export", 6) == 0
+		&& (current_cmd->cmd[6] == '\1' || current_cmd->cmd[6] == '\0'))
 		return (1);
 	if (ft_strncmp(current_cmd->cmd, "unset", 5) == 0
 		&& (current_cmd->cmd[5] == '\1' || current_cmd->cmd[5] == '\0'))
 		return (1);
-	if (ft_strncmp(current_cmd->cmd, "env", 3) == 0)
+	if (ft_strncmp(current_cmd->cmd, "env", 3) == 0
+		&& (current_cmd->cmd[3] == '\1' || current_cmd->cmd[3] == '\0'))
 		return (1);
 	if (ft_strncmp(current_cmd->cmd, "exit", 4) == 0
-		&& (current_cmd->cmd[4] == '\1'
-			|| current_cmd->cmd[4] == '\0'))
+		&& (current_cmd->cmd[4] == '\1' || current_cmd->cmd[4] == '\0'))
 		return (1);
+	// printf("noex\n");
 	return (0);
 }
 

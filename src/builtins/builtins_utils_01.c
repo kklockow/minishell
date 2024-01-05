@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 11:47:07 by kklockow          #+#    #+#             */
-/*   Updated: 2024/01/04 20:13:24 by kklockow         ###   ########.fr       */
+/*   Updated: 2024/01/05 15:29:24 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,9 @@ char	*split_export(char *str)
 	int		guard;
 	int		o;
 
-	str = "X=' A  B  '";
+	// str = "X=' A  B  '";
 	len = get_len_export(str);
-	printf("%i\n", len);
+	// printf("%i\n", len);
 	new = malloc(sizeof (char) * (len + 1));
 	i = 0;
 	o = 0;
@@ -80,6 +80,6 @@ char	*split_export(char *str)
 		i++;
 	}
 	new[o] = 0;
-	printf("[%s]\n", new);
+	// printf("[%s]\n", new);
 	return (new);
 }

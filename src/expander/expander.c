@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 12:54:21 by kklockow          #+#    #+#             */
-/*   Updated: 2024/01/04 12:49:22 by kklockow         ###   ########.fr       */
+/*   Updated: 2024/01/05 19:37:42 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int	expander(t_shell *shell, t_data *s)
 		return (1);
 	if (s->type != DOUBLE_QUOTE)
 		expand_to_home(shell, s);
+	// printf("[%s]\n", s->str);
 	sign_location = get_sign_location(s->str);
 	if (sign_location == -1)
 		return (0);

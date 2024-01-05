@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 15:34:07 by kklockow          #+#    #+#             */
-/*   Updated: 2024/01/04 18:28:43 by kklockow         ###   ########.fr       */
+/*   Updated: 2024/01/05 19:09:26 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,19 +148,7 @@ void	execute_command(t_cmd *current_cmd, t_shell *shell, t_cmd *head)
 	// ft_putstr_fd("]\n", 2);
 	if (current_cmd->cmd == NULL || current_cmd->cmd[0] == '\0')
 		clean_exit (1, shell, head);
-	// printf("[%s]\n",current_cmd->cmd);
-	// if (check_for_whitespace(current_cmd->cmd) == 0)
-	// {
 	check_for_path(current_cmd, shell);
-	// if (current_cmd->cmd[0] == '\1')
-	// {
-	// 	execve(path, split, shell->envp);
-	// 	ft_putstr_fd("minishell: ", 2);
-	// 	//different name
-	// 	ft_putstr_fd("", 2);
-	// 	ft_putstr_fd(": command not found\n", 2);
-	// 	clean_exit (127, shell, head);
-	// }
 	split = ft_split(current_cmd->cmd, '\1');
 	if (access(split[0], F_OK | X_OK) != 0)
 		path = get_path(split[0], shell->envp);
@@ -175,12 +163,6 @@ void	execute_command(t_cmd *current_cmd, t_shell *shell, t_cmd *head)
 	free_matrix(split);
 	free(path);
 	clean_exit (127, shell, head);
-	// }
-	// ft_putstr_fd("minishell: ", 2);
-	// ft_putstr_fd(current_cmd->cmd, 2);
-	// // ft_putstr_fd(": command not found\n", 2);
-	// perror("\1");
-	// clean_exit (127, shell, head);
 }
 
 //  * This function is responsible for handling pipes between commands in the
