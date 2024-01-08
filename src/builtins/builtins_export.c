@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 09:27:11 by kklockow          #+#    #+#             */
-/*   Updated: 2024/01/05 16:56:15 by kklockow         ###   ########.fr       */
+/*   Updated: 2024/01/08 16:41:53 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,9 @@ void	export(char *var, t_shell *shell, int len)
 	int	i;
 
 	i = 0;
+	// printf("[%s]\n%i\n", var, len);
 	while (shell->envp[i] != 0
-		&& ft_strncmp(shell->envp[i], var, len) != 0)
+		&& ft_strncmp(shell->envp[i], var, len + 1) != 0)
 		i++;
 	if (shell->envp[i] != NULL)
 	{
@@ -62,17 +63,18 @@ int	check_valid_char(char c, int i)
 	}
 	else
 	{
-		if (ft_isalnum(c) == 1)
+		// if (ft_isalnum(c) == 1)
+		// 	return (1);
+		// if (c == '_')
+		// 	return (1);
+		// if (c == '=')
+		// 	return (1);
+		// if (c == ' ')
+		// 	return (1);
+		// if (c == '/')
+		// 	return (1);
+		if (ft_isprint(c) == 1)
 			return (1);
-		if (c == '_')
-			return (1);
-		if (c == '=')
-			return (1);
-		if (c == ' ')
-			return (1);
-		if (c == '/')
-			return (1);
-		// if ft_isprint()
 	}
 	return (0);
 }
