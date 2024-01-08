@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 12:54:21 by kklockow          #+#    #+#             */
-/*   Updated: 2024/01/08 20:32:39 by kklockow         ###   ########.fr       */
+/*   Updated: 2024/01/08 21:59:56 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,15 @@ int	expander(t_shell *shell, t_data *s)
 		}
 		return (0);
 	}
-	var = get_variable_to_expand(s->str, sign_location);
+	if (s->str[sign_location + 1] == '?')
+	{
+		var = malloc(sizeof (char) * 2);
+		var[0] = '?';
+		var[1] = '\0';
+	}
+	else
+		var = get_variable_to_expand(s->str, sign_location);
+	// printf("%s\n", var);
 	var_content = search_for_var(var, shell->envp, shell);
 	update_cmd(s, var_content, sign_location, var);
 	free(var);
@@ -124,7 +132,7 @@ char	*get_variable_to_expand(char *str, int sign_location)
 	var_str = malloc(sizeof (char) * (len + 1));
 	i = sign_location + 1;
 	var_i = 0;
-	while (str[i] && str[i] != ' ' && str[i] != '/' && str[i] != 39 && str[i] != '$')
+	while (str[i] && str[i] != ' ' && str[i] != '/' && str[i] != 39 && str[i] != '$' && str[i] != '?')
 	{
 		var_str[var_i] = str[i];
 		i++;

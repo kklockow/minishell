@@ -73,3 +73,18 @@
                          TOTAL FAILED AND PASSED CASES:
                                      ❌ 216
                                      ✅ 2523
+             TOTAL TEST COUNT: 913  TESTS PASSED: 777  LEAKING: 0
+                     STD_OUT: 85  STD_ERR: 70  EXIT_CODE: 52
+                         TOTAL FAILED AND PASSED CASES:
+                                     ❌ 207
+                                     ✅ 2532
+             TOTAL TEST COUNT: 913  TESTS PASSED: 786  LEAKING: 0
+                     STD_OUT: 76  STD_ERR: 70  EXIT_CODE: 52
+                         TOTAL FAILED AND PASSED CASES:
+                                     ❌ 198
+                                     ✅ 2541
+             TOTAL TEST COUNT: 915  TESTS PASSED: 789  LEAKING: 0
+                     STD_OUT: 73  STD_ERR: 70  EXIT_CODE: 54
+                         TOTAL FAILED AND PASSED CASES:
+                                     ❌ 197
+                                     ✅ 2548
