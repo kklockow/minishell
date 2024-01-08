@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 13:59:20 by kklockow          #+#    #+#             */
-/*   Updated: 2024/01/05 15:36:58 by kklockow         ###   ########.fr       */
+/*   Updated: 2024/01/08 18:15:04 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int	check_builtin(t_cmd *current_cmd)
 {
-	// printf("[%s]\n", current_cmd->cmd);
 	if (current_cmd->cmd == NULL)
 		return (0);
 	if (ft_strncmp(current_cmd->cmd, "echo", 4) == 0
@@ -38,7 +37,6 @@ int	check_builtin(t_cmd *current_cmd)
 	if (ft_strncmp(current_cmd->cmd, "exit", 4) == 0
 		&& (current_cmd->cmd[4] == '\1' || current_cmd->cmd[4] == '\0'))
 		return (1);
-	// printf("noex\n");
 	return (0);
 }
 
@@ -132,7 +130,7 @@ char	**env_add_new(char **envp, char *str)
 		shell_env[i] = ft_strdup_init(envp[i]);
 		i++;
 	}
-	shell_env[i] = split_export(str);
+	shell_env[i] = ft_strdup_init(str);
 	shell_env[i + 1] = NULL;
 	free_matrix(envp);
 	return (shell_env);

@@ -79,7 +79,6 @@ char	**env_remove_one(char **envp, char *str, int len);
 char	**env_add_new(char **envp, char *str);
 int		count_till_equal(char *str);
 int		count_till_space_backwards(char *str, int i);
-char	*split_export(char *str);
 
 //LEXER
 int		lexing(t_lexer *lexer, t_process *process);
@@ -154,5 +153,7 @@ int		get_sign_location(char *str);
 char	*get_variable_to_expand(char *str, int sign_location);
 char	*search_for_var(char *var, char **envp, t_shell *shell);
 void	update_cmd(t_data *s, char *var, int start, char *name);
+char	*split_variable(char *str);
+int		get_len_export(char *str);
 
 #endif

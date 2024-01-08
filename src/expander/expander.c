@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 12:54:21 by kklockow          #+#    #+#             */
-/*   Updated: 2024/01/05 19:37:42 by kklockow         ###   ########.fr       */
+/*   Updated: 2024/01/08 16:34:55 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ char	*get_variable_to_expand(char *str, int sign_location)
 	char	*var_str;
 	int		var_i;
 
+	// printf("[%s]\n", str);
 	i = sign_location + 1;
 	len = 0;
 	while (str[i] && str[i] != ' ')
@@ -119,6 +120,7 @@ char	*get_variable_to_expand(char *str, int sign_location)
 		var_str[var_i] = str[i];
 		i++;
 		var_i++;
+		// printf("[%s]\n", var_str);
 	}
 	var_str[var_i] = '\0';
 	return (var_str);
