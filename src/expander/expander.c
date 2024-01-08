@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 12:54:21 by kklockow          #+#    #+#             */
-/*   Updated: 2024/01/08 16:34:55 by kklockow         ###   ########.fr       */
+/*   Updated: 2024/01/08 20:32:39 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,16 @@ int	expander(t_shell *shell, t_data *s)
 	// printf("[%s]\n", s->str);
 	sign_location = get_sign_location(s->str);
 	if (sign_location == -1)
+	{
+		if (s->str && s->str[0] == '$' && s->next && (s->next->type == DOUBLE_QUOTE || s->next->type == SINGLE_QUOTE))
+		{
+			// printf("went into new\n");
+			free(s->str);
+			s->str = malloc(sizeof (char) * 1);
+			s->str[0] = '\0';
+		}
 		return (0);
+	}
 	var = get_variable_to_expand(s->str, sign_location);
 	var_content = search_for_var(var, shell->envp, shell);
 	update_cmd(s, var_content, sign_location, var);

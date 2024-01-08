@@ -62,4 +62,14 @@
                      STD_OUT: 116  STD_ERR: 69  EXIT_CODE: 59
                          TOTAL FAILED AND PASSED CASES:
                                      ❌ 244
-                                     ✅ 2495  
+                                     ✅ 2495
+             TOTAL TEST COUNT: 913  TESTS PASSED: 765  LEAKING: 0
+                     STD_OUT: 93  STD_ERR: 70  EXIT_CODE: 60
+                         TOTAL FAILED AND PASSED CASES:
+                                     ❌ 223
+                                     ✅ 2516
+             TOTAL TEST COUNT: 913  TESTS PASSED: 772  LEAKING: 0
+                     STD_OUT: 86  STD_ERR: 70  EXIT_CODE: 60
+                         TOTAL FAILED AND PASSED CASES:
+                                     ❌ 216
+                                     ✅ 2523
