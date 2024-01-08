@@ -37,7 +37,7 @@ SRC_INIT	:=		init.c init_env.c
 SRC_BUIN	:=		builtins_cd.c builtins.c builtins_utils_00.c			\
 					builtins_exit.c builtins_export.c builtins_utils_01.c
 SRC_EXEC	:=		exec_utils.c executor.c heredoc_handling.c redirect.c
-SRC_EXPAND	:=		expander.c update_cmd.c expand_to_home.c
+SRC_EXPAND	:=		expander.c update_cmd.c expand_to_home.c expander_utils.c
 SRC_SIGNAL	:=		catch_signals.c command_c.c command_quit.c				\
 					hide_ctrl_chars.c
 SRC_FREE	:=		free_lexer_struct.c parser_free.c						\

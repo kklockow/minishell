@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 09:27:11 by kklockow          #+#    #+#             */
-/*   Updated: 2024/01/08 16:41:53 by kklockow         ###   ########.fr       */
+/*   Updated: 2024/01/08 18:12:17 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,14 @@ void	export(char *var, t_shell *shell, int len)
 	if (shell->envp[i] != NULL)
 	{
 		free(shell->envp[i]);
-		shell->envp[i] = split_export(var);
+		// shell->envp[i] = split_export(var);
+		shell->envp[i] = ft_strdup_init(var);
 	}
 	else
 		shell->envp = env_add_new(shell->envp, var);
 }
 
-int	check_valid_char(char c, int i)
+int	check_valid_char(char c, int i, int guard)
 {
 	if (i == 0)
 	{
@@ -61,41 +62,48 @@ int	check_valid_char(char c, int i)
 		if (c == '/')
 			return (1);
 	}
-	else
+	else if (guard == 0)
 	{
-		// if (ft_isalnum(c) == 1)
+		if (ft_isalnum(c) == 1)
+			return (1);
+		if (c == '_')
+			return (1);
+		if (c == '=')
+			return (1);
+		if (c == ' ')
+			return (1);
+		if (c == '/')
+			return (1);
+		// if (ft_isprint(c) == 1)
 		// 	return (1);
-		// if (c == '_')
-		// 	return (1);
-		// if (c == '=')
-		// 	return (1);
-		// if (c == ' ')
-		// 	return (1);
-		// if (c == '/')
-		// 	return (1);
+	}
+	else
 		if (ft_isprint(c) == 1)
 			return (1);
-	}
 	return (0);
 }
 
 int	check_for_invalid_export(char *str, t_shell *shell)
 {
 	int	i;
+	int	guard;
 
 	i = 0;
+	guard = 0;
 	// printf("[%s]\n", str);
 	while (str[i])
 	{
 		// if ((ft_isalpha(str[0]) == 0 && str[0] != '_' && str[0] != ' ')
 		// 	|| (ft_isalnum(str[i]) == 0 && str[i] != '_' && str[i] != '='))
-		if (check_valid_char(str[i], i) == 0)
+		if (check_valid_char(str[i], i, guard) == 0)
 		{
 			ft_putstr_fd("minishell: export: `", 2);
 			ft_putstr_fd(str, 2);
 			ft_putstr_fd("': not a valid indentifier\n", 2);
 			return (1);
 		}
+		if (str[i] == '=')
+			guard = 1;
 		i++;
 	}
 	return (0);

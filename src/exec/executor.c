@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 15:34:07 by kklockow          #+#    #+#             */
-/*   Updated: 2024/01/05 19:09:26 by kklockow         ###   ########.fr       */
+/*   Updated: 2024/01/08 18:16:15 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,9 @@ int	executor_with_pipes(t_cmd *c_table, t_shell *shell)
 		if (pid == 0)
 		{
 			redirect(c_table, pipefd, shell);
-			if (handle_builtin_piped(c_table, shell, head) == 0)
+			if (check_builtin(c_table) == 1)
+				handle_builtin_piped(c_table, shell, head);
+			else
 				execute_command(c_table, shell, head);
 		}
 		handle_pipe(c_table, pipefd);
