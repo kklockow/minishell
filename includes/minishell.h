@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 10:35:47 by kklockow          #+#    #+#             */
-/*   Updated: 2024/01/08 17:13:39 by kklockow         ###   ########.fr       */
+/*   Updated: 2024/01/07 22:42:44 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,9 +103,10 @@ void	redirect_roules_check(t_parser *parser);
 void	syntax_check(t_parser *parser);
 void	setup_parser_struct(t_parser *parser, t_cmd *command, t_lexer *lexer);
 void	syntax_error_print(t_data *data);
+int		heredoc_argument(t_data *data);
+char	*protected_strdup(char *string, t_parser *parser);
 
 //BUILTIN
-
 int		echo_builtin(char *str);
 int		pwd_builtin(void);
 int		cd_builtin(char *str, t_shell *shell);
