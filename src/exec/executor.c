@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 15:34:07 by kklockow          #+#    #+#             */
-/*   Updated: 2024/01/04 16:55:51 by kklockow         ###   ########.fr       */
+/*   Updated: 2024/01/09 16:10:08 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ int	executor_main(t_cmd *command, t_shell *shell)
 {
 	if (shell->process->time_to_exec != true)
 		return (-1);
+	// if (command->cmd && command->cmd[ft_strlen(command->cmd) - 1] == '\1')
+	// 	command->cmd = ft_strjoin_mod(command->cmd, " ");
 	if (command->next == NULL)
 		executor_no_pipes(command, shell);
 	else
@@ -98,7 +100,9 @@ int	executor_with_pipes(t_cmd *c_table, t_shell *shell)
 		if (pid == 0)
 		{
 			redirect(c_table, pipefd, shell);
-			if (handle_builtin_piped(c_table, shell, head) == 0)
+			if (check_builtin(c_table) == 1)
+				handle_builtin_piped(c_table, shell, head);
+			else
 				execute_command(c_table, shell, head);
 		}
 		handle_pipe(c_table, pipefd);
@@ -148,29 +152,21 @@ void	execute_command(t_cmd *current_cmd, t_shell *shell, t_cmd *head)
 	// ft_putstr_fd("]\n", 2);
 	if (current_cmd->cmd == NULL || current_cmd->cmd[0] == '\0')
 		clean_exit (1, shell, head);
-	// printf("[%s]\n",current_cmd->cmd);
-	// if (check_for_whitespace(current_cmd->cmd) == 0)
-	// {
+	if (current_cmd->heredoc_as_argument == 1)
+		current_cmd->cmd = ft_strjoin(current_cmd->cmd, "\1.heredoc");
 	check_for_path(current_cmd, shell);
-	split = ft_split(current_cmd->cmd, ' ');
+	split = ft_split(current_cmd->cmd, '\1');
 	if (access(split[0], F_OK | X_OK) != 0)
 		path = get_path(split[0], shell->envp);
 	else
 		path = ft_strdup(split[0]);
-	// printf("[%s]\n", path);
 	execve(path, split, shell->envp);
 	ft_putstr_fd("minishell: ", 2);
-	ft_putstr_fd(current_cmd->cmd, 2);
+	ft_putstr_fd(split[0], 2);
 	ft_putstr_fd(": command not found\n", 2);
 	free_matrix(split);
 	free(path);
 	clean_exit (127, shell, head);
-	// }
-	// ft_putstr_fd("minishell: ", 2);
-	// ft_putstr_fd(current_cmd->cmd, 2);
-	// // ft_putstr_fd(": command not found\n", 2);
-	// perror("\1");
-	// clean_exit (127, shell, head);
 }
 
 //  * This function is responsible for handling pipes between commands in the
