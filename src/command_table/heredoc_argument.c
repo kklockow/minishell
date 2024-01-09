@@ -6,16 +6,13 @@
 /*   By: fgabler <mail@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 16:00:21 by fgabler           #+#    #+#             */
-/*   Updated: 2024/01/09 12:48:03 by fgabler          ###   ########.fr       */
+/*   Updated: 2024/01/09 13:03:06 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	word_is_cat(t_data *data);
 static int	next_token_is_heredoc(t_data *data);
-static int	cat_with_flag(t_data *data);
-static int	cat_flag(t_data *data);
 
 void	heredoc_argument(t_data *data, t_cmd *command)
 {
