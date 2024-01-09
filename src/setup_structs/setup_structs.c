@@ -6,7 +6,7 @@
 /*   By: fgabler <mail@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 09:47:13 by fgabler           #+#    #+#             */
-/*   Updated: 2023/12/18 15:52:08 by fgabler          ###   ########.fr       */
+/*   Updated: 2024/01/05 13:04:41 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,17 @@
 
 static void	set_process(t_coordinate *coordinate);
 static void	allocate_structs(t_coordinate *coordinate);
-static void	first_set_up(t_coordinate *coordinate, char **envp);
 static void	set_structs(t_coordinate *coordinate);
+static void	make_structs_global(t_coordinate *coordinate);
 
-void	setup_structs(t_coordinate *coordinate, char **envp)
+void	setup_structs(t_coordinate *coordinate)
 {
 	set_process(coordinate);
 	if (coordinate->process.time_to_setup == false)
 		coordinate->process.time_to_lex = false;
-	first_set_up(coordinate, envp);
 	allocate_structs(coordinate);
 	set_structs(coordinate);
+	make_structs_global(coordinate);
 }
 
 static void	set_process(t_coordinate *coordinate)
@@ -47,17 +47,6 @@ static void	allocate_structs(t_coordinate *coordinate)
 		return (stop_loop(coordinate), stop_process(&coordinate->process));
 }
 
-static void	first_set_up(t_coordinate *coordinate, char **envp)
-{
-	if (coordinate->first_set_up == false)
-		return ;
-	coordinate->shell = ft_calloc(1, sizeof(t_shell));
-	if (coordinate->shell == NULL)
-		return ;//stop
-	coordinate->shell->envp = init_env(envp);
-	coordinate->first_set_up = false;
-}
-
 static void	set_structs(t_coordinate *coordinate)
 {
 	coordinate->parser->error_accured = false;
@@ -65,4 +54,18 @@ static void	set_structs(t_coordinate *coordinate)
 	coordinate->parser->shell->process = &coordinate->process;
 	coordinate->parser->lexer->shell = coordinate->shell;
 	coordinate->parser->lexer->input = coordinate->input;
+	coordinate->process.run_loop = &coordinate->run_loop;
+
+	coordinate->command = coordinate->parser->command;
+}
+
+static void	make_structs_global(t_coordinate *coordinate)
+{
+	t_shell		**tmp_shell;
+	t_cmd		**tmp_command;
+
+	tmp_shell = get_shell_struct();
+	*tmp_shell = coordinate->shell;
+	tmp_command = get_command_struct();
+	*tmp_command = coordinate->parser->command;
 }

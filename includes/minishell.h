@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 10:35:47 by kklockow          #+#    #+#             */
-/*   Updated: 2024/01/09 10:19:14 by fgabler          ###   ########.fr       */
+/*   Updated: 2024/01/05 13:35:32 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,22 +53,19 @@ void	move_to_next_token(int	*position, char *input);
 
 //EXECUTOR
 
+void	handle_signal_heredoc();
 int		executor_main(t_cmd *command, t_shell *shell);
 int		redirect(t_cmd *c_table, int *pipefd, t_shell *shell);
-
 void	check_envp(char **envp);
 char	**get_possible_paths(char **envp);
 char	*get_path(char *cmd, char **envp);
 char	**ft_split(char const *s, char c);
 char	*get_path(char *cmd, char **envp);
 char	*ft_strjoin(char const *s1, char const *s2);
-
 void	free_matrix(char **to_free);
-
 size_t	ft_strlen(const char *c);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*ft_strdup(const char *s1);
-
 int		here_doc_handling(char *delimiter);
 
 //BUILTIN_UTILS
@@ -135,6 +132,8 @@ void	first_setup(t_coordinate *coordinate, char **envp);
 void	setup_structs(t_coordinate *coordinate);
 
 //UTILS
+t_shell	**get_shell_struct();
+t_cmd	**get_command_struct();
 void	get_input(t_coordinate *coordinate);
 void	stop_process(t_process *process);
 void	set_process_state(t_process *process, int set_up, int lexer,
