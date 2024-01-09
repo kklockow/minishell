@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 16:26:17 by fgabler           #+#    #+#             */
-/*   Updated: 2024/01/09 12:42:17 by kklockow         ###   ########.fr       */
+/*   Updated: 2024/01/09 15:22:48 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ static void	repeat_set_next_save(t_data **data, int repeat);
 
 void	fill_command_struct(t_parser *parser)
 {
-	t_data *data;
-	t_cmd *command;
+	t_data	*data;
+	t_cmd	*command;
 
 	data = parser->lexer->head;
 	command = parser->command;

@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 19:00:16 by kklockow          #+#    #+#             */
-/*   Updated: 2024/01/04 18:30:53 by kklockow         ###   ########.fr       */
+/*   Updated: 2024/01/09 15:59:11 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,6 @@ void	clean_exit(int exit_code, t_shell *shell, t_cmd *cmd)
 	shell_struct_free(&shell);
 	free_command_struct(&cmd);
 	rl_clear_history();
+	unlink("heredoc");
 	exit (exit_code);
 }
