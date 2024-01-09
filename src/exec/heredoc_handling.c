@@ -27,9 +27,7 @@ int	here_doc_handling(char *delimiter)
 	char	*path;
 
 	handle_signal_heredoc();
-	getcwd(cwd, sizeof(cwd));
-	path = ft_strjoin(cwd, "/tmp/heredoc");
-	heredoc = open(path, O_WRONLY | O_TRUNC | O_CREAT, 0644);
+	heredoc = open(".heredoc", O_WRONLY | O_TRUNC | O_CREAT, 0644);
 	// pid = fork();
 	// if (pid < 0)
 	// 	return (-1);
@@ -41,8 +39,8 @@ int	here_doc_handling(char *delimiter)
 	// }
 	// waitpid(pid, 0, 0);
 	// close(pipefd[1]);
-	heredoc = open(path, O_RDONLY, 0644);
-	free(path);
+	heredoc = open(".heredoc", O_RDONLY, 0644);
+	// free(path);
 	return (heredoc);
 }
 
@@ -61,7 +59,7 @@ int	fill_here_doc(char *delimiter, int heredoc)
 	while (1)
 	{
 		line = readline("> ");
-		if (!line || ft_strncmp(delimiter, line, ft_strlen(delimiter)) == 0)
+		if (!line || ft_strncmp(delimiter, line, ft_strlen(delimiter) + 1) == 0)
 			break ;
 		here_doc_str = ft_strjoin_add_newline(here_doc_str, line);
 	}

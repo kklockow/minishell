@@ -76,7 +76,6 @@ char	**env_remove_one(char **envp, char *str, int len);
 char	**env_add_new(char **envp, char *str);
 int		count_till_equal(char *str);
 int		count_till_space_backwards(char *str, int i);
-char	*split_export(char *str);
 
 //LEXER
 int		lexing(t_lexer *lexer, t_process *process);
@@ -101,9 +100,9 @@ void	redirect_roules_check(t_parser *parser);
 void	syntax_check(t_parser *parser);
 void	setup_parser_struct(t_parser *parser, t_cmd *command, t_lexer *lexer);
 void	syntax_error_print(t_data *data);
+void	heredoc_argument(t_data *data, t_cmd *command);
 
 //BUILTIN
-
 int		echo_builtin(char *str);
 int		pwd_builtin(void);
 int		cd_builtin(char *str, t_shell *shell);
@@ -152,5 +151,7 @@ int		get_sign_location(char *str);
 char	*get_variable_to_expand(char *str, int sign_location);
 char	*search_for_var(char *var, char **envp, t_shell *shell);
 void	update_cmd(t_data *s, char *var, int start, char *name);
+char	*split_variable(char *str);
+int		get_len_export(char *str);
 
 #endif
