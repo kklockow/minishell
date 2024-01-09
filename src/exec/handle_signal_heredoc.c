@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_signal_heredoc.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgabler <mail@student.42heilbronn.de>      +#+  +:+       +#+        */
+/*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 13:05:44 by fgabler           #+#    #+#             */
-/*   Updated: 2024/01/05 13:29:55 by fgabler          ###   ########.fr       */
+/*   Updated: 2024/01/09 16:27:34 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ static	void	heredoc_handler(int signum, siginfo_t *info, void *context)
 	{
 		command = get_command_struct();
 		shell = get_shell_struct();
+		unlink(".heredoc");
 		clean_exit(1, *shell, *command);
 	}
 }

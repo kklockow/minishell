@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 14:56:29 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/22 08:05:04 by kklockow         ###   ########.fr       */
+/*   Updated: 2024/01/09 16:34:31 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	check_envp(char **envp)
 			return ;
 		i++;
 	}
-	exit (0);
+	// exit (0);
 }
 
 //  This function extracts and splits the PATH directories from the environment
