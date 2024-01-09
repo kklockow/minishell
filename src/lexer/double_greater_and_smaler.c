@@ -6,7 +6,7 @@
 /*   By: fgabler <mail@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 15:09:36 by fgabler           #+#    #+#             */
-/*   Updated: 2023/12/14 17:14:01 by fgabler          ###   ########.fr       */
+/*   Updated: 2024/01/09 17:19:28 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	is_double_greater_or_smaler(t_lexer *lexer, int sign);
 static void	fill_node(char sign, t_lexer *lexer);
-static void detect_sign(t_lexer *lexer, char sign);
+static void	detect_sign(t_lexer *lexer, char sign);
 static void	update_lexer(t_lexer *lexer);
 
 int	double_greater_and_smaler(t_lexer *lexer)
@@ -26,12 +26,12 @@ int	double_greater_and_smaler(t_lexer *lexer)
 	return (true);
 }
 
-static void detect_sign(t_lexer *lexer, char sign)
+static void	detect_sign(t_lexer *lexer, char sign)
 {
 	if (is_double_greater_or_smaler(lexer, sign) == true)
 	{
 		if (add_token_node(lexer) == false)
-			return ; //free
+			return ;
 		fill_node(sign, lexer);
 		update_lexer(lexer);
 	}
@@ -39,11 +39,12 @@ static void detect_sign(t_lexer *lexer, char sign)
 
 static int	is_double_greater_or_smaler(t_lexer *lexer, int sign)
 {
-	if (lexer->input[lexer->pos] == sign &&
-		lexer->input[lexer->pos + 1] == sign)
+	if (lexer->input[lexer->pos] == sign
+		&& lexer->input[lexer->pos + 1] == sign)
 		return (true);
 	return (false);
 }
+
 static void	fill_node(char sign, t_lexer *lexer)
 {
 	t_data	*data;

@@ -6,7 +6,7 @@
 /*   By: fgabler <mail@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 18:15:56 by fgabler           #+#    #+#             */
-/*   Updated: 2023/12/18 15:55:13 by fgabler          ###   ########.fr       */
+/*   Updated: 2024/01/09 17:19:59 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	find_quote_pair(t_lexer *lexer)
 		find_closing_quote('\"', lexer, &end_of_quote);
 		if (end_of_quote == -1)
 			return (quote_error(lexer),
-					stop_process(lexer->shell->process), false);
+				stop_process(lexer->shell->process), false);
 		if (add_token_node(lexer) == false)
 			return (false);
 		set_up_data_struct(lexer, end_of_quote, '\"');
@@ -37,7 +37,7 @@ int	find_quote_pair(t_lexer *lexer)
 		find_closing_quote('\'', lexer, &end_of_quote);
 		if (end_of_quote == -1)
 			return (quote_error(lexer),
-					stop_process(lexer->shell->process), false);
+				stop_process(lexer->shell->process), false);
 		if (add_token_node(lexer) == false)
 			return (false);
 		set_up_data_struct(lexer, end_of_quote, '\'');

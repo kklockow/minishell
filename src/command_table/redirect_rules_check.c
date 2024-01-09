@@ -6,7 +6,7 @@
 /*   By: fgabler <mail@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 13:55:22 by fgabler           #+#    #+#             */
-/*   Updated: 2023/12/15 15:03:04 by fgabler          ###   ########.fr       */
+/*   Updated: 2024/01/09 17:15:17 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	valide_token_after_redirect(t_data *data);
 
 void	redirect_roules_check(t_parser *parser)
 {
-	t_data *data;
+	t_data	*data;
 
 	if (parser->error_accured == true)
 		return ;
@@ -48,26 +48,12 @@ static void	next_token_check(t_data *data, t_parser *parser)
 		set_error_code(parser->shell, 258);
 		syntax_error_print(data);
 	}
-	/*
-	else if (net_token_pipe_and_word(data) == true)
-		return ;
-	*/
 }
 
 static int	valide_token_after_redirect(t_data *data)
 {
-	if (data->type == WORD || data->type == DOUBLE_QUOTE ||
-		data->type == SINGLE_QUOTE)
+	if (data->type == WORD || data->type == DOUBLE_QUOTE
+		|| data->type == SINGLE_QUOTE)
 		return (true);
 	return (false);
 }
-/*
-static int	net_token_pipe_and_word(t_data *data)
-{
-		if (data->next->next == NULL)
-			return (false);
-		else if (data->next->type == PIPE && data->next->next->type == WORD)
-			return (true);
-		return (false);
-}
-*/
