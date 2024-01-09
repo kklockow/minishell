@@ -6,7 +6,7 @@
 /*   By: fgabler <mail@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 15:01:48 by fgabler           #+#    #+#             */
-/*   Updated: 2023/12/15 15:05:37 by fgabler          ###   ########.fr       */
+/*   Updated: 2023/12/22 13:18:04 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	pipe_surrounding_check(t_data *data, int *error_accured);
 
 void	pipe_roules_check(t_parser *parser)
 {
-	t_data *data;
+	t_data	*data;
 
 	data = parser->lexer->head;
 	is_first_token_pipe(parser);
@@ -25,18 +25,16 @@ void	pipe_roules_check(t_parser *parser)
 	{
 		if (data->next != NULL && data->next->type == PIPE)
 			pipe_surrounding_check(data, &parser->error_accured);
-//		if (data->type == PIPE && data->next == NULL)
-//			return (parser->error_accured = true, print_syntax_error(data));
 		data = data->next;
 	}
 	if (parser->error_accured == true)
 		set_error_code(parser->shell, 258);
 }
 
-static int is_first_token_pipe(t_parser *parser)
+static int	is_first_token_pipe(t_parser *parser)
 {
 	if (parser->lexer->head == NULL)
-		return false;
+		return (false);
 	if (parser->lexer->head->type == PIPE)
 	{
 		set_error_code(parser->shell, 258);

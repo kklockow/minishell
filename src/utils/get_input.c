@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 11:07:21 by fgabler           #+#    #+#             */
-/*   Updated: 2023/12/20 17:19:40 by fgabler          ###   ########.fr       */
+/*   Updated: 2023/12/22 13:20:49 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,21 +32,22 @@ void	get_input(t_coordinate *coordinate)
 	}
 	else
 	{
+		char	*line;
+
 		coordinate->input = malloc(1);
 		ft_bzero(&coordinate->process, sizeof(t_process));
-		char *line;
 		line = get_next_line(fileno(stdin));
 		if (line == NULL)
 		{
-		coordinate->run_loop = false;
-		coordinate->process.time_to_lex = false;
-		ft_bzero(&coordinate->process, sizeof(t_process));
-		return ;
+			coordinate->run_loop = false;
+			coordinate->process.time_to_lex = false;
+			ft_bzero(&coordinate->process, sizeof(t_process));
+			return ;
 		}
 		else
 		{
-		//add_history(coordinate->input);
-		coordinate->process.time_to_setup = true;
+			//add_history(coordinate->input);
+			coordinate->process.time_to_setup = true;
 		}
 		coordinate->input = ft_strtrim(line, "\n");
 	}

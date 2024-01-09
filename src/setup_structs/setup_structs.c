@@ -55,7 +55,6 @@ static void	set_structs(t_coordinate *coordinate)
 	coordinate->parser->lexer->shell = coordinate->shell;
 	coordinate->parser->lexer->input = coordinate->input;
 	coordinate->process.run_loop = &coordinate->run_loop;
-
 	coordinate->command = coordinate->parser->command;
 }
 

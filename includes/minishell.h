@@ -6,6 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 10:35:47 by kklockow          #+#    #+#             */
+
 /*   Updated: 2024/01/05 13:35:32 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -75,7 +76,6 @@ int		check_builtin(t_cmd *current_cmd);
 char	**env_remove_one(char **envp, char *str, int len);
 char	**env_add_new(char **envp, char *str);
 int		count_till_equal(char *str);
-int		count_till_space_backwards(char *str, int i);
 
 //LEXER
 int		lexing(t_lexer *lexer, t_process *process);
@@ -116,7 +116,7 @@ int		count_len(char *str, int i);
 //SIGNALS
 void	catch_signals(t_coordinate *coordinate);
 void	command_c(void);
-void	command_quit();
+void	command_quit(void);
 void	hide_ctrl_chars(t_coordinate *coordinate);
 
 //FREE STRUCTS
@@ -136,8 +136,6 @@ t_shell	**get_shell_struct();
 t_cmd	**get_command_struct();
 void	get_input(t_coordinate *coordinate);
 void	stop_process(t_process *process);
-void	set_process_state(t_process *process, int set_up, int lexer,
-			int parser, int exec);
 void	input_check(int ac, char **av, t_coordinate *coordinate);
 void	set_error_code(t_shell *shell, int error_code);
 void	expand(t_parser *s);
