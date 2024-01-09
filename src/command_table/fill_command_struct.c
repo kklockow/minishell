@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 16:26:17 by fgabler           #+#    #+#             */
-/*   Updated: 2024/01/09 10:15:44 by fgabler          ###   ########.fr       */
+/*   Updated: 2024/01/09 15:20:55 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	fill_command(t_cmd *command, t_data *data, t_parser *parser);
 static void	check_for_pipe(t_cmd **command, t_data **data, t_parser *parser);
 static void	detect_redirect(t_cmd *command, t_data **data, t_parser *parser);
-static void	repeat_set_next_save(t_data **data, int repeat);
+static void	repeat_set_next_save(t_data **data, int repeat, t_parser *parser);
 
 void	fill_command_struct(t_parser *parser)
 {
@@ -28,10 +28,11 @@ void	fill_command_struct(t_parser *parser)
 	{
 		heredoc_argument(data, command);
 		detect_redirect(command, &data, parser);
-		check_for_pipe(&command, &data, parser);
 		fill_command(command, data, parser);
-		repeat_set_next_save(&data, 1);
+		check_for_pipe(&command, &data, parser);
+		repeat_set_next_save(&data, 1, parser);
 	}
+	/*
 	t_cmd *test_print;
 	test_print = parser->command;
 	while (test_print != NULL)
@@ -46,6 +47,7 @@ void	fill_command_struct(t_parser *parser)
 		printf("read: %d\n", test_print->read_pipe);
 		test_print = test_print->next;
 	}
+	*/
 }
 
 static void	check_for_pipe(t_cmd **command, t_data **data, t_parser *parser)
@@ -57,11 +59,14 @@ static void	check_for_pipe(t_cmd **command, t_data **data, t_parser *parser)
 	if (parser->error_accured == true)
 		return (stop_process(parser->shell->process));
 	(*command)->read_pipe = true;
-	repeat_set_next_save(data, 1);
+	repeat_set_next_save(data, 1, parser);
+	parser->new_pipe = true;
 }
 
 static void	fill_command(t_cmd *command, t_data *data, t_parser *parser)
 {
+	if (data == NULL || data->type == PIPE || parser->new_pipe == true)
+		return ;
 	if (data != NULL)
 	{
 		command->cmd = ft_strjoin_mod(command->cmd, data->str);
@@ -99,11 +104,16 @@ static void	detect_redirect(t_cmd *command, t_data **data, t_parser *parser)
 		command->infile = ft_strdup((*data)->next->str);
 		if_null_stop_process(command->infile, parser);
 	}
-	repeat_set_next_save(data, 2);
+	repeat_set_next_save(data, 2, parser);
 }
 
-static void	repeat_set_next_save(t_data **data, int repeat)
+static void	repeat_set_next_save(t_data **data, int repeat, t_parser *parser)
 {
+	if (parser->new_pipe == true)
+	{
+		parser->new_pipe = false;
+		return ;
+	}
 	while (repeat--)
 	{
 		if ((*data) != NULL)

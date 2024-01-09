@@ -85,6 +85,7 @@ typedef struct s_lexer
 typedef struct s_parser
 {
 	int				error_accured;
+	int				new_pipe;
 	t_lexer			*lexer;
 	struct s_cmd	*command;
 	t_shell			*shell;
