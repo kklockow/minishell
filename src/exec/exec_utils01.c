@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 14:56:29 by kklockow          #+#    #+#             */
-/*   Updated: 2024/01/09 16:34:31 by kklockow         ###   ########.fr       */
+/*   Updated: 2024/01/09 16:37:08 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ void	check_envp(char **envp)
 			return ;
 		i++;
 	}
-	// exit (0);
 }
 
 //  This function extracts and splits the PATH directories from the environment
@@ -129,10 +128,7 @@ char	*get_path(char *cmd, char **envp)
 		if (access(path, F_OK | X_OK) != 0)
 			i++;
 		else
-		{
-			free_matrix(possible_paths);
-			return (path);
-		}
+			return (free_matrix(possible_paths), path);
 		free(path);
 	}
 	free_matrix(possible_paths);

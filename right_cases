@@ -93,3 +93,8 @@
                          TOTAL FAILED AND PASSED CASES:
                                      ❌ 195
                                      ✅ 2550
+             TOTAL TEST COUNT: 915  TESTS PASSED: 791  LEAKING: 0
+                     STD_OUT: 74  STD_ERR: 65  EXIT_CODE: 54
+                         TOTAL FAILED AND PASSED CASES:
+                                     ❌ 193
+                                     ✅ 2552

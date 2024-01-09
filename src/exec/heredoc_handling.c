@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 16:26:16 by kklockow          #+#    #+#             */
-/*   Updated: 2024/01/05 18:33:57 by fgabler          ###   ########.fr       */
+/*   Updated: 2024/01/09 18:30:02 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,24 +23,12 @@ char		*ft_strjoin_add_newline(char *s1, char *s2);
 int	here_doc_handling(char *delimiter)
 {
 	int		heredoc;
-	char	cwd[1028];
-	char	*path;
 
 	handle_signal_heredoc();
 	heredoc = open(".heredoc", O_WRONLY | O_TRUNC | O_CREAT, 0644);
-	// pid = fork();
-	// if (pid < 0)
-	// 	return (-1);
-	// if (pid == 0)
-	// {
 	if (fill_here_doc(delimiter, heredoc) == -1)
 		exit(-1);
-		// exit(0);
-	// }
-	// waitpid(pid, 0, 0);
-	// close(pipefd[1]);
 	heredoc = open(".heredoc", O_RDONLY, 0644);
-	// free(path);
 	return (heredoc);
 }
 
@@ -70,8 +58,6 @@ int	fill_here_doc(char *delimiter, int heredoc)
 		write(heredoc, &here_doc_str[i], 1);
 		i++;
 	}
-	// close(pipefd[0]);
-	// close(pipefd[1]);
 	close(heredoc);
 	free(here_doc_str);
 	return (0);

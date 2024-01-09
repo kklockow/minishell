@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 13:40:03 by kklockow          #+#    #+#             */
-/*   Updated: 2024/01/03 18:56:26 by kklockow         ###   ########.fr       */
+/*   Updated: 2024/01/09 18:37:59 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,11 @@ int	expand_to_home(t_shell *shell, t_data *s)
 	char	*var;
 	char	*var_content;
 
-	// printf("went in\n");
 	sign_location = get_home_location(s->str);
 	if (sign_location == -1)
 		return (0);
 	var = "HOME";
 	var_content = search_for_var(var, shell->envp, shell);
-	// printf("[%s]\n", var_content);
 	update_cmd(s, var_content, sign_location, var);
 	free(var_content);
 	return (0);

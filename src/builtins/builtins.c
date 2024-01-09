@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 16:32:51 by kklockow          #+#    #+#             */
-/*   Updated: 2024/01/08 20:56:57 by kklockow         ###   ########.fr       */
+/*   Updated: 2024/01/09 18:27:01 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,23 +24,6 @@ int	echo_builtin(char *str)
 	char	**split;
 
 	new_line = 1;
-	// printf("[%s]\n", str);
-	// i = 0;
-	// if (str[i] == '\1')
-	// 	i++;
-	// if (str[i] && str[i + 1] && str[i] == '-' && str[i + 1] == 'n'
-	// 	&& str[i + 2] && str[i + 2] == '\1')
-	// {
-	// 	new_line = 0;
-	// 	i += 3;
-	// }
-	// while (str[i])
-	// {
-	// 	if (str[i] != '\1')
-	// 		write (1, &str[i], 1);
-	// 	i++;
-	// }
-	// printf("[%s]\n", str);
 	split = ft_split(str, '\1');
 	i = 0;
 	while (split[i] && (ft_strncmp(split[i], "-n\1", 3) == 0
@@ -52,7 +35,6 @@ int	echo_builtin(char *str)
 	}
 	while (split[i])
 	{
-		// printf("%i\n[%s]\n", i, split[i]);
 		printf("%s", split[i]);
 		if (split[i + 1] != NULL)
 			printf(" ");
@@ -97,7 +79,7 @@ int	env_builtin(char **envp)
 //environment variables from the shell's environment.
 //If a variable is not found, it prints an error message.
 
-int	check_for_invalid_unset(char *str, t_shell *shell)
+int	check_for_invalid_unset(char *str)
 {
 	int	i;
 
@@ -128,7 +110,7 @@ int	unset_builtin(char *str, t_shell *shell, int i)
 	num = 0;
 	while (var[num] != NULL)
 	{
-		shell->exit_code = check_for_invalid_unset(var[num], shell);
+		shell->exit_code = check_for_invalid_unset(var[num]);
 		joined = ft_strjoin(var[num], "=");
 		while (joined[i])
 			i++;
