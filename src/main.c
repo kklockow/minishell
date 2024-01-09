@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 10:35:04 by kklockow          #+#    #+#             */
-/*   Updated: 2023/12/21 20:23:03 by kklockow         ###   ########.fr       */
+/*   Updated: 2024/01/09 16:09:54 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	main(int ac, char **av, char **envp)
 	first_setup(&coordinate, envp);
 	while (coordinate.run_loop == true)
 	{
+		unlink(".heredoc");
 		get_input(&coordinate);
 		setup_structs(&coordinate);
 		lexing(coordinate.parser->lexer, &coordinate.process);

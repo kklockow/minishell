@@ -19,8 +19,8 @@ static void	repeat_set_next_save(t_data **data, int repeat, t_parser *parser);
 
 void	fill_command_struct(t_parser *parser)
 {
-	t_data *data;
-	t_cmd *command;
+	t_data	*data;
+	t_cmd	*command;
 
 	data = parser->lexer->head;
 	command = parser->command;
@@ -32,22 +32,20 @@ void	fill_command_struct(t_parser *parser)
 		check_for_pipe(&command, &data, parser);
 		repeat_set_next_save(&data, 1, parser);
 	}
-	/*
-	t_cmd *test_print;
-	test_print = parser->command;
-	while (test_print != NULL)
-	{
-		printf("\ncommand: [%s]\n", test_print->cmd);
-		printf("heredoc: [%s]\n", test_print->heredoc);
-		printf("infile: [%s]\n", test_print->infile);
-		printf("heredoc as argument: [%d]\n", test_print->heredoc_as_argument);
-		printf("outfile: [%s]\n", test_print->outfile);
-		printf("append: %d\n", test_print->append);
-		printf("write: %d\n", test_print->write_pipe);
-		printf("read: %d\n", test_print->read_pipe);
-		test_print = test_print->next;
-	}
-	*/
+	// t_cmd *test_print;
+	// test_print = parser->command;
+	// while (test_print != NULL)
+	// {
+	// 	printf("\ncommand: [%s]\n", test_print->cmd);
+	// 	printf("heredoc: [%s]\n", test_print->heredoc);
+	// 	printf("infile: [%s]\n", test_print->infile);
+	// 	printf("heredoc as argument: [%d]\n", test_print->heredoc_as_argument);
+	// 	printf("outfile: [%s]\n", test_print->outfile);
+	// 	printf("append: %d\n", test_print->append);
+	// 	printf("write: %d\n", test_print->write_pipe);
+	// 	printf("read: %d\n", test_print->read_pipe);
+	// 	test_print = test_print->next;
+	// }
 }
 
 static void	check_for_pipe(t_cmd **command, t_data **data, t_parser *parser)
