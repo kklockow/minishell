@@ -30,7 +30,7 @@ SRC_CMD_TAB	:=		command_table.c syntax_error_print.c syntax_check.c		\
 					redirect_rules_check.c pipe_roules_check.c				\
 					is_redirect.c fill_command_struct.c						\
 					command_node_add_back.c add_space_check.c				\
-					heredoc_argument.c protected_strdup.c
+					heredoc_argument.c
 SRC_UTILS	:=		get_input.c set_process.c stop_process.c				\
 					input_check.c set_error_code.c stop_loop.c				\
 					if_null_stop_process.c

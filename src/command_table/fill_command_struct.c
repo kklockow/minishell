@@ -5,7 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/11 16:26:17 by fgabler           #+#    #+#             */ /*   Updated: 2024/01/07 22:37:13 by fgabler          ###   ########.fr       */
+/*   Created: 2023/12/11 16:26:17 by fgabler           #+#    #+#             */
+/*   Updated: 2024/01/09 10:15:44 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +26,7 @@ void	fill_command_struct(t_parser *parser)
 	command = parser->command;
 	while (data != NULL && parser->error_accured == false)
 	{
+		heredoc_argument(data, command);
 		detect_redirect(command, &data, parser);
 		check_for_pipe(&command, &data, parser);
 		fill_command(command, data, parser);
@@ -74,21 +76,29 @@ static void	fill_command(t_cmd *command, t_data *data, t_parser *parser)
 
 static void	detect_redirect(t_cmd *command, t_data **data, t_parser *parser)
 {
-	if (heredoc_argument(*data) == true)
-		command->heredoc_as_argument = true;
-	else if (is_redirect(*data) == false)
+	if (is_redirect(*data) == false)
 		return ;
 	else if ((*data)->type == DOUBLE_LESS)
-		command->heredoc = protected_strdup((*data)->next->str, parser);
+	{
+		command->heredoc = ft_strdup((*data)->next->str);
+		if_null_stop_process(command->heredoc, parser);
+	}
 	else if ((*data)->type == DOUBLE_GREAT)
 	{
-		command->outfile = protected_strdup((*data)->next->str, parser);
+		command->outfile = ft_strdup((*data)->next->str);
+		if_null_stop_process(command->outfile, parser);
 		command->append = true;
 	}
 	else if ((*data)->type == GREATER)
-		command->outfile = protected_strdup((*data)->next->str, parser);
+	{
+		command->outfile = ft_strdup((*data)->next->str);
+		if_null_stop_process(command->outfile, parser);
+	}
 	else if ((*data)->type == LESS)
-		command->infile = protected_strdup((*data)->next->str, parser);
+	{
+		command->infile = ft_strdup((*data)->next->str);
+		if_null_stop_process(command->infile, parser);
+	}
 	repeat_set_next_save(data, 2);
 }
 

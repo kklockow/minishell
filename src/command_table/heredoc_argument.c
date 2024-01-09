@@ -6,7 +6,7 @@
 /*   By: fgabler <mail@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 16:00:21 by fgabler           #+#    #+#             */
-/*   Updated: 2024/01/07 22:49:19 by fgabler          ###   ########.fr       */
+/*   Updated: 2024/01/09 10:06:18 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 static int	word_is_cat(t_data *data);
 static int	next_token_is_heredoc(t_data *data);
 
-int	heredoc_argument(t_data *data)
+void	heredoc_argument(t_data *data, t_cmd *command)
 {
 	if (next_token_is_heredoc(data) == true && word_is_cat(data) == true
 			&& data->type == WORD)
-		return (true);
-	return (false);
+		command->heredoc_as_argument = true;
+
 }
 
 static int	next_token_is_heredoc(t_data *data)
