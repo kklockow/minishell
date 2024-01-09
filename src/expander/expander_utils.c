@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 17:12:05 by kklockow          #+#    #+#             */
-/*   Updated: 2024/01/09 19:56:58 by kklockow         ###   ########.fr       */
+/*   Updated: 2024/01/09 20:05:33 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,9 @@ void	handle_non_sign(t_data *s)
 	}
 }
 
-void	free_and_do_again(char *var, char *vc, t_shell *shell, t_data *s)
+void	free_and_do_again(char *bird, char *vc, t_shell *shell, t_data *s)
 {
-	free(var);
+	free(bird);
 	free(vc);
 	expander(shell, s);
 }
