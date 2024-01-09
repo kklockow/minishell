@@ -6,7 +6,7 @@
 /*   By: fgabler <mail@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 09:47:13 by fgabler           #+#    #+#             */
-/*   Updated: 2023/12/22 16:32:13 by fgabler          ###   ########.fr       */
+/*   Updated: 2024/01/05 13:04:41 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static void	set_process(t_coordinate *coordinate);
 static void	allocate_structs(t_coordinate *coordinate);
 static void	set_structs(t_coordinate *coordinate);
+static void	make_structs_global(t_coordinate *coordinate);
 
 void	setup_structs(t_coordinate *coordinate)
 {
@@ -23,6 +24,7 @@ void	setup_structs(t_coordinate *coordinate)
 		coordinate->process.time_to_lex = false;
 	allocate_structs(coordinate);
 	set_structs(coordinate);
+	make_structs_global(coordinate);
 }
 
 static void	set_process(t_coordinate *coordinate)
@@ -54,4 +56,15 @@ static void	set_structs(t_coordinate *coordinate)
 	coordinate->parser->lexer->input = coordinate->input;
 	coordinate->process.run_loop = &coordinate->run_loop;
 	coordinate->command = coordinate->parser->command;
+}
+
+static void	make_structs_global(t_coordinate *coordinate)
+{
+	t_shell		**tmp_shell;
+	t_cmd		**tmp_command;
+
+	tmp_shell = get_shell_struct();
+	*tmp_shell = coordinate->shell;
+	tmp_command = get_command_struct();
+	*tmp_command = coordinate->parser->command;
 }

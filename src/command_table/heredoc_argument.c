@@ -1,36 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   command_c.c                                        :+:      :+:    :+:   */
+/*   heredoc_argument.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fgabler <mail@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/18 08:53:49 by fgabler           #+#    #+#             */
-/*   Updated: 2023/12/22 17:55:57 by fgabler          ###   ########.fr       */
+/*   Created: 2024/01/07 16:00:21 by fgabler           #+#    #+#             */
+/*   Updated: 2024/01/09 13:03:06 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	command_c_handler(int signum, siginfo_t *info, void *context);
+static int	next_token_is_heredoc(t_data *data);
 
-void	command_c(void)
+void	heredoc_argument(t_data *data, t_cmd *command)
 {
-	struct sigaction	command_c;
-
-	command_c.sa_sigaction = command_c_handler;
-	sigaction(SIGINT, &command_c, NULL);
+	if (data->type == WORD && next_token_is_heredoc(data) == true)
+		command->heredoc_as_argument = true;
 }
 
-static void	command_c_handler(int signum, siginfo_t *info, void *context)
+static int	next_token_is_heredoc(t_data *data)
 {
-	(void) info;
-	(void) context;
-	if (signum == SIGINT)
-	{
-		write(1, "\n", 1);
-		rl_on_new_line();
-		rl_replace_line("", 1);
-		rl_redisplay();
-	}
+	if (data != NULL && data->next != NULL && data->next->type == DOUBLE_LESS)
+		return (true);
+	return (false);
 }

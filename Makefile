@@ -7,7 +7,8 @@ NAME = minishell
 ###############################################################################
 
 CC				=		cc
-CFLAGS			=		-Wall -Werror -Wextra -fsanitize=address -g
+#CFLAGS			=		-Wall -Werror -Wextra -fsanitize=address -g
+CFLAGS			=		-g
 EXTRA_FLAGS		=		-lreadline
 HEADERS			=		-I./includes -I./libs/include
 LIBS			=		./libs
@@ -28,18 +29,19 @@ SRC_LEXER	:=		lexer.c find_quote_pair.c add_token_node.c				\
 SRC_CMD_TAB	:=		command_table.c syntax_error_print.c syntax_check.c		\
 					redirect_rules_check.c pipe_roules_check.c				\
 					is_redirect.c fill_command_struct.c						\
-					command_node_add_back.c add_space_check.c
+					command_node_add_back.c add_space_check.c				\
+					heredoc_argument.c
 SRC_UTILS	:=		get_input.c set_process.c stop_process.c				\
 					input_check.c set_error_code.c stop_loop.c				\
-					if_null_stop_process.c
+					if_null_stop_process.c get_structs.c
 SRC_INIT	:=		init.c init_env.c
-SRC_BUIN	:=		builtins_cd.c builtins.c builtins_utils.c				\
-					builtins_exit.c
-SRC_EXEC	:=		exec_utils.c executor.c heredoc_handling.c redirect.c
-SRC_EXPAND	:=		expander.c update_cmd.c
+SRC_BUIN	:=		builtins_cd.c builtins.c builtins_utils_00.c			\
+					builtins_exit.c builtins_export.c builtins_utils_01.c
+SRC_EXEC	:=		exec_utils.c executor.c heredoc_handling.c redirect.c handle_signal_heredoc.c
+SRC_EXPAND	:=		expander.c update_cmd.c expand_to_home.c expander_utils.c
 SRC_SIGNAL	:=		catch_signals.c command_c.c command_quit.c				\
 					hide_ctrl_chars.c
-SRC_FREE	:=		free_lexer_struct.c parser_free.c		\
+SRC_FREE	:=		free_lexer_struct.c parser_free.c						\
 					save_free.c shell_struct_free.c free_command_struct.c
 SRC_SETUP	:=		setup_structs.c first_setup.c
 
@@ -66,7 +68,9 @@ $(NAME): $(LIBS_NAME) $(OBJ)
 
 $(OBJ_DIR)/%.o: %.c
 	@echo $(YELLOW)Compiling [$@]...$(RESET)
-	@mkdir -p _obj
+	@if [ ! -d "${OBJ_DIR}" ]; then							\
+		mkdir -p _obj;										\
+	fi
 	@$(CC) $(CFLAGS) -c $< $(HEADERS) -o $@
 	@printf $(UP)$(CUT)
 
