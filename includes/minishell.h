@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 10:35:47 by kklockow          #+#    #+#             */
-/*   Updated: 2024/01/10 08:57:22 by kklockow         ###   ########.fr       */
+/*   Updated: 2024/01/10 18:45:18 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,18 +42,11 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 //INIT
-
 char	**init_env(char **envp);
 int		ft_env_len(char **envp);
 char	*ft_strdup_init(const char *s1);
 
-//LEXER
-
-void	move_to_next_token(int	*position, char *input);
-
 //EXECUTOR
-
-void	handle_signal_heredoc(void);
 int		executor_main(t_cmd *command, t_shell *shell);
 int		redirect(t_cmd *c_table, int *pipefd, t_shell *shell);
 void	check_envp(char **envp);
@@ -74,7 +67,6 @@ void	check_for_path(t_cmd *cmd, t_shell *shell);
 void	cleaning_up(pid_t pid, int stdin, int stdout, t_shell *shell);
 
 //BUILTIN_UTILS
-
 int		handle_builtin(t_cmd *current_cmd, t_shell *shell);
 int		check_builtin(t_cmd *current_cmd);
 char	**env_remove_one(char **envp, char *str, int len);
@@ -83,6 +75,7 @@ int		count_till_equal(char *str);
 int		count_till_space_backwards(char *str, int i);
 
 //LEXER
+void	move_to_next_token(int	*position, char *input);
 int		lexing(t_lexer *lexer, t_process *process);
 int		find_quote_pair(t_lexer *lexer);
 int		add_token_node(t_lexer *lexer);
@@ -124,6 +117,7 @@ void	catch_signals(t_coordinate *coordinate);
 void	command_c(void);
 void	command_quit();
 void	hide_ctrl_chars(t_coordinate *coordinate);
+void	handle_signal_heredoc(void);
 
 //FREE STRUCTS
 void	free_structs(t_coordinate *coordinate);
