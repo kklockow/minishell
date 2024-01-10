@@ -106,6 +106,7 @@ void	syntax_check(t_parser *parser);
 void	setup_parser_struct(t_parser *parser, t_cmd *command, t_lexer *lexer);
 void	syntax_error_print(t_data *data);
 void	heredoc_argument(t_data *data, t_cmd *command);
+void	repeat_set_data_next_save(t_data **data);
 
 //BUILTIN
 int		echo_builtin(char *str);
