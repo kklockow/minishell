@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 16:32:51 by kklockow          #+#    #+#             */
-/*   Updated: 2024/01/09 18:27:01 by kklockow         ###   ########.fr       */
+/*   Updated: 2024/01/10 09:41:15 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,8 +120,8 @@ int	unset_builtin(char *str, t_shell *shell, int i)
 			i++;
 		if (shell->envp[i] != NULL)
 			shell->envp = env_remove_one(shell->envp, joined, len);
-		free(joined);
 		num++;
+		i = 0;
 	}
 	free_matrix(var);
 	return (shell->exit_code);

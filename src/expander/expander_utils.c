@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 17:12:05 by kklockow          #+#    #+#             */
-/*   Updated: 2024/01/09 20:05:33 by kklockow         ###   ########.fr       */
+/*   Updated: 2024/01/10 10:07:58 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,12 @@ char	*fill_variable(char *str, char *new, int i, int o)
 			}
 			i++;
 		}
-		new[o] = str[i];
-		o++;
-		if (str[i])
+		if (guard == 0)
+		{
+			new[o] = str[i];
+			o++;
 			i++;
+		}
 	}
 	new[o] = '\0';
 	return (new);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_utils.c                                       :+:      :+:    :+:   */
+/*   exec_utils01.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 14:56:29 by kklockow          #+#    #+#             */
-/*   Updated: 2024/01/09 16:37:08 by kklockow         ###   ########.fr       */
+/*   Updated: 2024/01/10 08:34:40 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ char	**get_possible_paths(char **envp)
 			break ;
 		gpp.i++;
 	}
+	if (envp[gpp.i] == NULL)
+		return (0);
 	gpp.temp = malloc(sizeof(char) * (ft_strlen(envp[gpp.i]) - 4));
 	if (!gpp.temp)
 		return (0);

@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 11:09:51 by kklockow          #+#    #+#             */
-/*   Updated: 2024/01/09 18:08:58 by kklockow         ###   ########.fr       */
+/*   Updated: 2024/01/10 10:21:40 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ int	cd_back_one(t_shell *shell, char *temp, int i)
 		return (1);
 	}
 	temp = shell->envp[i] + 7;
+	printf("%s\n", temp);
 	update_oldpwd(shell);
 	if (chdir(temp) == -1)
 	{
@@ -117,25 +118,30 @@ int	cd_back_one(t_shell *shell, char *temp, int i)
 		perror("\1");
 		shell->exit_code = 1;
 	}
-	printf("%s\n", temp);
 	update_pwd(shell);
 	return (0);
 }
 
 int	cd_builtin(char *str, t_shell *shell)
 {
+	char	**split;
+	char	*str_copy;
+
 	if (str[2] == '\0')
 		return (cd_to_home(shell));
 	if (str[3] == '-' && (str[4] == '\1' || str[4] == '\0'))
 		return (cd_back_one(shell, NULL, 0));
 	update_oldpwd(shell);
-	if (chdir(str + 3) == -1)
+	str_copy = ft_strdup(str);
+	split = ft_split(str_copy, '\1');
+	if (chdir(split[1]) == -1)
 	{
 		ft_putstr_fd("minishell: cd: ", 2);
-		ft_putstr_fd(str + 3, 2);
+		ft_putstr_fd(split[1], 2);
 		perror("\1");
 		shell->exit_code = 1;
 	}
 	update_pwd(shell);
+	free_matrix(split);
 	return (0);
 }
