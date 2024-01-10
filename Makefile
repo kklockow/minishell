@@ -7,7 +7,7 @@ NAME = minishell
 ###############################################################################
 
 CC				=		cc
-CFLAGS			=		-fsanitize=address -g
+CFLAGS			=		-Wall -Werror -Wextra -g
 EXTRA_FLAGS		=		-lreadline
 HEADERS			=		-I./includes -I./libs/include
 LIBS			=		./libs
@@ -30,7 +30,7 @@ SRC_CMD_TAB	:=		command_table.c syntax_error_print.c syntax_check.c		\
 					is_redirect.c fill_command_struct.c						\
 					command_node_add_back.c add_space_check.c				\
 					heredoc_argument.c repeat_set_data_next_save.c
-SRC_UTILS	:=		get_input.c set_process.c stop_process.c				\
+SRC_UTILS	:=		get_input.c stop_process.c								\
 					input_check.c set_error_code.c stop_loop.c				\
 					if_null_stop_process.c get_structs.c
 SRC_INIT	:=		init.c init_env.c
