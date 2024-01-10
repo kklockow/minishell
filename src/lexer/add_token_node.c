@@ -6,7 +6,7 @@
 /*   By: fgabler <mail@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 14:24:26 by fgabler           #+#    #+#             */
-/*   Updated: 2023/12/15 14:51:15 by fgabler          ###   ########.fr       */
+/*   Updated: 2024/01/09 17:17:55 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	add_token_node(t_lexer *lexer)
 	new = malloc(sizeof(t_data));
 	if (new == NULL)
 		return (perror(""), stop_process(lexer->shell->process),
-				set_error_code(lexer->shell, 1), false);
+			set_error_code(lexer->shell, 1), false);
 	ft_bzero(new, sizeof(t_data));
 	add_token_node_back(lexer, new);
 	return (true);
@@ -34,7 +34,7 @@ static void	add_token_node_back(t_lexer *lexer, t_data *new)
 	if (lexer->head == NULL)
 	{
 		lexer->head = new;
-		return;
+		return ;
 	}
 	last = go_to_last_lexer_node(lexer->head);
 	if (last)

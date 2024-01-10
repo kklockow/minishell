@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 10:35:47 by kklockow          #+#    #+#             */
-/*   Updated: 2024/01/10 18:45:18 by fgabler          ###   ########.fr       */
+/*   Updated: 2024/01/10 19:02:17 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,11 @@ char	**init_env(char **envp);
 int		ft_env_len(char **envp);
 char	*ft_strdup_init(const char *s1);
 
+//LEXER
+void	move_to_next_token(int	*position, char *input);
+
 //EXECUTOR
+void	handle_signal_heredoc(void);
 int		executor_main(t_cmd *command, t_shell *shell);
 int		redirect(t_cmd *c_table, int *pipefd, t_shell *shell);
 void	check_envp(char **envp);
@@ -115,7 +119,7 @@ int		count_len(char *str, int i);
 //SIGNALS
 void	catch_signals(t_coordinate *coordinate);
 void	command_c(void);
-void	command_quit();
+void	command_quit(void);
 void	hide_ctrl_chars(t_coordinate *coordinate);
 void	handle_signal_heredoc(void);
 
@@ -132,12 +136,10 @@ void	first_setup(t_coordinate *coordinate, char **envp);
 void	setup_structs(t_coordinate *coordinate);
 
 //UTILS
-t_shell	**get_shell_struct();
-t_cmd	**get_command_struct();
+t_shell	**get_shell_struct(void);
+t_cmd	**get_command_struct(void);
 void	get_input(t_coordinate *coordinate);
 void	stop_process(t_process *process);
-void	set_process_state(t_process *process, int set_up, int lexer,
-			int parser, int exec);
 void	input_check(int ac, char **av, t_coordinate *coordinate);
 void	set_error_code(t_shell *shell, int error_code);
 void	expand(t_parser *s);
