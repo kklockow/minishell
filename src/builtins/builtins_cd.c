@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 11:09:51 by kklockow          #+#    #+#             */
-/*   Updated: 2024/01/10 10:21:40 by kklockow         ###   ########.fr       */
+/*   Updated: 2024/01/10 10:48:41 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,5 +143,6 @@ int	cd_builtin(char *str, t_shell *shell)
 	}
 	update_pwd(shell);
 	free_matrix(split);
+	free(str_copy);
 	return (0);
 }

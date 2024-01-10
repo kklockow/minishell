@@ -7,7 +7,7 @@ NAME = minishell
 ###############################################################################
 
 CC				=		cc
-CFLAGS			=		-Wall -Werror -Wextra -fsanitize=address -g
+CFLAGS			=		-fsanitize=address -g
 EXTRA_FLAGS		=		-lreadline
 HEADERS			=		-I./includes -I./libs/include
 LIBS			=		./libs
@@ -75,9 +75,9 @@ $(OBJ_DIR)/%.o: %.c
 	@printf $(UP)$(CUT)
 
 $(LIBS_NAME):
-	@git submodule update --remote --init -q
 	@$(MAKE) -C $(LIBS) -B
 
+#@git submodule update --remote --init -q
 ###############################################################################
 ###############################################################################
 

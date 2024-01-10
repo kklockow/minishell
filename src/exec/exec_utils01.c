@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 14:56:29 by kklockow          #+#    #+#             */
-/*   Updated: 2024/01/10 08:34:40 by kklockow         ###   ########.fr       */
+/*   Updated: 2024/01/10 12:15:51 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ char	**get_possible_paths(char **envp)
 		gpp.j++;
 		gpp.k++;
 	}
+	// printf("temp: [%s] \n", gpp.temp);
 	gpp.possible_paths = ft_split(gpp.temp, ':');
 	free(gpp.temp);
 	return (gpp.possible_paths);

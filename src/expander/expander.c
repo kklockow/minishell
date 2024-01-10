@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 12:54:21 by kklockow          #+#    #+#             */
-/*   Updated: 2024/01/09 19:54:50 by kklockow         ###   ########.fr       */
+/*   Updated: 2024/01/10 11:04:29 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,11 +146,11 @@ char	*search_for_var(char *var, char **envp, t_shell *shell)
 		if (ft_strncmp(var_equal, envp[i], ft_strlen(var_equal)) == 0)
 		{
 			var_content = ft_strdup(envp[i] + ft_strlen(var_equal));
-			return (var_content);
+			return (free(var_equal), var_content);
 		}
 		i++;
 	}
 	var_content = malloc(sizeof (char) * 1);
 	var_content[0] = '\0';
-	return (var_content);
+	return (free(var_equal), var_content);
 }
