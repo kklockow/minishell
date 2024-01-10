@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 14:37:28 by kklockow          #+#    #+#             */
-/*   Updated: 2024/01/04 14:33:51 by kklockow         ###   ########.fr       */
+/*   Updated: 2024/01/10 15:05:37 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int	handle_output(t_cmd *c_table, int *pipefd, t_shell *shell)
 {
 	int	fd_out;
 
-	if (c_table->write_pipe == 1)
+	if (c_table->write_pipe == 1 && c_table->outfile == NULL)
 	{
 		close(pipefd[0]);
 		dup2(pipefd[1], STDOUT_FILENO);
@@ -100,6 +100,11 @@ int	handle_output(t_cmd *c_table, int *pipefd, t_shell *shell)
 			return (-1);
 		dup2(fd_out, STDOUT_FILENO);
 		close(fd_out);
+	}
+	if (c_table->write_pipe == 1 && c_table->outfile != NULL)
+	{
+		close(pipefd[0]);
+		close(pipefd[1]);
 	}
 	return (0);
 }

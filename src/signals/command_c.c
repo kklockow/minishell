@@ -6,7 +6,7 @@
 /*   By: fgabler <mail@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 08:53:49 by fgabler           #+#    #+#             */
-/*   Updated: 2023/12/22 17:55:57 by fgabler          ###   ########.fr       */
+/*   Updated: 2024/01/10 18:47:23 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@ void	command_c(void)
 {
 	struct sigaction	command_c;
 
+	sigemptyset(&command_c.sa_mask);
 	command_c.sa_sigaction = command_c_handler;
+	command_c.sa_flags = SA_SIGINFO;
 	sigaction(SIGINT, &command_c, NULL);
 }
 

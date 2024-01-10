@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 09:27:11 by kklockow          #+#    #+#             */
-/*   Updated: 2024/01/08 18:12:17 by kklockow         ###   ########.fr       */
+/*   Updated: 2024/01/09 18:28:40 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,12 @@ void	export(char *var, t_shell *shell, int len)
 	int	i;
 
 	i = 0;
-	// printf("[%s]\n%i\n", var, len);
 	while (shell->envp[i] != 0
 		&& ft_strncmp(shell->envp[i], var, len + 1) != 0)
 		i++;
 	if (shell->envp[i] != NULL)
 	{
 		free(shell->envp[i]);
-		// shell->envp[i] = split_export(var);
 		shell->envp[i] = ft_strdup_init(var);
 	}
 	else
@@ -64,18 +62,12 @@ int	check_valid_char(char c, int i, int guard)
 	}
 	else if (guard == 0)
 	{
-		if (ft_isalnum(c) == 1)
+		if (ft_isalnum(c) == 1 || c == '_')
 			return (1);
-		if (c == '_')
-			return (1);
-		if (c == '=')
-			return (1);
-		if (c == ' ')
+		if (c == '=' || c == ' ')
 			return (1);
 		if (c == '/')
 			return (1);
-		// if (ft_isprint(c) == 1)
-		// 	return (1);
 	}
 	else
 		if (ft_isprint(c) == 1)
@@ -83,18 +75,15 @@ int	check_valid_char(char c, int i, int guard)
 	return (0);
 }
 
-int	check_for_invalid_export(char *str, t_shell *shell)
+int	check_for_invalid_export(char *str)
 {
 	int	i;
 	int	guard;
 
 	i = 0;
 	guard = 0;
-	// printf("[%s]\n", str);
 	while (str[i])
 	{
-		// if ((ft_isalpha(str[0]) == 0 && str[0] != '_' && str[0] != ' ')
-		// 	|| (ft_isalnum(str[i]) == 0 && str[i] != '_' && str[i] != '='))
 		if (check_valid_char(str[i], i, guard) == 0)
 		{
 			ft_putstr_fd("minishell: export: `", 2);
@@ -111,7 +100,6 @@ int	check_for_invalid_export(char *str, t_shell *shell)
 
 int	export_builtin(char *str, t_shell *shell)
 {
-	int		i;
 	int		num;
 	int		len;
 	char	**var;
@@ -125,7 +113,7 @@ int	export_builtin(char *str, t_shell *shell)
 	num = 0;
 	while (var[num] != NULL)
 	{
-		shell->exit_code = check_for_invalid_export(var[num], shell);
+		shell->exit_code = check_for_invalid_export(var[num]);
 		len = count_till_equal(var[num]);
 		if (len != -1)
 			export(var[num], shell, len);
