@@ -6,8 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 10:35:47 by kklockow          #+#    #+#             */
-
-/*   Updated: 2024/01/05 13:35:32 by fgabler          ###   ########.fr       */
+/*   Updated: 2024/01/10 19:02:17 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,18 +42,15 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 //INIT
-
 char	**init_env(char **envp);
 int		ft_env_len(char **envp);
 char	*ft_strdup_init(const char *s1);
 
 //LEXER
-
 void	move_to_next_token(int	*position, char *input);
 
 //EXECUTOR
-
-void	handle_signal_heredoc();
+void	handle_signal_heredoc(void);
 int		executor_main(t_cmd *command, t_shell *shell);
 int		redirect(t_cmd *c_table, int *pipefd, t_shell *shell);
 void	check_envp(char **envp);
@@ -68,9 +64,13 @@ size_t	ft_strlen(const char *c);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*ft_strdup(const char *s1);
 int		here_doc_handling(char *delimiter);
+int		check_for_whitespace(char *str);
+void	handle_pipe(t_cmd *c_table, int *pipefd);
+void	execute_command(t_cmd *current_cmd, t_shell *shell, t_cmd *head);
+void	check_for_path(t_cmd *cmd, t_shell *shell);
+void	cleaning_up(pid_t pid, int stdin, int stdout, t_shell *shell);
 
 //BUILTIN_UTILS
-
 int		handle_builtin(t_cmd *current_cmd, t_shell *shell);
 int		check_builtin(t_cmd *current_cmd);
 char	**env_remove_one(char **envp, char *str, int len);
@@ -78,6 +78,7 @@ char	**env_add_new(char **envp, char *str);
 int		count_till_equal(char *str);
 
 //LEXER
+void	move_to_next_token(int	*position, char *input);
 int		lexing(t_lexer *lexer, t_process *process);
 int		find_quote_pair(t_lexer *lexer);
 int		add_token_node(t_lexer *lexer);
@@ -101,6 +102,7 @@ void	syntax_check(t_parser *parser);
 void	setup_parser_struct(t_parser *parser, t_cmd *command, t_lexer *lexer);
 void	syntax_error_print(t_data *data);
 void	heredoc_argument(t_data *data, t_cmd *command);
+void	repeat_set_data_next_save(t_data **data);
 
 //BUILTIN
 int		echo_builtin(char *str);
@@ -118,6 +120,7 @@ void	catch_signals(t_coordinate *coordinate);
 void	command_c(void);
 void	command_quit(void);
 void	hide_ctrl_chars(t_coordinate *coordinate);
+void	handle_signal_heredoc(void);
 
 //FREE STRUCTS
 void	free_structs(t_coordinate *coordinate);
@@ -132,8 +135,8 @@ void	first_setup(t_coordinate *coordinate, char **envp);
 void	setup_structs(t_coordinate *coordinate);
 
 //UTILS
-t_shell	**get_shell_struct();
-t_cmd	**get_command_struct();
+t_shell	**get_shell_struct(void);
+t_cmd	**get_command_struct(void);
 void	get_input(t_coordinate *coordinate);
 void	stop_process(t_process *process);
 void	input_check(int ac, char **av, t_coordinate *coordinate);
@@ -145,6 +148,8 @@ void	if_null_stop_process(char *string, t_parser *parser);
 void	update_cmd(t_data *s, char *var, int start, char *name);
 void	clean_exit(int exit_code, t_shell *shell, t_cmd *cmd);
 int		expander(t_shell *shell, t_data *s);
+void	handle_non_sign(t_data *s);
+void	free_and_do_again(char *var, char *vc, t_shell *shell, t_data *s);
 int		get_sign_location(char *str);
 char	*get_variable_to_expand(char *str, int sign_location);
 char	*search_for_var(char *var, char **envp, t_shell *shell);

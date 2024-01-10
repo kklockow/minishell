@@ -6,7 +6,7 @@
 /*   By: fgabler <mail@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 15:09:36 by fgabler           #+#    #+#             */
-/*   Updated: 2023/12/22 11:24:38 by fgabler          ###   ########.fr       */
+/*   Updated: 2024/01/09 17:19:28 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	detect_sign(t_lexer *lexer, char sign)
 	if (is_double_greater_or_smaler(lexer, sign) == true)
 	{
 		if (add_token_node(lexer) == false)
-			return (stop_process(lexer->shell->process));
+			return ;
 		fill_node(sign, lexer);
 		update_lexer(lexer);
 	}

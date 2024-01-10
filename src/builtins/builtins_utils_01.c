@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 11:47:07 by kklockow          #+#    #+#             */
-/*   Updated: 2024/01/08 17:12:18 by kklockow         ###   ########.fr       */
+/*   Updated: 2024/01/10 08:24:33 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,11 @@ int	get_len_export(char *str)
 			i++;
 			guard = 1;
 		}
-		i++;
-		len++;
+		if (guard == 0)
+		{
+			i++;
+			len++;
+		}
 	}
 	return (len);
 }
-

@@ -6,7 +6,7 @@
 /*   By: fgabler <mail@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 13:55:22 by fgabler           #+#    #+#             */
-/*   Updated: 2023/12/22 13:18:47 by fgabler          ###   ########.fr       */
+/*   Updated: 2024/01/09 17:15:17 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,3 @@ static int	valide_token_after_redirect(t_data *data)
 		return (true);
 	return (false);
 }
-/*
-static int	net_token_pipe_and_word(t_data *data)
-{
-		if (data->next->next == NULL)
-			return (false);
-		else if (data->next->type == PIPE && data->next->next->type == WORD)
-			return (true);
-		return (false);
-}
-*/

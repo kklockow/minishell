@@ -6,27 +6,16 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 17:12:05 by kklockow          #+#    #+#             */
-/*   Updated: 2024/01/08 21:47:36 by kklockow         ###   ########.fr       */
+/*   Updated: 2024/01/10 10:07:58 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-char	*split_variable(char *str)
+char	*fill_variable(char *str, char *new, int i, int o)
 {
-	int		len;
-	char	*new;
-	int		i;
-	int		o;
 	int		guard;
 
-	// printf("[%s]\n", str);
-	len = get_len_export(str);
-	new = malloc(sizeof (char) * (len + 1));
-	i = 0;
-	// while (str[i] == ' ')
-	// 	i++;
-	o = 0;
 	while (str[i])
 	{
 		guard = 0;
@@ -40,12 +29,42 @@ char	*split_variable(char *str)
 			}
 			i++;
 		}
-		new[o] = str[i];
-		o++;
-		if (str[i])
+		if (guard == 0)
+		{
+			new[o] = str[i];
+			o++;
 			i++;
+		}
 	}
 	new[o] = '\0';
-	// printf("[%s]\n", new);
 	return (new);
+}
+
+char	*split_variable(char *str)
+{
+	int		len;
+	char	*new;
+
+	len = get_len_export(str);
+	new = malloc(sizeof (char) * (len + 1));
+	new = fill_variable(str, new, 0, 0);
+	return (new);
+}
+
+void	handle_non_sign(t_data *s)
+{
+	if (s->str && s->str[0] == '$' && s->next
+		&& (s->next->type == DOUBLE_QUOTE || s->next->type == SINGLE_QUOTE))
+	{
+		free(s->str);
+		s->str = malloc(sizeof (char) * 1);
+		s->str[0] = '\0';
+	}
+}
+
+void	free_and_do_again(char *bird, char *vc, t_shell *shell, t_data *s)
+{
+	free(bird);
+	free(vc);
+	expander(shell, s);
 }

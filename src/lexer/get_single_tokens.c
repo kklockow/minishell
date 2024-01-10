@@ -6,7 +6,7 @@
 /*   By: fgabler <mail@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 10:25:56 by fgabler           #+#    #+#             */
-/*   Updated: 2023/12/22 11:19:52 by fgabler          ###   ########.fr       */
+/*   Updated: 2024/01/09 17:20:53 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	get_single_tokens(t_lexer *lexer, char token)
 		|| lexer->set_token == true)
 		return (false);
 	if (add_token_node(lexer) == false)
-		return (stop_process(lexer->shell->process), false);
+		return (false);
 	fill_node(lexer, token);
 	lexer->set_token = true;
 	return (true);

@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 13:01:44 by fgabler           #+#    #+#             */
-/*   Updated: 2024/01/07 15:49:24 by fgabler          ###   ########.fr       */
+/*   Updated: 2024/01/10 19:02:27 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ typedef struct s_lexer
 typedef struct s_parser
 {
 	int				error_accured;
-	int				new_pipe;
 	t_lexer			*lexer;
 	struct s_cmd	*command;
 	t_shell			*shell;

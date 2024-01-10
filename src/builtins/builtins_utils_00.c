@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 13:59:20 by kklockow          #+#    #+#             */
-/*   Updated: 2024/01/08 20:58:52 by kklockow         ###   ########.fr       */
+/*   Updated: 2024/01/10 10:14:13 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,6 @@ int	handle_builtin(t_cmd *current_cmd, t_shell *shell)
 
 int	handle_builtin_piped(t_cmd *current_cmd, t_shell *shell, t_cmd *head)
 {
-	int	exit_code;
-
 	if (ft_strncmp(current_cmd->cmd, "echo", 4) == 0)
 	{
 		shell->exit_code = echo_builtin(current_cmd->cmd + 4);
