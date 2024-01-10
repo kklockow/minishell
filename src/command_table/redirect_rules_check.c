@@ -49,6 +49,10 @@ static void	next_token_check(t_data *data, t_parser *parser)
 		syntax_error_print(data);
 	}
 }
+/*
+   else if (net_token_pipe_and_word(data) == true)
+   return ;
+   */
 
 static int	valide_token_after_redirect(t_data *data)
 {

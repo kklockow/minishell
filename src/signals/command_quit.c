@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-void	command_quit()
+void	command_quit(void)
 {
 	struct sigaction	command_d;
 

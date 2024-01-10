@@ -42,3 +42,12 @@ static int	tow_double_less_no_space(t_data *data)
 		return (true);
 	return (false);
 }
+/*
+//static void	pipe_is_one_token_print(t_data *data);
+//	pipe_is_one_token_print(data);
+static void	pipe_is_one_token_print(t_data *data)
+{
+if (data->next->type == PIPE && data->space == false)
+ft_putstr_fd(data->next->str, 2);
+}
+*/

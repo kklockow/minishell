@@ -76,7 +76,6 @@ int		check_builtin(t_cmd *current_cmd);
 char	**env_remove_one(char **envp, char *str, int len);
 char	**env_add_new(char **envp, char *str);
 int		count_till_equal(char *str);
-int		count_till_space_backwards(char *str, int i);
 
 //LEXER
 void	move_to_next_token(int	*position, char *input);
