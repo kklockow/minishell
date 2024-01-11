@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 16:26:16 by kklockow          #+#    #+#             */
-/*   Updated: 2024/01/09 18:30:02 by kklockow         ###   ########.fr       */
+/*   Updated: 2024/01/11 13:41:57 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,27 +39,23 @@ int	here_doc_handling(char *delimiter)
 int	fill_here_doc(char *delimiter, int heredoc)
 {
 	char	*line;
-	char	*here_doc_str;
 	int		i;
 
-	here_doc_str = malloc(sizeof (char) * 1);
-	here_doc_str[0] = '\0';
 	while (1)
 	{
 		line = readline("> ");
 		if (!line || ft_strncmp(delimiter, line, ft_strlen(delimiter) + 1) == 0)
 			break ;
-		here_doc_str = ft_strjoin_add_newline(here_doc_str, line);
-	}
-	free(line);
-	i = 0;
-	while (here_doc_str[i])
-	{
-		write(heredoc, &here_doc_str[i], 1);
-		i++;
+		i = 0;
+		while (line[i])
+		{
+			write(heredoc, &line[i], 1);
+			i++;
+		}
+		write(heredoc, "\n", 1);
+		free(line);
 	}
 	close(heredoc);
-	free(here_doc_str);
 	return (0);
 }
 
