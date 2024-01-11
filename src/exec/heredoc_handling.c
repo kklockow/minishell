@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 16:26:16 by kklockow          #+#    #+#             */
-/*   Updated: 2024/01/09 18:30:02 by kklockow         ###   ########.fr       */
+/*   Updated: 2024/01/11 16:42:26 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	here_doc_handling(char *delimiter)
 {
 	int		heredoc;
 
-	handle_signal_heredoc();
+	handle_signal_in_child();
 	heredoc = open(".heredoc", O_WRONLY | O_TRUNC | O_CREAT, 0644);
 	if (fill_here_doc(delimiter, heredoc) == -1)
 		exit(-1);

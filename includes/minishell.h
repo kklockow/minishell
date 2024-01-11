@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 10:35:47 by kklockow          #+#    #+#             */
-/*   Updated: 2024/01/10 19:02:17 by kklockow         ###   ########.fr       */
+/*   Updated: 2024/01/11 17:58:24 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ char	*ft_strdup_init(const char *s1);
 void	move_to_next_token(int	*position, char *input);
 
 //EXECUTOR
-void	handle_signal_heredoc(void);
 int		executor_main(t_cmd *command, t_shell *shell);
 int		redirect(t_cmd *c_table, int *pipefd, t_shell *shell);
 void	check_envp(char **envp);
@@ -120,7 +119,7 @@ void	catch_signals(t_coordinate *coordinate);
 void	command_c(void);
 void	command_quit(void);
 void	hide_ctrl_chars(t_coordinate *coordinate);
-void	handle_signal_heredoc(void);
+void	handle_signal_in_child(void);
 
 //FREE STRUCTS
 void	free_structs(t_coordinate *coordinate);
