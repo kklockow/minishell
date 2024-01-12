@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils00.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fgabler <fgabler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 16:49:59 by kklockow          #+#    #+#             */
-/*   Updated: 2024/01/10 10:35:32 by kklockow         ###   ########.fr       */
+/*   Updated: 2024/01/12 17:01:50 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ void	execute_command(t_cmd *current_cmd, t_shell *shell, t_cmd *head)
 	char	*path;
 	char	**split;
 
+	handle_sigint_in_child();
+	handle_sigquit_in_child();
 	if (current_cmd->cmd == NULL || current_cmd->cmd[0] == '\0')
 		clean_exit (1, shell, head);
 	if (current_cmd->heredoc_as_argument == 1)

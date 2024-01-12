@@ -1,30 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handle_signal_heredoc.c                            :+:      :+:    :+:   */
+/*   handle_sigint_in_child.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fgabler <fgabler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 13:05:44 by fgabler           #+#    #+#             */
-/*   Updated: 2024/01/10 19:02:40 by kklockow         ###   ########.fr       */
+/*   Updated: 2024/01/12 16:40:45 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <errno.h>
 
-static	void	heredoc_handler(int signum, siginfo_t *info, void *context);
+static	void	sigint_handler(int signum, siginfo_t *info, void *context);
 
-void	handle_signal_heredoc(void)
+void	handle_sigint_in_child(void)
 {
-	struct sigaction	heredoc_signal;
+	struct sigaction	sigint;
 
-	sigemptyset(&heredoc_signal.sa_mask);
-	heredoc_signal.sa_sigaction = heredoc_handler;
-	heredoc_signal.sa_flags = SA_SIGINFO;
-	sigaction(SIGINT, &heredoc_signal, NULL);
+	sigemptyset(&sigint.sa_mask);
+	sigint.sa_sigaction = sigint_handler;
+	sigint.sa_flags = SA_SIGINFO;
+	sigaction(SIGINT, &sigint, NULL);
 }
 
-static	void	heredoc_handler(int signum, siginfo_t *info, void *context)
+static	void	sigint_handler(int signum, siginfo_t *info, void *context)
 {
 	t_cmd	**command;
 	t_shell	**shell;

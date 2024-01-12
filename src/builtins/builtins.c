@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 16:32:51 by kklockow          #+#    #+#             */
-/*   Updated: 2024/01/10 10:46:04 by kklockow         ###   ########.fr       */
+/*   Updated: 2024/01/12 14:36:56 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,7 @@ int	echo_builtin(char *str)
 	new_line = 1;
 	split = ft_split(str, '\1');
 	i = 0;
-	while (split[i] && (ft_strncmp(split[i], "-n\1", 3) == 0
-			|| ft_strncmp(split[i], "-n\0", 3) == 0
-			|| ft_strncmp(split[i], "-nn", 3) == 0))
+	while (split[i] && check_for_newline(split[i]) == 1)
 	{
 		new_line = 0;
 		i++;

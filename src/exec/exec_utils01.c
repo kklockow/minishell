@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 14:56:29 by kklockow          #+#    #+#             */
-/*   Updated: 2024/01/10 12:15:51 by kklockow         ###   ########.fr       */
+/*   Updated: 2024/01/12 13:38:19 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,18 +62,7 @@ char	**get_possible_paths(char **envp)
 	}
 	if (envp[gpp.i] == NULL)
 		return (0);
-	gpp.temp = malloc(sizeof(char) * (ft_strlen(envp[gpp.i]) - 4));
-	if (!gpp.temp)
-		return (0);
-	gpp.j = 5;
-	gpp.k = 0;
-	while (envp[gpp.i][gpp.j])
-	{
-		gpp.temp[gpp.k] = envp[gpp.i][gpp.j];
-		gpp.j++;
-		gpp.k++;
-	}
-	// printf("temp: [%s] \n", gpp.temp);
+	gpp.temp = ft_strdup(envp[gpp.i] + 5);
 	gpp.possible_paths = ft_split(gpp.temp, ':');
 	free(gpp.temp);
 	return (gpp.possible_paths);
