@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 10:35:47 by kklockow          #+#    #+#             */
-/*   Updated: 2024/01/12 13:12:53 by fgabler          ###   ########.fr       */
+/*   Updated: 2024/01/12 14:37:43 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,6 @@ int		time_to_lex(t_lexer *lexer);
 void	skip_whitespace(t_lexer *lexer);
 void	free_struct_and_stop_lexing(t_lexer **lexer);
 t_data	*go_to_last_lexer_node(t_data *lexer);
-
-
 
 //COMMAND TABLE
 int		add_space_check(t_data *data);
@@ -136,6 +134,7 @@ int		check_builtin(t_cmd *current_cmd);
 char	**env_remove_one(char **envp, char *str, int len);
 char	**env_add_new(char **envp, char *str);
 int		count_till_equal(char *str);
+int		check_for_newline(char *str);
 
 //SIGNALS
 void	catch_signals(t_coordinate *coordinate);
