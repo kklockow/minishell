@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 15:34:07 by kklockow          #+#    #+#             */
-/*   Updated: 2024/01/11 17:43:28 by fgabler          ###   ########.fr       */
+/*   Updated: 2024/01/12 17:16:52 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ int	do_unpiped_command(t_cmd *c_table, t_shell *shell)
 	waitpid(pid, &status, 0);
 	shell->exit_code = WEXITSTATUS(status);
 	command_c();
+	command_quit();
 	return (0);
 }
 
@@ -118,6 +119,7 @@ int	executor_with_pipes(t_cmd *c_table, t_shell *shell, t_cmd *head)
 	}
 	cleaning_up(pid, stdin, stdout, shell);
 	command_c();
+	command_quit();
 	return (0);
 }
 

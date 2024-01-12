@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 10:35:47 by kklockow          #+#    #+#             */
-/*   Updated: 2024/01/12 14:37:43 by kklockow         ###   ########.fr       */
+/*   Updated: 2024/01/12 15:25:14 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,8 @@ void	catch_signals(t_coordinate *coordinate);
 void	command_c(void);
 void	command_quit(void);
 void	hide_ctrl_chars(t_coordinate *coordinate);
-void	handle_signal_in_child(void);
+void	handle_sigint_in_child(void);
+void	handle_sigquit_in_child(void);
 
 //FREE STRUCTS
 void	free_structs(t_coordinate *coordinate);
