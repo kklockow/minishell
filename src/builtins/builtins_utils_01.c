@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 11:47:07 by kklockow          #+#    #+#             */
-/*   Updated: 2024/01/10 08:24:33 by kklockow         ###   ########.fr       */
+/*   Updated: 2024/01/12 14:37:11 by kklockow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,27 @@ int	get_len_export(char *str)
 		}
 	}
 	return (len);
+}
+
+int	check_for_newline(char *str)
+{
+	int	i;
+
+	if (ft_strncmp(str, "-n\1", 3) == 0)
+		return (1);
+	if (ft_strncmp(str, "-n\0", 3) == 0)
+		return (1);
+	i = 2;
+	if (ft_strncmp(str, "-n", 2) == 0)
+	{
+		while (str[i])
+		{
+			if (str[i] != 'n' && str[i] != '\0')
+				return (0);
+			i++;
+		}
+		if (str[i] == '\0')
+			return (1);
+	}
+	return (0);
 }
