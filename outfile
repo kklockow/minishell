@@ -4,6 +4,7 @@
 Makefile
 README.txt
 _obj
+exit_code);
 includes
 infile
 libs
