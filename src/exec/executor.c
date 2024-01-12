@@ -6,7 +6,7 @@
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 15:34:07 by kklockow          #+#    #+#             */
-/*   Updated: 2024/01/10 14:26:54 by kklockow         ###   ########.fr       */
+/*   Updated: 2024/01/11 17:43:28 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int	do_unpiped_command(t_cmd *c_table, t_shell *shell)
 	pid_t	pid;
 	int		status;
 
+	signal(SIGINT, SIG_IGN);
 	pid = fork();
 	if (pid == 0)
 	{
@@ -54,6 +55,7 @@ int	do_unpiped_command(t_cmd *c_table, t_shell *shell)
 	}
 	waitpid(pid, &status, 0);
 	shell->exit_code = WEXITSTATUS(status);
+	command_c();
 	return (0);
 }
 
@@ -62,8 +64,6 @@ int	executor_no_pipes(t_cmd *c_table, t_shell *shell)
 	int		stdin;
 	int		stdout;
 
-	if (c_table->heredoc != NULL)
-		signal(SIGINT, SIG_IGN);
 	stdin = dup(STDIN_FILENO);
 	stdout = dup(STDOUT_FILENO);
 	if (check_builtin(c_table) == 0)
@@ -73,7 +73,6 @@ int	executor_no_pipes(t_cmd *c_table, t_shell *shell)
 		redirect(c_table, NULL, shell);
 		shell->exit_code = handle_builtin(c_table, shell);
 	}
-	command_c();
 	dup2(stdin, STDIN_FILENO);
 	dup2(stdout, STDOUT_FILENO);
 	return (0);
@@ -103,10 +102,9 @@ int	executor_with_pipes(t_cmd *c_table, t_shell *shell, t_cmd *head)
 
 	stdin = dup(STDIN_FILENO);
 	stdout = dup(STDOUT_FILENO);
+	signal(SIGINT, SIG_IGN);
 	while (c_table != NULL)
 	{
-		if (c_table->heredoc != NULL)
-			signal(SIGINT, SIG_IGN);
 		if (c_table->write_pipe == 1)
 			if (pipe(pipefd) == -1)
 				return (0);
@@ -117,9 +115,9 @@ int	executor_with_pipes(t_cmd *c_table, t_shell *shell, t_cmd *head)
 		if (c_table->heredoc != NULL)
 			waitpid(pid, 0, 0);
 		c_table = c_table->next;
-		command_c();
 	}
 	cleaning_up(pid, stdin, stdout, shell);
+	command_c();
 	return (0);
 }
 

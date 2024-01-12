@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handle_signal_heredoc.c                            :+:      :+:    :+:   */
+/*   handle_signal_in_child.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kklockow <kklockow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 13:05:44 by fgabler           #+#    #+#             */
-/*   Updated: 2024/01/10 19:02:40 by kklockow         ###   ########.fr       */
+/*   Updated: 2024/01/11 16:39:46 by fgabler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static	void	heredoc_handler(int signum, siginfo_t *info, void *context);
 
-void	handle_signal_heredoc(void)
+void	handle_signal_in_child(void)
 {
 	struct sigaction	heredoc_signal;
 
